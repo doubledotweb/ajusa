@@ -61,8 +61,8 @@ cd "$DEPLOYMENT_SOURCE"
 composer.phar install --prefer-dist -v --no-scripts
 # Invoke the scripts section here manually, using right user and permissions
 
-php app/console cache:clear
-php app/console assets:install --symlink
+php bin/console cache:clear
+php bin/console assets:install --symlink
 
 
 
