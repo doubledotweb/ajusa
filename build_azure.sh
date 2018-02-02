@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e #abort when first programm errors
-ls -la
+
 exitWithMessageOnError () {
   if [ ! $? -eq 0 ]; then
     echo "An error has occured during web site deployment."
@@ -8,7 +8,7 @@ exitWithMessageOnError () {
     exit 1
   fi
 }
-ls -la
+
 # Prerequisites
 if [ ! -f composer.phar ];
 then
@@ -22,8 +22,6 @@ exitWithMessageOnError "Missing node.js executable, please install node.js, if a
 
 # Setup
 SCRIPT_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-echo $SCRIPT_DIR
 ARTIFACTS=$SCRIPT_DIR/artifacts
 
 if [[ ! -n "$DEPLOYMENT_SOURCE" ]]; then
@@ -59,15 +57,10 @@ fi
 export SYMFONY_ENV=prod
 
 cd "$DEPLOYMENT_SOURCE"
-
-ls -la
-
-echo $DEPLOYMENT_SOURCE
-
 # Invoke Composer, but without the scripts section because subprocesses don't have the correct user and permissions
 composer.phar install --prefer-dist -v --no-scripts
 # Invoke the scripts section here manually, using right user and permissions
-pwd
+
 php bin/console cache:clear
 php bin/console assets:install --symlink
 

@@ -7,7 +7,7 @@
 /var/SymfonyRequirements.php
 /build/
 /vendor/
-/bin/
+
 /web/app_dev.php
 /web/bundles/
 /web/config.php
