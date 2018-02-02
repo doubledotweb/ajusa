@@ -61,10 +61,13 @@ export SYMFONY_ENV=prod
 cd "$DEPLOYMENT_SOURCE"
 
 ls -la
+
+echo $DEPLOYMENT_SOURCE
+
 # Invoke Composer, but without the scripts section because subprocesses don't have the correct user and permissions
 composer.phar install --prefer-dist -v --no-scripts
 # Invoke the scripts section here manually, using right user and permissions
-
+pwd
 php bin/console cache:clear
 php bin/console assets:install --symlink
 
