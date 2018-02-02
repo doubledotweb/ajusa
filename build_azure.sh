@@ -60,20 +60,15 @@ cd "$DEPLOYMENT_SOURCE"
 # Invoke Composer, but without the scripts section because subprocesses don't have the correct user and permissions
 composer.phar install --prefer-dist -v --no-scripts
 # Invoke the scripts section here manually, using right user and permissions
-php vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
+
 php app/console cache:clear
 php app/console assets:install --symlink
 
-echo Handling Basic Web Site deployment.
 
-# 1. KuduSync
-echo Kudu Sync from "$DEPLOYMENT_SOURCE" to "$DEPLOYMENT_TARGET"
-$KUDU_SYNC_CMD -q -f "$DEPLOYMENT_SOURCE" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.deployment;build_azure.sh;composer.phar"
-exitWithMessageOnError "Kudu Sync failed"
 
 ##################################################################################################################################
 
 echo "Clearing Production cache by deleting $TEMP/cache/prod"
-rm -Rf "$TEMP/cache/prod"
+php bin/console cache:clear --env=prod
 
 echo "Finished successfully."
