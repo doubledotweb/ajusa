@@ -1,0 +1,4 @@
+services:
+#    destcados.example:
+#        class: DestcadosBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
