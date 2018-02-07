@@ -12,8 +12,7 @@ class SecurityController extends Controller
 {
     
     /**
-     * @Route("/manager/login", name="login_admin")
-     * @Route("/login",name="login")
+     * @Route("/manager/login", name="login_admin")     
      */
     public function loginUserAction(Request $request)
     {

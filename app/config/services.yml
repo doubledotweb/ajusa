@@ -4,7 +4,7 @@ parameters:
     #parameter_name: value
 
 services:
-    # default configuration for services in *this* file
+    # default configuration for services in *this* file    
     _defaults:
         # automatically injects dependencies in your services
         autowire: true
@@ -33,3 +33,22 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    app.sendmail:
+        public: true
+        class: AppBundle\Service\SendMail
+        arguments: ['@mailer','@twig']
+
+    acceso:
+      class: AppBundle\Service\Acceso
+      calls:
+        - [setContainer, ["@service_container"]]
+        
+
+    app.test_voter:
+        class: AppBundle\Security\Testvoter
+        public: false
+        tags:
+            - { name: security.voter }
+        # pequeña mejora de rendimiento
+    
