@@ -22,4 +22,5 @@ cp -r /home/site/repository/* ./
 
 composer.phar install
 
+php bin/console doctrine:schema:update --force
 php bin/console asset:install --symlink
