@@ -2,6 +2,8 @@ $(document).ready(function()
 {
 	$(".borrar").on("click",borrar);
 
+	$(".opcion .estado").on("click",estado);
+
 	$("#popup #box_options").on("click","#accept",borrar_usuario);
 	$("#popup #box_options").on("click","#decline",cancelar);
 
@@ -60,4 +62,27 @@ function borrar_usuario(e)
 
 	ajax(params);
 }
+function estado(e)
+{
+	e.preventDefault();
+	opcion=$(this);
+	id=$(this).parents(".user").attr("id");
 
+	params={
+
+		"url":opcion.attr("href"),
+		"type":"POST",
+		"datatype":"json",
+		"data": {"id":id},
+		"entity":"user",
+		"success":function(data)
+		{			
+			opcion.find('.material-icons').text(data.estado?"block":"check");
+			opcion.parents(".user").find("td.estado").text(data.estado?"Activado":"Desactivado");
+		},
+		"fail":"Ha habido un error"
+	}
+
+	ajax(params);	
+
+}

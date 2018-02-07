@@ -6,6 +6,7 @@ use AppBundle\Controller\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
@@ -35,7 +36,6 @@ class DefaultController extends BaseController
 
     /**
     * @Route("/manager/administradores",name="lista_admin")
-    * @Security("is_granted('usuarios')")
     */
     public function indexAction()
     {
@@ -60,7 +60,6 @@ class DefaultController extends BaseController
 
     /**
      * @Route("/manager/administrador/anadir",name="anadir_admin"))
-     * @Security("is_granted('usuarios')")
      */
     public function anadirAction(Request $request)
     {
@@ -129,7 +128,7 @@ class DefaultController extends BaseController
         if($id!=null)
             $form->add("delete",SubmitType::class, array("label"=>"Eliminar Usuario"));        
 
-    	
+        
         $form	->  handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) 
@@ -188,7 +187,6 @@ class DefaultController extends BaseController
 
     /**
      * @Route("/manager/administrador/eliminar/{id}",name="eliminar_admin")
-     * @Security("is_granted('usuarios')")
      */
     public function eliminarAction(Request $request,$id)
     {
@@ -219,7 +217,6 @@ class DefaultController extends BaseController
 
     /**
      * @Route("/manager/administrador/editar/{id}/renovar/pass",name="renovar_pass")
-     * @Security("is_granted('usuarios')")
      */
     public function renovarAction(Request $request, $id)
     {
@@ -248,6 +245,36 @@ class DefaultController extends BaseController
     		return $this->json(array("mensaje"=>$e->getMessage()));
     	}
     	return $this->json(array("mensaje" => "ok"));
+    }
+
+    /**
+     * @Route("/manager/administrador/estado",name="cambiar_estado")
+     */
+    public function cambiar_estado(Request $request)
+    {
+        $id=$request->request->get("id");
+
+        $admin=$this->findById("AdminBundle:Admin",$id);
+
+        if($admin==null)
+            return new JsonResponse(array("mensaje"=>"Este usuario no existe"),500);
+
+
+        $estado=!$admin->isEnabled();
+
+        $admin->setIsActive($estado);
+
+        try
+        {
+            $this->editar_entity($admin);            
+        }
+        catch(\Exception $e)
+        {
+            return new JsonResponse(array("mensaje"=>$this->mensaje_error($e)),500);
+        }
+
+        return new JsonResponse(array("estado"=>$estado));
+
     }
 
     private function insertar_usuario($datos)

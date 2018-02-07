@@ -27,7 +27,6 @@
 						<th class="nombre">Nombre</th>
 						<th class="apellido">Apellido</th>
 						<th class="email">Email</th>
-						<th class="tipo">Perfil</th>
 						<th class="estado">Estado</th>
 						<th class="opciones">Opciones</th>
 					</tr>
@@ -37,16 +36,16 @@
 
 					{% for admin in administradores %}
 
-					<tr class="user">
+					<tr class="user" id="{{admin.id}}">
 						<td class="fecha">{{admin.created|date("d/m/Y H:i:s")}}</td>
 						<td class="nombre">{{admin.nombre}}</td>
 						<td class="apellido">{{admin.apellido}}</td>
 						<td class="email">{{admin.username}}</td>
-						<td class="tipo">{{admin.role}}</td>
-						<td class="estado">{{(admin.isActive)?"Activado":"No Activado"}}</td>
+						<td class="estado">{{(admin.isActive)?"Activado":"Desactivado"}}</td>
 						<td class="opcion">
 							<a class="ver" href="{{path("editar_admin",{"id":admin.id})}}"><span><i class="material-icons" >edit</i></span></a>
 							<a class="borrar" href="{{path("eliminar_admin",{"id":admin.id})}}"><span><i class="material-icons" >delete</i></span></a>
+							<a class="estado" href="{{path("cambiar_estado")}}"><span><i class="material-icons" >{{admin.isActive==false?"check":"block"}}</i></span></a>
 						</td>
 					</tr>
 
