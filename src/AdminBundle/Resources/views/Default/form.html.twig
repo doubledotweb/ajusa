@@ -1,0 +1,189 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="{{asset("/bundles/admin/css/form.css")}}">
+{% endblock %}
+
+
+{% block javascripts %}
+	<script type="text/javascript" src="{{asset("/bundles/admin/js/form.js")}}"></script>
+{% endblock %}
+
+
+{% block section %}
+
+	<section class="menu-brother">
+		<div class="container">
+		
+			{% if form.children.nombre.vars.value=="" %}
+				<h1>Nuevo usuario</h1>
+			{% else %}
+				<h1>Editar usuario</h1>
+			{% endif %}
+
+			<form method="{{form.vars.method}}" name="{{form.vars.full_name}}">
+
+				<h2>Datos del usuario</h2>
+
+				<div class="input-field">
+					<input 
+					type="{{form.children.nombre.vars.block_prefixes.1}}" 
+					name="{{form.children.nombre.vars.full_name}}"
+					value="{{form.children.nombre.vars.value}}"
+					required 
+					>
+					<label for="{{form.children.nombre.vars.full_name}}">{{form.children.nombre.vars.label}}</label>
+				</div>
+				
+				<div class="input-field">
+					<input 
+					type="{{form.children.apellido.vars.block_prefixes.1}}" 
+					name="{{form.children.apellido.vars.full_name}}"
+					value="{{form.children.apellido.vars.value}}"
+					required 
+					>
+					<label for="{{form.children.apellido.vars.full_name}}">{{form.children.apellido.vars.label}}</label>
+				</div>
+
+
+
+
+				<div class="input-field">
+					<input 
+					type="{{form.children.username.vars.block_prefixes.1}}" 
+					name="{{form.children.username.vars.full_name}}"
+					value="{{form.children.username.vars.value}}" 
+					required >
+					<label for="{{form.children.username.vars.full_name}}">{{form.children.username.vars.label}}</label>
+				</div>
+
+				{% if form.children.username.vars.value == "" or perfil is defined %}
+
+					<div class="input-field">
+						<input type="password" name="{{form.children.password.vars.full_name}}" {{perfil is defined and perfil?"":"required"}} >
+						<label for="{{form.children.password.vars.full_name}}">{{form.children.password.vars.label}}</label>
+					</div>
+
+					<div class="input-field">
+						<input type="password" id="contraseña" {{perfil is defined and perfil?"":"required"}} >
+						<label for="{{form.children.password.vars.full_name}}">Repita Contraseña</label>
+					</div>
+				{% else %}
+
+				{% endif %}
+				{% if form.children.role is defined %}
+
+				<h2>Rol del usuario</h2>
+				
+				<div class="input-field">
+					
+					
+						{% for rol in form.children.role.children %}
+							<input 
+								type="radio" 
+								id="{{rol.vars.id}}" 
+								value="{{rol.vars.value}}" 
+								{{rol.vars.checked?"checked":""}}
+								required 
+								name="{{rol.vars.full_name}}"
+								>
+							<label for="{{rol.vars.id}}">{{rol.vars.label}}</label>
+							
+						{% endfor %}
+					
+
+				</div>
+				{% endif %}
+				{% if form.children.permisos is defined %}
+				<h2>Permisos</h2>
+
+
+
+				<div class="input-field">
+					
+					{% set readonly = "" %}
+					{% for permiso in form.children.permisos.children %}
+						<input type="checkbox" name="{{permiso.vars.full_name}}" id="{{permiso.vars.id}}" value="{{permiso.vars.value}}" {{permiso.vars.checked or form.children.role.vars.value=="Administrador"?"checked":""}} {{form.children.role.vars.value!="Gestor"?'onclick="javascript: return false;"':""}}>
+						<label for="{{permiso.vars.id}}">{{permiso.vars.label}}</label>
+
+
+					{% endfor %}
+
+
+				</div>
+				{% endif %}
+				{% if form.children.isActive is defined %}
+				<div class="switch">
+						<input 
+						type="{{form.children.isActive.vars.block_prefixes.1}}" 
+						name="{{form.children.isActive.vars.full_name}}"
+						id="{{form.children.isActive.vars.full_name}}"
+						{{(form.children.isActive.vars.checked)?"checked":""}}							
+						>
+					<label for="{{form.children.isActive.vars.full_name}}">
+						{{form.children.isActive.vars.label}}
+					</label>
+				</div>
+				{% endif %}
+
+				<div id="botones" class="contenedor-botones row-start">
+
+					<div>
+						<button
+						class="btn waver-effect"
+						type="submit" 
+						name="{{form.children.submit.vars.full_name}}"
+						>{{form.children.submit.vars.label}}</button>
+					</div>
+
+					{% if form.children.delete is defined %}
+						<div>
+							<button class="btn waver-effect red darken-4" href="" id="{{form.children.delete.vars.id}}">{{form.children.delete.vars.label}}</button>
+						</div>
+						<div style="display:none;">
+							<button
+							type="submit" 
+							name="{{form.children.delete.vars.full_name}}"							
+							>{{form.children.delete.vars.label}}</button>
+						</div>
+					{% endif %}
+
+					<div>
+						<a
+						class="btn waver-effect grey"
+						href="{{path("lista_admin")}}"
+						
+						>Cancelar</a>
+					</div>
+
+				</div>
+				
+				<div>
+					<input 
+					type="hidden" 
+					name="{{form.children.id.vars.full_name}}"
+					value="{{form.children.id.vars.value}}"
+					>
+				</div>
+				<div>
+					<input 
+					type="hidden" 
+					name="{{form.children._token.vars.full_name}}"
+					value="{{form.children._token.vars.value}}">
+				</div>
+
+			</form>
+		</div>
+	</section>
+{% endblock %}
+
+{% block popup %}
+	<div id="popup" class="modal">
+		<div class="modal-content">
+			<div id="box">
+				<div id="message"></div>
+				<div id="box_options"></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

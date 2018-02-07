@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+{% block section %}
+<section class="menu-brother">
+<div class="contenedor-scrolleable">
+		{% if  false %}
+		<div class="contenedor-posts row-start fww">
+
+			{% for key,noticia in noticias %}
+
+			<article class="post-el">
+
+				<div class="contenedor-imagen">
+
+					<p class="fecha column-center">
+						<span class="numero">{{noticia.fecha_publicacion|date("d")}}</span>
+						<span class="mes">{{noticia.fecha_publicacion|date("M")}}</span>
+					</p>
+
+					<span class="cover-negro"></span>
+
+					<img src="{{noticia.imagen.valor is defined ? "/resize/320/280"~noticia.imagen.valor:""}}" alt="{{noticia.imagen.pie}}">
+
+
+
+				</div>
+
+
+				<div class="contenedor-datos">
+					<div class="row-between">
+						{#<h3 class="categoria"><a href="">Categoría</a></h3>#}
+						<div class="n-me-gusta row-start">
+							<i class="fa fa-heart" aria-hidden="true"></i>
+							<span>{{noticia.likes}}</span>
+						</div>
+					</div>
+					<div class="contenedor-datos-post">
+						<h4 class="titulo">{{noticia.titulo}}<span></span></h4>
+						<p class="entradilla">{{noticia.entradilla}}</p>
+						<div class="opciones row-between">
+							<div class="utls">
+								{% if  noticia.editable %}
+
+									<a href="{{path("editar_noticia",{"id":noticia.id})}}"><i class="fa fa-pencil" title="Editar"></i></a>
+								{% endif %}
+								{% if  noticia.visible %}
+										<i class="fa fa-eye" title="Visible"></i>									
+								{% else %} 
+										<i class="fa fa-eye-slash" title="No visible"></i>
+								{% endif %}								
+							</div>
+
+							<div>
+
+								<a href="{{path("noticia",{"slug":noticia.slug})}}" title="Ir al post" class="go-post"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</article>
+			{% endfor %}
+
+		</div>
+
+		{% endif %}
+	</div>
+</section>
+{% endblock %}

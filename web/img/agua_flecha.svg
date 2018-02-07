@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="62px" height="109px" viewBox="0 0 62 109" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>agua flecha</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="9.88995669e-16 78.9023 9.88995669e-16 0.2383 61.189 0.2383 61.189 78.9023"></polygon>
+    </defs>
+    <g id="Visual-Medioambiente-1280" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Medioambiente-1280" transform="translate(-453.000000, -2691.000000)">
+            <g id="agua-flecha" transform="translate(453.000000, 2690.000000)">
+                <g id="Group-3" transform="translate(0.000000, 0.762000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-2"></g>
+                    <path d="M29.972,0.2383 C19.512,11.0763 -0.184,34.3933 0.001,48.4743 C0.181,62.2053 8.013,73.9163 19.006,78.8573 L19.006,74.3823 C10.264,69.6513 4.15,59.7953 4.001,48.4223 C3.87,38.5333 16.572,20.5273 30.046,5.9803 C43.893,20.1673 57.056,37.8333 57.186,47.7303 C57.289,55.5973 54.575,63.0273 49.541,68.6503 C47.37,71.0743 44.884,73.0313 42.183,74.4713 L42.183,78.9023 C53.471,73.8803 61.37,61.7263 61.186,47.6773 C61,33.5903 40.713,10.8013 29.972,0.2383" id="Fill-1" fill="#FFFFFF" mask="url(#mask-2)"></path>
+                </g>
+                <path d="M32.5941,106.9339 L28.5941,106.9339 L28.5941,71.3659 C18.4461,70.3579 10.4921,61.7719 10.4921,51.3629 L14.4921,51.3629 C14.4921,60.2419 21.7151,67.4639 30.5941,67.4639 L32.5941,67.4639 L32.5941,106.9339 Z" id="Fill-4" fill="#FFFFFF"></path>
+                <polygon id="Fill-6" fill="#FFFFFF" points="30.5941 109.762 13.1681 92.335 15.9961 89.507 30.5941 104.106 45.1931 89.507 48.0211 92.335"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,31 @@
+{% extends 'emails/base.html.twig' %}
+
+{% block body %}
+
+	<tr>
+      <td>
+        <font>
+    		Su contraseña ha sido restablecida.
+        </font>
+      </td>
+    </tr>
+    <tr height="10px">
+      <td></td>
+    </tr>
+
+    <tr>
+      <td>
+        <font>
+    		Su nueva contraseña es: {{email.pass}}
+        </font>
+      </td>
+    </tr>
+    <tr height="10px">
+      <td></td>
+    </tr>
+
+	
+
+	
+{% endblock %}
+

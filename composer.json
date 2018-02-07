@@ -1,10 +1,11 @@
 {
-    "name": "server/aux",
+    "name": "root/plantilla_symfony",
     "license": "proprietary",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "AppBundle\\": "src/AppBundle"
+            "AppBundle\\": "src/AppBundle",
+            "AdminBundle\\": "src/AdminBundle"
         },
         "classmap": [
             "app/AppKernel.php",

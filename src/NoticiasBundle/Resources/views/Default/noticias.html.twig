@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cerca de ti{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{asset("/bundles/noticias/css/admin.css")}}">
+{% endblock %}
+{% block javascripts %}
+	
+<script type="text/javascript" src="{{asset("/bundles/noticias/js/listado.js")}}"></script>
+{% endblock %}
+
+{% block section %}
+
+<section class="menu-brother">
+
+	
+	<div class="container-table">
+		<div class="contenedor-titulo row-between">	
+			<h1>{{"Cerca de ti"|trans}}</h1>
+			<a class="btn waves-effect" href="{{path("anadir_noticia")}}">{{"Añadir nuevo"|trans}}</a>
+		</div>
+		<div class="contenedor-tabla">
+
+			<table class="table-js striped">
+				<thead>
+					<tr>
+						<th class="mini">Imagen</th>
+						<th class="idioma">Idioma</th>
+						<th class="publicacion">Fecha Publicación</th>						
+						<th class="visible">Visibilidad</th>
+						<th class="categoria">Categoría</th>
+						<th class="titulo">Título</th>
+						<th class="opciones">Opciones</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+
+					{% for noticia in noticias %}
+
+					<tr class="noticia">
+						<td class="nombre">
+							{% if  noticia.imagen.es != null %}
+								
+							<img src="{{noticia.imagen.es.valor is defined? asset(noticia.imagen.es.valor):""}}" width="100px" height="auto">
+							{% endif %}
+						</td>
+						<td class="idioma">
+							{% for code,idioma in noticia.idioma %}
+								{% if idioma %}
+									<span>{{code|upper}}</span>
+								{% endif %}
+							{% endfor %}
+						</td>
+						<td class="publicacion">{{noticia.getFechaPublicacion()|date("d/m/Y")}}</td>						
+						<td class="visible"><span><i class="material-icons" {{noticia.visible?"Activado":"Desactivado"}}>{{noticia.visible?"done":"block"}}</i></span></td>
+						<th class="categoria">
+							{% for categoria in noticia.categorias %}
+								{{categoria.nombre.es}}
+							{% endfor %}
+						</th>
+						<th class="titulo">{{noticia.titulo.es}}</th>
+						<td class="opcion">
+							<a class="ver" href="{{path("editar_noticia",{"id":noticia.id})}}"><span><i class="material-icons" title="Editar">edit</i></span></a>
+							<a class="borrar" href="{{path("eliminar_noticia",{"id":noticia.id})}}"><span><i class="material-icons" title="Eliminar">delete</i></span></a>
+						</td>
+					</tr>
+
+					{% endfor %}
+
+				</tbody>
+			</table>
+
+		</div>
+
+
+
+
+	</div>
+
+</section>
+
+{% endblock %}
+
+
+{% block popup %}
+
+	<div id="popup" class="modal">
+		<div class="modal-content">
+			<div id="box">
+				<div id="message"></div>
+				<div id="box_options"></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

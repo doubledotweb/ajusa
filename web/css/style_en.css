@@ -1,0 +1,8 @@
+footer .todo-dropdown{
+	position: relative;
+	width: 160px;
+}
+
+footer .todo-dropdown > a{
+	width: 160px;
+}

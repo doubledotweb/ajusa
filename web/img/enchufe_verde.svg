@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="77px" height="103px" viewBox="0 0 77 103" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>enchufe verde</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Visual-Medioambiente-1280" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Medioambiente-1280" transform="translate(-894.000000, -810.000000)" fill="#ADE069">
+            <g id="enchufe-verde" transform="translate(894.000000, 810.000000)">
+                <path d="M76.8448352,25.5545934 L76.8448352,63.977011 C76.8448352,85.1972308 59.6426374,102.399429 38.4224176,102.399429 C17.2021978,102.399429 0,85.1972308 0,63.977011 L0,25.5545934 L76.8448352,25.5545934 Z M71.5701099,30.8293187 L5.27472527,30.8293187 L5.27472527,63.977011 C5.27472527,82.2552527 20.1441758,97.1247033 38.4224176,97.1247033 C56.7006593,97.1247033 71.5701099,82.2552527 71.5701099,63.977011 L71.5701099,30.8293187 Z" id="Fill-1"></path>
+                <polygon id="Fill-3" points="14.4210989 25.554989 19.6958242 25.554989 19.6958242 0.000263736264 14.4210989 0.000263736264"></polygon>
+                <polygon id="Fill-5" points="57.1503297 25.554989 62.4250549 25.554989 62.4250549 0.000263736264 57.1503297 0.000263736264"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="31px" height="46px" viewBox="0 0 31 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>localizador centro</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Visual-Contacta-1280" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Contacto/5-general-3-2-2-mapa-desple" transform="translate(-588.000000, -2257.000000)">
+            <g id="Group-13" transform="translate(0.000000, 1963.000000)">
+                <g id="Group-5" transform="translate(0.000000, 192.000000)">
+                    <g id="Centros-productivos" transform="translate(311.000000, 86.000000)">
+                        <g id="localizador-centro" transform="translate(277.000000, 16.000000)">
+                            <g id="locating-copy">
+                                <path d="M15.0686278,0 C6.763849,0 0.0066594598,6.75528684 0.0066594598,15.0619683 C0.0066594598,23.0523688 13.6979899,43.8811698 14.2835034,44.7622942 C14.4567359,45.0240023 14.7523467,45.185905 15.0686278,45.185905 C15.3849089,45.185905 15.678617,45.0240023 15.8537522,44.7622942 C16.437363,43.8811698 30.1305962,23.0523688 30.1305962,15.0619683 C30.1305962,6.75528684 23.3734066,0 15.0686278,0 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+                                <path d="M15.0686278,21.6515471 C11.4348979,21.6515471 8.47904909,18.6956118 8.47904909,15.0619683 C8.47904909,11.4283249 11.4349844,8.47238963 15.0686278,8.47238963 C18.7022712,8.47238963 21.6582065,11.4283249 21.6582065,15.0619683 C21.6582065,18.6956118 18.7022712,21.6515471 15.0686278,21.6515471 Z" id="Path" fill="#DA2F2A"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

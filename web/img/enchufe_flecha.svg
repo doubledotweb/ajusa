@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="59px" height="109px" viewBox="0 0 59 109" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>enchufe flecha</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0 108.148 58.274 108.148 58.274 0 0 0"></polygon>
+    </defs>
+    <g id="Visual-Medioambiente-1280" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Medioambiente-1280" transform="translate(-610.000000, -2691.000000)">
+            <g id="enchufe-flecha" transform="translate(610.000000, 2691.000000)">
+                <path d="M0.0005,19.3785 L0.0005,48.5155 C0.0005,60.4875 7.2245,70.7695 17.5485,75.2515 L17.5485,70.8115 C9.5065,66.6125 4.0005,58.1975 4.0005,48.5155 L4.0005,23.3785 L54.2735,23.3785 L54.2735,48.5155 C54.2735,58.1975 48.7685,66.6125 40.7265,70.8115 L40.7265,75.2515 C51.0505,70.7695 58.2735,60.4875 58.2735,48.5155 L58.2735,19.3785 L0.0005,19.3785 Z" id="Fill-1" fill="#FFFFFF"></path>
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-4"></g>
+                <polygon id="Fill-3" fill="#FFFFFF" mask="url(#mask-2)" points="27.137 105.32 31.137 105.32 31.137 67.85 27.137 67.85"></polygon>
+                <polygon id="Fill-5" fill="#FFFFFF" mask="url(#mask-2)" points="29.1372 108.148 11.7112 90.722 14.5392 87.894 29.1372 102.492 43.7352 87.894 46.5632 90.722"></polygon>
+                <polygon id="Fill-6" fill="#FFFFFF" mask="url(#mask-2)" points="10.936 19.378 14.936 19.378 14.936 -0.001 10.936 -0.001"></polygon>
+                <polygon id="Fill-7" fill="#FFFFFF" mask="url(#mask-2)" points="43.338 19.378 47.338 19.378 47.338 -0.001 43.338 -0.001"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
