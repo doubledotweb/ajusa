@@ -40,35 +40,13 @@ class UserForm extends AbstractType
 
         
         $form = array(
-            array("id",HiddenType::class, array("label"=>false,)),
+            array("id",HiddenType::class, array("label"=>false,"mapped"=>false)),
 
             array("nombre",TextType::class,array("label"=>"Nombre","attr"=>array("required"=>true,"id" => "nombre",))),
             
             array("apellido",TextType::class,array("label"=>"Apellido","attr"=>array("required"=>true,"id" => "apellido",))),
 
-            array("username",TextType::class,array("label"=>"Email","attr"=>array("required"=>true,"id" => "email",))),
-
-            array("role",ChoiceType::class,array("label"=>"Perfil","required"=>true,"expanded"=>true,"choices"=>array(                
-                "Administrador"=>"Administrador",
-                "Gestor"=>"Gestor",
-                "Gestor Medio Ambiente"=>"Gestor Medio Ambiente",
-            ))),
-
-            array("permisos",ChoiceType::class,array(
-                "label"=>"Permisos",
-                "expanded"=>true,
-                "multiple"=>true,
-                "choices"=>array(
-                    "G. Usuarios" => "usuarios",
-                    "G. Cerca de tí"=>"cerca-de-ti",
-                    "G. Categorías"=>"categorias",
-                    "G. Notas de Prensa"=>"notas-de-prensa",
-                    "G. Infografías"=>"infografias",
-                    "G. Sellos y Reconocimientos" => "sellos-y-reconocimientos",
-                    "G. Desayunos" => "desayunos"
-                )
-                )
-            ),            
+            array("username",TextType::class,array("label"=>"Email","attr"=>array("required"=>true,"id" => "email",))),                   
 
             array("password",TextType::class,array("label"=>"Contraseña","mapped"=>false,"attr"=>array("id" => "pass",))),
 

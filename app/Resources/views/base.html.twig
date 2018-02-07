@@ -41,11 +41,11 @@
         
         
 
-                {% if (app.user.permisos is defined and "usuarios" in app.user.permisos) or "Super" in app.user.roles %}
-                    <li id="exit" class="lista">
-                        <a href="{{path("lista_admin")}}" title="{{"Usuarios"|trans}}">{{"Usuarios"|trans}}</a>
-                    </li>
-                {% endif %}
+                
+                <li id="exit" class="lista">
+                    <a href="{{path("lista_admin")}}" title="{{"Usuarios"|trans}}">{{"Usuarios"|trans}}</a>
+                </li>
+                
                 
 
         <li id="exit" class="lista">                        

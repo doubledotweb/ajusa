@@ -18,17 +18,14 @@ class Admin extends Usuario
      * @ORM\Column(type="string")
      */
     private $apellido;
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $permisos;
+    
 
 
     public function __construct()
     {
         parent::__construct();
         $this->role="Administrador";
-        $this->permisos=array();
+        
     }
 
 
@@ -80,27 +77,5 @@ class Admin extends Usuario
         return $this->apellido;
     }
 
-    /**
-     * Set permisos
-     *
-     * @param array $permisos
-     *
-     * @return Admin
-     */
-    public function setPermisos($permisos)
-    {
-        $this->permisos = $permisos;
-
-        return $this;
-    }
-
-    /**
-     * Get permisos
-     *
-     * @return array
-     */
-    public function getPermisos()
-    {
-        return $this->permisos;
-    }
+    
 }

@@ -94,24 +94,7 @@
 
 				</div>
 				{% endif %}
-				{% if form.children.permisos is defined %}
-				<h2>Permisos</h2>
-
-
-
-				<div class="input-field">
-					
-					{% set readonly = "" %}
-					{% for permiso in form.children.permisos.children %}
-						<input type="checkbox" name="{{permiso.vars.full_name}}" id="{{permiso.vars.id}}" value="{{permiso.vars.value}}" {{permiso.vars.checked or form.children.role.vars.value=="Administrador"?"checked":""}} {{form.children.role.vars.value!="Gestor"?'onclick="javascript: return false;"':""}}>
-						<label for="{{permiso.vars.id}}">{{permiso.vars.label}}</label>
-
-
-					{% endfor %}
-
-
-				</div>
-				{% endif %}
+				
 				{% if form.children.isActive is defined %}
 				<div class="switch">
 						<input 
