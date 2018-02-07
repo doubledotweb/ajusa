@@ -79,6 +79,7 @@ function estado(e)
 		{			
 			opcion.find('.material-icons').text(data.estado?"block":"check");
 			opcion.parents(".user").find("td.estado").text(data.estado?"Activado":"Desactivado");
+			mostrar_popup(data.mensaje,"ok");
 		},
 		"fail":"Ha habido un error"
 	}
