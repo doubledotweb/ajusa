@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{asset("/css/forms/main.css")}}"> 
+<link rel="stylesheet" type="text/css" href="{{asset("/css/forms/login.css")}}">   
+{% endblock %}
+{% block section %}
+<section class="section-login">
+	<div class="view-login full-view column-center">
+		<div class="contenedor-login z-depth-5">			
+		<form action="{{form.vars.action}}" method="{{form.vars.method}}">
+			<h1 class="titulo">Recordar la contraseña<span></span></h1>
+			<div class="input-field">
+				<input 
+				type="email" 
+				name="{{form.children.email.vars.full_name}}" 
+				 id="{{form.children.email.vars.id}}"
+				>	
+				<label id="{{form.children.email.vars.id}}">{{form.children.email.vars.attr.placeholder}}</label>
+
+			</div>
+			
+			<button type="submit" class="btn waves-effect">{{form.children.submit.vars.label}}</button>
+			<input type="hidden" name="{{form.children._token.vars.full_name}}" value="{{form.children._token.vars.value}}">
+		</form>
+		</div>
+	</div>
+			<a onclick="window.close()" class="cerrar"><i class="fa fa-times" aria-hidden="true"></i></a>
+</section>
+	
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript">
+		tiempo_mensaje();
+	</script>
+{% endblock %}

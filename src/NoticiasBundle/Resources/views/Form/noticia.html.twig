@@ -1,0 +1,450 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{asset("/bundles/noticias/css/noticias.css")}}">
+<link rel="stylesheet" type="text/css" href="{{asset("/js/datepicker/datedropper.min.css")}}">
+<link rel="stylesheet" type="text/css" href="{{asset("/js/datepicker/my-style.css")}}">
+{% endblock %}
+
+{% block title %}
+{% if form.children.titulo.vars.value.es=="" %}
+{{"Nueva Noticia"|trans}}
+{% else %}
+{{"Editar Noticia"|trans}}
+{% endif %}
+{% endblock %}
+
+
+{% block section %}
+
+<section class="menu-brother">
+	<div class="container">
+		{% if form.children.titulo.vars.value.es=="" %}
+		<h1>{{"Nueva Noticia"|trans}}</h1>
+		{% else %}
+		<h1>{{"Editar Noticia"|trans}}</h1>
+		{% endif %}
+
+		<form method="post" enctype="multipart/form-data" name="{{form.vars.full_name}}">
+
+			{% set  aux = {"es":"Español","en":"Inglés","pt":"Portugués"} %}
+
+			<div class="input-field">
+				<input type="text" name="{{form.children.fecha_publicacion.vars.full_name}}" value="{{form.children.fecha_publicacion.vars.value|date("d/m/Y")}}"
+				class="datepicker" data-default-date="{{form.children.fecha_publicacion.vars.value != ""?form.children.fecha_publicacion.vars.value|date("m-d-Y"):"now"|date("m-d-Y")}}" data-large-mode="true" data-large-default="true" data-max-year="{{"now"|date("Y")+2}}" data-modal="true" data-lang="es" data-format="d/m/Y" data-theme="my-style"
+				required>
+			</div>
+
+			<div class="switch">
+				<input 
+				type="{{form.children.visible.vars.block_prefixes.1}}"
+				name="{{form.children.visible.vars.full_name}}"
+				id="{{form.children.visible.vars.id}}"
+				{{(form.children.visible.vars.checked)?"checked":""}}
+				>
+				<label for="{{form.children.visible.vars.id}}">
+					{{form.children.visible.vars.label}}
+				</label>
+			</div>
+			<div class="switch">
+				<input 
+				type="{{form.children.destacado.vars.block_prefixes.1}}"
+				name="{{form.children.destacado.vars.full_name}}"
+				id="{{form.children.destacado.vars.id}}"
+				{{(form.children.destacado.vars.checked)?"checked":""}}
+				>
+				<label for="{{form.children.destacado.vars.id}}">
+					{{form.children.destacado.vars.label}}
+					
+				</label>
+			</div>
+
+			<h2>Categorías</h2>
+
+			<div class="row-start max-width-input-field fww">
+				
+				{% for categoria in form.children.categorias.children %}
+				<div class="input-field">
+
+					<input 
+					id="{{categoria.vars.id}}"
+					type="{{categoria.vars.block_prefixes.1}}"
+					name="{{categoria.vars.full_name}}"
+					{{(categoria.vars.checked)?"checked":""}}
+					value="{{categoria.vars.value}}"
+					>
+					<label for="{{categoria.vars.id}}">{{categoria.vars.label}}</label>
+
+				</div>
+				{% endfor %}
+			</div>
+
+			<h2>Idioma</h2>
+
+			<div class="row-start max-width-input-field">
+
+				{% for lang,idioma in form.children.idioma.children %}
+
+				<div class="input-field">
+					<input
+					class="js-idiomas" 
+					type="checkbox" 
+					id="{{form.children.idioma.vars.id~"_"~lang}}" 
+					name="{{idioma.vars.full_name}}"
+
+					{{form.children.idioma.children[lang].vars.checked?"checked":""}}>
+
+					<label for="{{form.children.idioma.vars.id~"_"~lang}}">{{aux[lang]|trans}}</label>
+				</div>
+
+				{% endfor %}
+
+			</div>
+			<div class="tabs-container max-width-input-field row-start fww">
+				{% for lang,idioma in aux %}
+
+				<a class="js-tabulador {{form.children.idioma[lang].vars.checked ? 'visible' :''}} {{lang=='es'?'active':''}}" id="js-tabulador-{{lang}}">{{idioma}}</a>
+
+				{% endfor %}
+			</div>
+
+			{% for lang,idioma in form.children.idioma.children %}					
+
+			<div class="noticia-fields {{lang=="es"?"active":""}}" id="noticia_{{lang}}" style="{{lang!="es"?"display:none":""}}">
+
+				<h2>Título</h2>
+
+				<div class="input-field">							
+					<label for="{{form.children.titulo.children[lang].vars.id}}" >{{form.children.titulo.vars.label}}</label>
+					<input 
+					id="{{form.children.titulo.children[lang].vars.id}}"
+					type="text" 
+					name="{{form.children.titulo.children[lang].vars.full_name}}"
+					value="{{form.children.titulo.children[lang].vars.value}}"
+					maxlength="{{form.children.titulo.children[lang].vars.attr.maxlength}}" 
+					required
+					>
+				</div>
+
+				<h2>Entradilla</h2>
+
+				<div class="input-field">							
+					<textarea 
+					id="{{form.children.entradilla.children[lang].vars.id}}"
+					class="materialize-textarea"
+					name="{{form.children.entradilla.children[lang].vars.full_name}}"
+					required
+					maxlength="500"
+					>{{form.children.entradilla.children[lang].vars.value}}</textarea>
+					<label for="{{form.children.entradilla.children[lang].vars.id}}" >{{form.children.entradilla.vars.label}}</label>
+				</div>
+
+				<h2>Imagen Principal</h2>
+
+				<div class="file-field input-field image-field">
+
+					<div id="imagen_{{lang}}" class="js-imagen-input" style="{{imagen[lang].valor is defined and imagen[lang].valor != null ?"display:none;":""}}">
+
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text">
+						</div>					
+
+						<div class="btn">
+							<span>{{form.children.imagen_aux.vars.label}}</span>
+							<input 
+							type="file" 
+							id="{{form.children.imagen_aux.children[lang].vars.id}}"
+							name="{{form.children.imagen_aux.children[lang].vars.full_name}}"
+							accept="image/*" 
+							>
+							<input type="hidden" name="noticia_form[imagen_aux][{{lang}}][accion]">
+						</div>
+
+					</div>
+
+					<div class="js-imagen-preview" style="{{imagen[lang].valor is defined and imagen[lang].valor != null?"":"display:none;"}}">
+						<img src="{{imagen[lang].valor is defined and imagen[lang].valor != null?imagen[lang].valor:""}}" width="100px" height="auto">
+						<i class="material-icons js-borrar-imagen">close</i>
+					</div>
+				</div>
+
+				<h4>Pie de imagen</h4>
+
+				<div class="input-field">							
+					<input 
+					id="pie_imagen_{{lang}}"
+					type="text" 
+					name="noticia_form[imagen_aux][{{lang}}][pie]"
+					value="{{imagen[lang].pie is defined?imagen[lang].pie:""}}"
+					maxlength="140" 
+					>
+					<label for="pie_imagen_{{lang}}" >Pie imagen</label>
+				</div>
+
+				<h2>Descargable</h2>
+
+
+				<div class="file-field input-field image-field">
+					<div id="imagen_{{lang}}" class="js-documento-input" style="{{documento[lang] is defined?"display:none;":""}}">
+
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text">
+						</div>					
+
+						<div class="btn">
+							<span>{{form.children.descargable_aux.vars.label}}</span>
+							<input 
+							type="file" 
+							id="{{form.children.descargable_aux.children[lang].vars.id}}"
+							name="{{form.children.descargable_aux.children[lang].vars.full_name}}"
+							accept="image/*" >
+						</div>
+
+					</div>
+
+					<div class="js-documento-preview" style="{{documento[lang] is defined?"":"display:none;"}}">
+						<img src="{{documento[lang] is defined?asset(documento[lang]):""}}" width="100px" height="auto">
+						<i class="material-icons js-borrar-documento">close</i>
+					</div>
+				</div>
+
+
+				<h2>Contenido del Post</h2>
+
+				<div id="js-contenido-cuerpo">	
+				{% set flag = false %}		
+					{% if cuerpo is defined and cuerpo[lang] is defined  %}
+
+					{% for index,item in cuerpo[lang] %}
+
+						{% if item.tipo=="destacado" %}
+
+						<div class="elemento-of-noticia">
+							
+							<div>
+								<i class="fa fa-arrow-up" aria-hidden="true" data-action="subir"></i>
+								<i class="fa fa-arrow-down" aria-hidden="true" data-action="bajar"></i>
+							</div>
+
+							<h3>Destacado</h3>
+
+							<div class="input-field destacado">
+								<label for="noticia_{{lang}}_{{index}}">Destacado</label>
+								<textarea class="" id="noticia_{{lang}}_{{index}}" type="text" name="noticia_form[cuerpo][{{lang}}][{{index}}][destacado]" required maxlength="255">{{item.valor}}</textarea>
+								<a class="btn micro js-borrar-item">Borrar destacado</a>
+							</div>
+
+						</div>
+
+						{% elseif item.tipo=="video" %}
+
+						<div class="elemento-of-noticia">
+							
+							<div>
+								<i class="fa fa-arrow-up" aria-hidden="true" data-action="subir"></i>
+								<i class="fa fa-arrow-down" aria-hidden="true" data-action="bajar"></i>
+							</div>
+
+							<h3>Vídeo</h3>
+
+							<div class="input-field">
+								<label for="noticia_{{lang}}_{{index}}">Vídeo</label>
+								<input id="noticia_{{lang}}_{{index}}" class="search-in-youtube" type="url" name="noticia_form[cuerpo][{{lang}}][{{index}}][video][valor]" value="{{item.valor}}"required>
+								<h4>Pie del vídeo</h4>
+								<div class="input-field">							
+									<label for="pie_imagen_{{lang}}" >Pie de vídeo</label>
+									<input 
+									id="pie_imagen_{{lang}}"
+									type="text" 
+									name="noticia_form[cuerpo][{{lang}}][{{index}}][video][pie]"
+									value="{{item.pie is defined?item.pie:""}}"
+									maxlength="140" >
+								</div>
+								<a class="btn micro js-borrar-item">Borrar vídeo</a>
+							</div>
+
+						</div>
+						
+						{% elseif item.tipo=="despiece" %}
+						
+	
+						<div class="elemento-of-noticia js-despiece">
+							
+							<div>
+								<i class="fa fa-arrow-up" aria-hidden="true" data-action="subir"></i>
+								<i class="fa fa-arrow-down" aria-hidden="true" data-action="bajar"></i>
+							</div>
+
+							<h3>Despiece</h3>									
+								<div class="input-field">
+									
+									<label for="noticia_{{lang}}_{{index}}">Enlace</label>
+									<input class="" id="noticia_{{lang}}_{{index}}" type="text" name="noticia_form[cuerpo][{{lang}}][{{index}}][despiece][titulo]" required placeholder="Título"  value="{{item.titulo}}" >
+									{% for enlace_index,enlace in item.enlace %}
+									
+										<div class="js-enlace-despiece">
+											<h4>Enlace {{enlace_index+1}}</h4>
+											<div class="input-field">
+												<label for="texto_despiece_{{lang}}_{{index}}_{{enlace_index}}" >Texto</label>
+												<input id="texto_despiece_{{lang}}_{{index}}_{{enlace_index}}" type="text"  name="noticia_form[cuerpo][{{lang}}][{{index}}][despiece][enlace][{{enlace_index}}][texto]" value="{{enlace.texto}}" maxlength="140" placeholder="Texto" required>
+											</div>
+											<div class="input-field">													
+												<label for="enalce-despiece_{{lang}}_{{index}}_{{enlace_index}}" >Enlace</label>
+												<input id="enlace-despiece__{{lang}}_{{index}}_{{enlace_index}}" type="text"  name="noticia_form[cuerpo][{{lang}}][{{index}}][despiece][enlace][{{enlace_index}}][enlace]" value="{{enlace.enlace}}" maxlength="400" placeholder="enlace">
+												<a class="btn micro js-borrar-enlace-despiece mb-10">Borrar enlace</a>
+											</div>
+										</div>
+									
+									{% endfor %}
+								</div>
+							<a class="btn min mb-10" id="js-add-enlace"> Enlace</a><br>
+							<a class="btn micro js-borrar-item">Borrar despiece</a>
+						</div>							
+
+						{% elseif item.tipo=="texto" %}
+
+						<div class="elemento-of-noticia">
+
+							<div>
+								<i class="fa fa-arrow-up" aria-hidden="true" data-action="subir"></i>
+								<i class="fa fa-arrow-down" aria-hidden="true" data-action="bajar"></i>
+							</div>
+							<h3>Texto</h3>
+
+							<div class="input-field">
+								<label for="noticia_{{lang}}_{{index}}">Texto</label>
+								<textarea class="materialize-textarea ckeditor" id="noticia_{{lang}}_{{index}}" name="noticia_form[cuerpo][{{lang}}][{{index}}][texto]" required>{{item.valor}}</textarea>
+								<a class="btn micro js-borrar-item">Borrar texto</a>
+							</div>
+
+						</div>
+
+						{% elseif item.tipo=="imagen" %}
+
+						<div class="elemento-of-noticia">
+							
+							<div>
+								<i class="fa fa-arrow-up" aria-hidden="true" data-action="subir"></i>
+								<i class="fa fa-arrow-down" aria-hidden="true" data-action="bajar"></i>
+							</div>
+
+							<h3>Imagen</h3>
+
+							<div class="file-field input-field image-field">
+								<div id="imagen_cuerpo_{{lang}}_{{index}}" class="js-imagen-input" style="display:none">								
+									<div class="btn">
+										<span>Imagen</span>
+										<input type="file" id="noticia_{{lang}}_{{index}}" name="noticia_form[cuerpo][{{lang}}][{{index}}][image]" accept="image/*">
+										<input type="hidden" name="noticia_form[cuerpo][{{lang}}][{{index}}][image][accion]" value="{{item.valor}}" >
+										
+									</div>
+
+									<div class="file-path-wrapper">
+										<input class="file-path validate" type="text">
+									</div>
+								</div>
+
+								<div class="js-imagen-preview" style="">
+									<img src="{{item.valor}}" width="100px" height="auto">
+									<i class="material-icons js-borrar-imagen">close</i>
+								</div>
+
+								<h4>Pie de imagen</h4>
+
+								<div class="input-field">							
+									<label for="pie_imagen_{{lang}}" >Pie imagen</label>
+									<input 
+									id="pie_imagen_{{lang}}"
+									type="text" 
+									name="noticia_form[cuerpo][{{lang}}][{{index}}][image][pie]"
+									value="{{item.pie is defined?item.pie:""}}"
+									maxlength="140" >
+								</div>
+
+								<a class="js-borrar-item btn micro">Borrar imagen</a>
+							</div>
+
+						</div>
+
+						{% endif %}
+						
+						{% set flag = item.tipo=="texto" %}
+					{% endfor %}
+
+					{% endif %}
+
+				</div>		
+
+
+				<h2>Añadir elemento</h2>
+
+
+				<div id="js-modulos">
+					<a class="btn min" id="js-texto">+ Texto</a>
+					<a class="btn min" id="js-destacado">+ Destacado</a>
+					<a class="btn min" id="js-imagen">+ Imagen</a>
+					<a class="btn min" id="js-video">+ Vídeo</a>
+
+					<a class="btn min {{flag is defined and flag ?"":"disabled"}}" id="js-despiece">+ Despiece</a>
+				</div>				
+
+			</div>
+
+			{% endfor %}
+
+			<div id="botones" class="contenedor-botones row-start">
+
+				<div>
+					<button
+					class="btn waver-effect"
+					type="submit" 
+					name="{{form.children.submit.vars.full_name}}"
+					>{{form.children.submit.vars.label}}</button>
+				</div>
+
+				{% if form.children.delete is defined %}
+				<div>
+					<button class="btn waver-effect red darken-4" href="" id="js-delete">{{form.children.delete.vars.label}}</button>
+				</div>
+				<div style="display:none;">
+					<button
+					type="submit" 
+					name="{{form.children.delete.vars.full_name}}"							
+					>{{form.children.delete.vars.label}}</button>
+				</div>
+				{% endif %}
+
+				<div>
+					<a
+					class="btn waver-effect grey"
+					href="{{path("listado_noticias")}}"						
+					>Cancelar</a>
+				</div>
+
+			</div>	
+
+			<div>
+				<input 
+				type="hidden" 
+				name="{{form.children._token.vars.full_name}}"
+				value="{{form.children._token.vars.value}}">
+			</div>
+
+		</form>
+	</div>
+
+	
+</section>
+
+
+
+
+
+{% endblock %}
+
+{% block javascripts %} 
+<script type="text/javascript" src="{{asset("/bundles/noticias/js/form.js")}}"></script>
+<script type="text/javascript" src="{{asset("/js/datepicker/datedropper.min.js")}}"></script>
+<script src="//cdn.ckeditor.com/4.7.3/basic/ckeditor.js"></script>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuarios{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{asset("/bundles/admin/css/admin.css")}}">
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript" src="{{asset("/bundles/admin/js/list.js")}}"></script>
+{% endblock %}
+
+{% block section %}
+
+<section class="menu-brother">
+
+	
+	<div class="container-table">
+		<div class="contenedor-titulo row-between">	
+			<h1>Usuarios</h1>
+			<a class="btn waves-effect" href="{{path("anadir_admin")}}">Añadir nuevo</a>
+		</div>
+		<div class="contenedor-tabla">
+
+			<table class="table-js striped">
+				<thead>
+					<tr>
+						<th class="fecha">Alta</th>
+						<th class="nombre">Nombre</th>
+						<th class="apellido">Apellido</th>
+						<th class="email">Email</th>
+						<th class="estado">Estado</th>
+						<th class="opciones">Opciones</th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+					{% for admin in administradores %}
+
+					<tr class="user" id="{{admin.id}}">
+						<td class="fecha">{{admin.created|date("d/m/Y H:i:s")}}</td>
+						<td class="nombre">{{admin.nombre}}</td>
+						<td class="apellido">{{admin.apellido}}</td>
+						<td class="email">{{admin.username}}</td>
+						<td class="estado">{{(admin.isActive)?"Activado":"Desactivado"}}</td>
+						<td class="opcion">
+							<a class="ver" href="{{path("editar_admin",{"id":admin.id})}}"><span><i class="material-icons" >edit</i></span></a>
+							<a class="borrar" href="{{path("eliminar_admin",{"id":admin.id})}}"><span><i class="material-icons" >delete</i></span></a>
+							<a class="estado" href="{{path("cambiar_estado")}}"><span><i class="material-icons" >{{admin.isActive==false?"check":"block"}}</i></span></a>
+						</td>
+					</tr>
+
+					{% endfor %}
+
+				</tbody>
+			</table>
+
+		</div>
+
+
+
+
+	</div>
+
+</section>
+
+{% endblock %}
+
+
+{% block popup %}
+
+	<div id="popup" class="modal">
+		<div class="modal-content">
+			<div id="box">
+				<div id="message"></div>
+				<div id="box_options"></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

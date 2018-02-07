@@ -1,13 +1,102 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0;">
+    <link rel="stylesheet" type="text/css" href="{{asset("/css/main.css")}}">
+    {#<link rel="stylesheet" type="text/css" href="{{asset("/css/materialize.css")}}">#}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>#}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+    <script type="text/javascript" src="{{asset("/js/functions.js")}}"></script>
+
+    <meta charset="UTF-8">
+    <title>{% block title %}Home{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+    {% if app.user %}
+    <header class="encabezado-gestor row-end">
+        {% if app.user.nombre is defined %}
+        <a class="row-start" href="{{path("mi_perfil")}}">¡Hola {{app.user.nombre}}! <img src="{{asset("/css/img/user.svg")}}"></a>
+        <a class="show-menu"><span></span><span></span></a>
+        {% endif %}
+    </header>
+
+    <div id="menu-doc" class="row-center">
+        <div class="contenedor-logo full-width row-end">
+        <a href="/manager"><img width="145px" src="{{asset("/css/img/logo.png")}}" alt="Logo"></a>
+    </div>
+
+
+    <ul class="nav menu-principal column-center jcfs aifs">
+        
+        
+
+                
+                <li id="exit" class="lista">
+                    <a href="{{path("lista_admin")}}" title="{{"Usuarios"|trans}}">{{"Usuarios"|trans}}</a>
+                </li>
+                
+                
+
+        <li id="exit" class="lista">                        
+            <a href="{{path("salir_admin")}}" title="Cerrar Sesión">Cerrar Sesión</a>
+        </li>
+
+    </ul>
+</div> 
+{% endif %}
+<section id="mensajes">
+    <div class="modal">
+        <div class="modal-content">
+            
+            {% set mensajes= app.session.flashbag.get('error') %}
+            {% if mensajes %}
+            <ul id="error_mensajes">
+                {% for mensaje in mensajes %}
+
+                <li>{{mensaje}}</li>
+                {% endfor %}
+
+            </ul>
+
+            {% endif %}
+            {% set mensajes= app.session.flashbag.get('success') %}
+            {% if mensajes %}
+            <ul id="success_mensajes">
+                {% for mensaje in mensajes %}
+
+                <li>{{mensaje}}</li>
+                {% endfor %}
+
+            </ul>
+
+            {% endif %}
+        
+        </div>
+
+    </div>
+</section>
+{% block popup %}
+<div id="popup" class="modal">
+    <div class="modal-content">
+        <div id="box">
+            <div id="message"></div>
+            <div id="box_options"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block section %}{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
 </html>
