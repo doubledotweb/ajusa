@@ -18,11 +18,14 @@ fi
 
 cd /home/site/wwwroot/
 
-cp -r /home/site/repository/* ./
 
-#php bin/console doctrine:schema:update --force
+
+php bin/console doctrine:schema:update --force
 
 
 composer.phar install
 
 php bin/console asset:install --symlink
+
+cp -r /home/site/repository/* ./
+
