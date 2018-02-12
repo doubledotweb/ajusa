@@ -36,7 +36,7 @@
 					<tr class="destacado" id="{{destacado.id}}">
 						<td class="fecha">{{destacado.creado|date("d/m/Y H:i:s")}}</td>
 						<td class="titulo">{{destacado.titulo}}</td>
-						<td class="tipo">{{destacado.tipo}}</td>						
+						<td class="tipo">{{categorias[destacado.tipo]}}</td>						
 						<td class="visible">{{(destacado.visible)?"Activado":"Desactivado"}}</td>
 						<td class="opcion">
 							<a class="ver" href="{{path("editar_destacado",{"id":destacado.id})}}"><span><i class="material-icons" >edit</i></span></a>
