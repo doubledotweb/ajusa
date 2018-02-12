@@ -1,17 +1,214 @@
 <?php
 
 namespace TipsBundle\Controller;
+use AppBundle\Controller\BaseController;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class DefaultController extends Controller
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+use TipsBundle\Entity\Tip;
+use TipsBundle\Form\TipForm;
+
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+class DefaultController extends BaseController
 {
     /**
-     * @Route("/")
+     * @Route("",name="listado_tips")
      */
-    public function indexAction()
+    public function listado()
     {
-        return $this->render('TipsBundle:Default:index.html.twig');
+        $params["tips"]=$this->findByField("TipsBundle:Tip",array(),array("creado"=>"DESC"));
+        $params["categorias"]=array(
+
+                    "actualidad"=>"Actualidad",
+                     "catalogo"=>"Catálogo",
+                    "ferias"=>"Ferias",
+                    "energias-alternativas"=>"Energías alternativas",
+                    "videos"=>"Vídeos",
+                    "informes-tecnicos"=>"Informes técnicos",
+                    "webinarios"=>"Webinarios",
+                    "otros"=>"Otros",
+                );
+        return $this->render('TipsBundle:Default:listado.html.twig',$params);
+    }
+    /**
+     * @Route("/añadir",name="añadir_tip")
+     */
+    public function añadir(Request $request)
+    {
+        return $this->gestionar_tip($request);
+    }
+
+    /**
+     * @Route("editar/{id}",name="editar_tip")
+     */
+    public function editar(Request $request,$id)
+    {
+        return $this->gestionar_tip($request,$id);
+    }
+
+    /**
+     * @Route("eliminar",name="eliminar_tip")
+     */
+    public function eliminar(Request $request)
+    {
+        $id=$request->request->get("id");
+
+        $tip=$this->findById("TipsBundle:Tip",$id);        
+
+        
+
+        if($tip)
+        {
+            try 
+            {
+               $this->borrar_entity($tip);
+               $mensaje="Eliminado Correctamente";
+               $status_code=200;
+                
+            } catch (Exception $e) {
+                $mensaje="Algo ha ido mal";
+                $status_code=500;
+                return $this->json(array("status"=>$status_code,"mensaje"=>$mensaje),500);
+            }            
+        }
+        else
+        {
+            $mensaje="Este tip no existe";
+            $status_code=404;
+        }
+        return $this->json(array("status_code"=>$status_code,"message"=>$mensaje));
+        
+    }
+    
+    /**
+     * @Route("estado",name="cambiar_estado_tip")
+     */
+    public function cambiar_estado(Request $request)
+    {
+        $id=$request->request->get("id");
+
+        $tip=$this->findById("TipsBundle:Tip",$id);
+
+        if($tip==null)
+            return new JsonResponse(array("mensaje"=>"Este tip no existe"),500);
+
+
+        $estado=!$tip->getVisible();
+
+        $tip->setVisible($estado);
+
+        try
+        {
+            $this->editar_entity($tip);            
+        }
+        catch(\Exception $e)
+        {
+            return new JsonResponse(array("mensaje"=>$this->mensaje_error($e)),500);
+        }
+
+        return new JsonResponse(array("estado"=>$estado,"mensaje"=>"El tip se ha ".($estado?"activado":"desactivado")." satisfactoriamentes"));
+
+    }
+
+
+    private function gestionar_tip(Request $request,$id=null)
+    {
+		$accion=$id==null?"nuevo":"editar";
+
+    	if($id==null)
+    		$tip= new Tip();
+    	else
+    	{
+    		$tip= $this->findById("TipsBundle:Tip",$id);
+    		$params["archivo"]=$tip->getArchivo();
+    	}
+
+    	if($tip==null)
+    	{
+		    $this->addFlash("success","El tip no existe");
+        	return $this->redirect($this->generateUrl("listado_tips"));
+    	}
+
+    	$form 	= $this->createForm(TipForm::class,$tip);
+
+    	if($id!=null)
+            $form->add("delete",SubmitType::class, array("label"=>"Eliminar tip"));
+
+        $form	->  handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()) 
+        {
+            $redirect=true;
+
+        	switch ($form->getClickedButton()->getName()) 
+        	{
+        		case 'submit':
+
+        			switch ($accion) 
+        			{
+        				case 'nuevo':
+
+        					try
+				        	{
+				        		//TODO: COMPROBAR DATOS
+				        	    $this->insertar_entity($form->getData());
+				                $this->addFlash("success","Guardado Correctamente");  				                
+				        	}
+				        	catch(\Exception $e)
+				            {                
+				                $this->addFlash("error",$this->mensaje_error($e));
+				                $redirect=false;
+				            }
+
+    					break;
+        				
+        				case 'editar':
+        					try
+				        	{
+				        		$form->getData()->actualizar_archivo();
+				        		//TODO: COMPROBAR DATOS
+				        	    $this->editar_entity($form->getData());
+				                $this->addFlash("success","Guardado Correctamente");				                
+				        	}
+				        	catch(\Exception $e)
+				            {                
+				                $this->addFlash("error",$this->mensaje_error($e));
+				                $redirect=false;
+				            }
+    					break;
+        			}
+        			
+    			break;
+        		
+        		case "delete":
+        			try
+		        	{
+		        		//TODO: COMPROBAR que existe
+		        	    $this->borrar_entity($form->getData());
+		                $this->addFlash("success","Eliminado Correctamente");		                
+		        	}
+		        	catch(\Exception $e)
+		            {                
+		                $this->addFlash("error",$this->mensaje_error($e));
+		                $redirect=false;
+		            }
+    			break;
+        	}
+
+        	if($redirect)
+        	{
+        		return $this->redirect($this->generateUrl("listado_tips"));
+        	}
+        }
+        
+     	$params["form"] =   $form->createView();
+
+    	return $this->render('TipsBundle:Default:form.html.twig',$params);
+
     }
 }
