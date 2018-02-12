@@ -22,6 +22,17 @@ class DefaultController extends BaseController
     public function listado()
     {
         $params["destacados"]=$this->findByField("DestcadosBundle:Destacado",array(),array("creado"=>"DESC"));
+        $params["categorias"]=array(
+
+                    "actualidad"=>"Actualidad",
+                     "catalogo"=>"Catálogo",
+                    "ferias"=>"Ferias",
+                    "energias-alternativas"=>"Energías alternativas",
+                    "videos"=>"Vídeos",
+                    "informes-tecnicos"=>"Informes técnicos",
+                    "webinarios"=>"Webinarios",
+                    "otros"=>"Otros",
+                );
         return $this->render('DestcadosBundle:Default:listado.html.twig',$params);
     }
     /**

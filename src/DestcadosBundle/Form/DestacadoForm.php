@@ -50,7 +50,14 @@ class DestacadoForm extends AbstractType
 
             array("tipo",ChoiceType::class,array("label"=>"Tipo","required"=>true,
                 "choices"=>array(
-                    "Archivos"=>"archivo"
+                    "Actualidad"=>"actualidad",
+                    "Catálogo" => "catalogo",
+                    "Ferias"=>"ferias",
+                    "Energías alternativas"=>"energias-alternativas",
+                    "Vídeos"=>"videos",
+                    "Informes técnicos"=>"informes-tecnicos",
+                    "Webinarios"=>"webinarios",
+                    "Otros"=>"otros",
                 ))),
 
             
