@@ -73,6 +73,19 @@
 					</label>
 				</div>
 
+				<h2>Destacado</h2>
+				<div class="switch">
+					<input 
+					type="{{form.children.destacado.vars.block_prefixes.1}}" 
+					name="{{form.children.destacado.vars.full_name}}"
+					id="{{form.children.destacado.vars.full_name}}"
+					{{(form.children.destacado.vars.checked)?"checked":""}}							
+					>
+					<label for="{{form.children.destacado.vars.full_name}}">
+						{{form.children.destacado.vars.label}}
+					</label>
+				</div>
+
 				<h2>{{form.children.categoria.vars.label}}</h2>
 
 				<div class="input-field">

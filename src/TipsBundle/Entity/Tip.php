@@ -38,6 +38,11 @@ class Tip extends Archivo
      */
 	private $visible;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $destacado;
+
 	/**
      * @ORM\Column(type="string")
      */
@@ -53,6 +58,7 @@ class Tip extends Archivo
 	public function __construct()
 	{
 		$this->visible=true;
+        $this->destacado=false;
 	}
 
     /** 
@@ -265,5 +271,29 @@ class Tip extends Archivo
     public function getModificado()
     {
         return $this->modificado;
+    }
+
+    /**
+     * Set destacado
+     *
+     * @param boolean $destacado
+     *
+     * @return Tip
+     */
+    public function setDestacado($destacado)
+    {
+        $this->destacado = $destacado;
+
+        return $this;
+    }
+
+    /**
+     * Get destacado
+     *
+     * @return boolean
+     */
+    public function getDestacado()
+    {
+        return $this->destacado;
     }
 }

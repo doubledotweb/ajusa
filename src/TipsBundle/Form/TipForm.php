@@ -48,6 +48,8 @@ class TipForm extends AbstractType
 
             array("visible",CheckboxType::class,array("label"=>"Visible","required"=>true,)),
 
+            array("destacado",CheckboxType::class,array("label"=>"Destacado","required"=>true,)),
+
             array("categoria",ChoiceType::class,array("label"=>"Tipo","required"=>true,
                 "choices"=>array(
                     "Actualidad"=>"actualidad",
