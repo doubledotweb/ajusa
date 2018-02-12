@@ -90,14 +90,16 @@
 				<h2>{{form.children.imagen.vars.label}}</h2>
 				<div class="input-field">
 
-					{% for tipo in form.children.imagen.children %}
+					{% for key,tipo in form.children.imagen.children %}
 						<div>
+
+							<img src="{{asset("/bundles/destcados/img/"~form.children.tipo.vars.value~"_"~(key+1)~".jpg")}}" style="{{form.children.tipo.vars.value?"":"display:none"}}" height="150px">
 							<input 
 							type="radio" 
 							id="{{tipo.vars.id}}"
 							name="{{tipo.vars.full_name}}"
 							value="{{tipo.vars.value}}" 
-							{{tipo.vars.value?"checked":""}}
+							{{tipo.vars.checked?"checked":""}}
 							{{tipo.vars.required?"required":""}}
 							>
 							<label for="{{tipo.vars.id}}">{{tipo.vars.label}}</label>

@@ -7,6 +7,10 @@ $(document).ready(function(e)
 	$('input[maxlength],textarea[maxlength]').on("paste",controlar_pegado);
 
 	$("#"+name+"_delete").on("click",borrar);
+
+	$('select[name="'+name+'[tipo]"]').on("change",cambiar_imagen);
+
+
 	
 });
 
@@ -49,4 +53,22 @@ function borrar_destacado(e)
 	e.preventDefault();
 
 	$('button[name="'+name+'[delete]"]').trigger('click');	
+}
+
+function cambiar_imagen(e)
+{
+	var cat=$(this).val();
+
+
+	$('input[name="'+name+'[imagen]"]').each(function(index, el) 
+	{
+		var value=$(this).val();
+		$(this).siblings('img').attr('src', '/bundles/destcados/img/'+cat+'_'+value+".jpg");
+	});
+
+
+
+
+
+
 }
