@@ -1,7 +1,7 @@
 destcados:
     resource: "@DestcadosBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /manager/destacados/
 
 admin:
     resource: '@AdminBundle/Controller/'
