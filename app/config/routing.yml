@@ -1,3 +1,8 @@
+tips:
+    resource: "@TipsBundle/Controller/"
+    type:     annotation
+    prefix:   /manager/tips
+
 destcados:
     resource: "@DestcadosBundle/Controller/"
     type:     annotation
