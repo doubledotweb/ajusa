@@ -78,7 +78,7 @@ class DefaultController extends BaseController
         }
         else
         {
-            $mensaje="Este tip no existe";
+            $mensaje="Este archivo no existe";
             $status_code=404;
         }
         return $this->json(array("status_code"=>$status_code,"message"=>$mensaje));
@@ -95,7 +95,7 @@ class DefaultController extends BaseController
         $tip=$this->findById("TipsBundle:Tip",$id);
 
         if($tip==null)
-            return new JsonResponse(array("mensaje"=>"Este tip no existe"),500);
+            return new JsonResponse(array("mensaje"=>"Este archivo no existe"),500);
 
 
         $estado=!$tip->getVisible();
@@ -111,7 +111,37 @@ class DefaultController extends BaseController
             return new JsonResponse(array("mensaje"=>$this->mensaje_error($e)),500);
         }
 
-        return new JsonResponse(array("estado"=>$estado,"mensaje"=>"El tip se ha ".($estado?"activado":"desactivado")." satisfactoriamentes"));
+        return new JsonResponse(array("estado"=>$estado,"mensaje"=>"El archivo se ha ".($estado?"activado":"desactivado")." satisfactoriamentes"));
+
+    }
+
+    /**
+     * @Route("destacado",name="cambiar_destacado_tip")
+     */
+    public function cambiar_destacado(Request $request)
+    {
+        $id=$request->request->get("id");
+
+        $tip=$this->findById("TipsBundle:Tip",$id);
+
+        if($tip==null)
+            return new JsonResponse(array("mensaje"=>"Este archivo no existe"),500);
+
+
+        $estado=!$tip->getDestacado();
+
+        $tip->setDestacado($estado);
+
+        try
+        {
+            $this->editar_entity($tip);            
+        }
+        catch(\Exception $e)
+        {
+            return new JsonResponse(array("mensaje"=>$this->mensaje_error($e)),500);
+        }
+
+        return new JsonResponse(array("estado"=>$estado,"mensaje"=>$estado?"El archivo ya está guardado como destacado":"El archivo ya no tiene la consideración de destacado"));
 
     }
 
@@ -130,14 +160,14 @@ class DefaultController extends BaseController
 
     	if($tip==null)
     	{
-		    $this->addFlash("success","El tip no existe");
+		    $this->addFlash("success","El archivo no existe");
         	return $this->redirect($this->generateUrl("listado_tips"));
     	}
 
     	$form 	= $this->createForm(TipForm::class,$tip);
 
     	if($id!=null)
-            $form->add("delete",SubmitType::class, array("label"=>"Eliminar tip"));
+            $form->add("delete",SubmitType::class, array("label"=>"Eliminar archivo"));
 
         $form	->  handleRequest($request);
         

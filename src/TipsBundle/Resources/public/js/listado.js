@@ -14,6 +14,7 @@ $(document).ready(function()
 	$(".borrar").on("click",borrar);
 
 	$(".opcion .estado").on("click",estado);
+	$(".opcion .destacado").on("click",destacado);
 
 	$("#popup #box_options").on("click","#accept",borrar_destacado);
 	$("#popup #box_options").on("click","#decline",cancelar);
@@ -79,6 +80,32 @@ function estado(e)
 		{			
 			opcion.find('.material-icons').text(data.estado?"block":"check");
 			opcion.parents(".tip").find("td.visible").text(data.estado?"Activado":"Desactivado");
+			mostrar_popup(data.mensaje,"ok");
+		},
+		"fail":"Ha habido un error"
+	}
+
+	ajax(params);	
+
+}
+
+function destacado(e)
+{
+	e.preventDefault();
+	opcion=$(this);
+	id=$(this).parents(".tip").attr("id");
+
+	params={
+
+		"url":opcion.attr("href"),
+		"type":"POST",
+		"datatype":"",
+		"data": {"id":id},
+		"entity":"tip",
+		"success":function(data)
+		{			
+			opcion.find('.material-icons').attr("style",data.estado?"color:#db9c0d":"");
+			opcion.parents(".tip").find("td.destacado").text(data.estado?"Si":"No");
 			mostrar_popup(data.mensaje,"ok");
 		},
 		"fail":"Ha habido un error"
