@@ -4,14 +4,14 @@
 
 
 {% block javascripts %}
-	<script type="text/javascript" src="{{asset("/bundles/tips/js/form.js")}}"></script>
+	<script type="text/javascript" src="{{asset("/bundles/prensa/descargables/js/form.js")}}"></script>
 {% endblock %}
 
 {% block title %}
 	{% if form.children.titulo.vars.value=="" %}
-		Nuevo tip
+		Nuevo descargable
 	{% else %}
-		Editar tip
+		Editar descargable
 	{% endif %}
 {% endblock %}
 {% block section %}
@@ -20,9 +20,9 @@
 		<div class="container">
 			
 			{% if form.children.titulo.vars.value=="" %}
-				<h1>Nuevo tip</h1>
+				<h1>Nuevo descargable</h1>
 			{% else %}
-				<h1>Editar tip</h1>
+				<h1>Editar descargable</h1>
 			{% endif %}
 
 			<form method="{{form.vars.method}}" name="{{form.vars.full_name}}" enctype="multipart/form-data">
@@ -72,45 +72,41 @@
 						{{form.children.visible.vars.label}}
 					</label>
 				</div>
-
-				<h2>Destacado</h2>
-				<div class="switch">
-					<input 
-					type="{{form.children.destacado.vars.block_prefixes.1}}" 
-					name="{{form.children.destacado.vars.full_name}}"
-					id="{{form.children.destacado.vars.full_name}}"
-					{{(form.children.destacado.vars.checked)?"checked":""}}							
-					>
-					<label for="{{form.children.destacado.vars.full_name}}">
-						{{form.children.destacado.vars.label}}
-					</label>
-				</div>
+				
 
 				<h2>{{form.children.categoria.vars.label}}</h2>
-
+				
 				<div class="input-field">
-					<select name="{{form.children.categoria.vars.full_name}}" {{form.children.categoria.vars.required?"required":""}}>
-
-						<option value=""></option>
-
-						{% for choice in form.children.categoria.vars.choices %}
-						    <option value="{{choice.value}}" {{choice.value==form.children.categoria.vars.value?"selected":""}}>{{choice.label}}</option>
+					
+					
+						{% for tipo in form.children.categoria.children %}
+							<input 
+								type="radio" 
+								id="{{tipo.vars.id}}" 
+								value="{{tipo.vars.value}}" 
+								{{tipo.vars.checked?"checked":""}}
+								{{tipo.vars.required?"required":""}}
+								name="{{tipo.vars.full_name}}"
+								>
+							<label for="{{tipo.vars.id}}">{{tipo.vars.label}}</label>
+							
 						{% endfor %}
-					</select>
+					
+
 				</div>
 
 
 				<h2>{{form.children.archivo_aux.vars.label}}</h2>
 				<div class="file-field input-field image-field">
-
+					
 					{% if archivo is defined %}
-						{% set archivo= archivo | split("/") %}
+						{% set aux= archivo | split("/") %}
 					{% endif %}
-					<div class="js-archivo-input">
+					<div class="js-imagen-input" style="{{form.children.categoria.vars.value!="clipping-de-prensa" and archivo is defined?"display:none":""}}">
 
 						<div class="file-path-wrapper">
 							<input class="file-path validate" type="text"
-							value="{{archivo is defined?archivo[archivo|length-1]:""}}"
+							value="{{aux is defined?aux[aux|length-1]:""}}"
 							>
 						</div>					
 
@@ -120,9 +116,16 @@
 							type="file" 
 							id="{{form.children.archivo_aux.vars.id}}"
 							name="{{form.children.archivo_aux.vars.full_name}}"
-							{{archivo is defined?"":"required"}}
+							{{aux is defined?"":"required"}}
+							accept="{{form.children.categoria.vars.value=="clipping-de-prensa"?".pdf,.doc,.zip":"image/*"}}" 
 							>							
 						</div>
+					</div>
+						<div class="js-imagen-preview" style="{{form.children.categoria.vars.value!="clipping-de-prensa" and archivo is defined?"":"display:none;"}}">
+							<img src="{{form.children.categoria.vars.value!="clipping-de-prensa" and archivo is defined ?asset(archivo):""}}" width="100px" height="auto">
+							<i class="material-icons js-borrar-imagen">close</i>
+						</div>
+					
 
 					</div>					
 				</div>
@@ -154,7 +157,7 @@
 					<div>
 						<a
 						class="btn waver-effect grey"
-						href="{{path("listado_tips")}}"
+						href="{{path("listado_descargables")}}"
 						
 						>Cancelar</a>
 					</div>
