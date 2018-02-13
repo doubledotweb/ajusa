@@ -1,3 +1,8 @@
+prensa:
+    resource: "@PrensaBundle/Controller/"
+    type:     annotation
+    prefix:   /manager/prensa/
+
 tips:
     resource: "@TipsBundle/Controller/"
     type:     annotation
