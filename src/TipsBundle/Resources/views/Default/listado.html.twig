@@ -22,7 +22,7 @@
 				<thead>
 					<tr>
 						<th class="fecha">Alta</th>
-						<th class="visible">Título</th>
+						<th class="nombre">Título</th>
 						<th class="categoria">Categoría</th>
 						<th class="visible">visible</th>
 						<th class="destacado">Destacado</th>
@@ -36,7 +36,7 @@
 
 					<tr class="tip" id="{{tip.id}}">
 						<td class="fecha">{{tip.creado|date("d/m/Y H:i:s")}}</td>
-						<td class="titulo">{{tip.titulo}}</td>
+						<td class="nombre">{{tip.titulo}}</td>
 						<td class="tipo">{{tip.categoria}}</td>						
 						<td class="visible">{{(tip.visible)?"Activado":"Desactivado"}}</td>
 						<td class="destacado">{{(tip.destacado)?"Si":"No"}}</td>

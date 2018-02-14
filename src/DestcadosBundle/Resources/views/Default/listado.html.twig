@@ -22,7 +22,7 @@
 				<thead>
 					<tr>
 						<th class="fecha">Alta</th>
-						<th class="visible">Título</th>
+						<th class="nombre">Título</th>
 						<th class="tipo">Tipo</th>						
 						<th class="visible">visible</th>
 						<th class="opciones">Opciones</th>
@@ -35,7 +35,7 @@
 
 					<tr class="destacado" id="{{destacado.id}}">
 						<td class="fecha">{{destacado.creado|date("d/m/Y H:i:s")}}</td>
-						<td class="titulo">{{destacado.titulo}}</td>
+						<td class="nombre">{{destacado.titulo}}</td>
 						<td class="tipo">{{categorias[destacado.tipo]}}</td>						
 						<td class="visible">{{(destacado.visible)?"Activado":"Desactivado"}}</td>
 						<td class="opcion">
