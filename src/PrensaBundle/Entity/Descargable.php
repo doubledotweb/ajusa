@@ -49,6 +49,7 @@ class Descargable extends Archivo
 	private $archivo;
 
 	public $archivo_aux;
+    public $imagen;
 
 	public function __construct()
 	{
@@ -72,12 +73,29 @@ class Descargable extends Archivo
     {
         $fecha=date("Y/m/d");        
 
-        if($this->archivo_aux!=null)
-        {
-            $this->borrar($this->archivo);
 
-            $this->archivo=$this->subir($this->archivo_aux,"/archivos/".$fecha."/");
-        }        
+        switch ($this->categoria) 
+        {
+            case 'clipping-de-prensa':
+                if($this->archivo_aux!=null)
+                {
+                    $this->borrar($this->archivo);
+                    
+                    $this->archivo=$this->subir($this->archivo_aux,"/archivos/".$fecha."/");
+                }
+            break;
+            
+            case "logotipo":
+            case "imagen":
+                if($this->imagen!=null)
+                {
+                    $this->borrar($this->archivo);
+
+                    $this->archivo=$this->subir_base64("/archivos/".$fecha."/",$this->imagen);
+                }
+            break;
+        }
+        
     }
 
     /** 
