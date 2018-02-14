@@ -123,17 +123,28 @@ class DefaultController extends BaseController
     	if($id==null)
     		$descargable= new Descargable();
     	else
-    	{
-    		$descargable= $this->findById("PrensaBundle:Descargable",$id);
-    		$params["archivo"]=$descargable->getArchivo();
-
-    	}
+    	
+    		$descargable= $this->findById("PrensaBundle:Descargable",$id);    	
 
     	if($descargable==null)
     	{
 		    $this->addFlash("success","El destacado no existe");
         	return $this->redirect($this->generateUrl("listado_destacados"));
     	}
+
+
+        switch ($descargable->getCategoria()) 
+        {
+            case 'clipping-de-prensa':
+                $params["archivo"]=$descargable->getArchivo();
+            break;
+            
+            case "logotipo":
+            case "imagen":
+                $params["imagen"]=$descargable->getArchivo();
+                
+            break;
+        }
 
     	$form 	= $this->createForm(DescargableForm::class,$descargable);
 
@@ -171,14 +182,15 @@ class DefaultController extends BaseController
         				case 'editar':
         					try
 				        	{
+                                                                
 				        		$form->getData()->actualizar_archivo();
-
 				        		//TODO: COMPROBAR DATOS
 				        	    $this->insertar_entity($form->getData());
 				                $this->addFlash("success","Guardado Correctamente");				                
 				        	}
 				        	catch(\Exception $e)
 				            {                
+                                
 				                $this->addFlash("error",$this->mensaje_error($e));
 				                $redirect=false;
 				            }
@@ -207,7 +219,7 @@ class DefaultController extends BaseController
         		return $this->redirect($this->generateUrl("listado_descargables"));
         	}
         }
-        
+
      	$params["form"] =   $form->createView();
 
     	return $this->render('PrensaBundle:Default:form.html.twig',$params);
