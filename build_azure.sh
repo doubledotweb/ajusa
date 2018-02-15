@@ -20,7 +20,7 @@ mkdir /tmp/tests
 
 cd /tmp/tests
 
-rsync -r --exclude=vendor /home/site/repository/* ./ 
+rsync -r --exclude=vendor /home/site/repository/ ./ 
 
 php composer.phar install -n
 
