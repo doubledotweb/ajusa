@@ -16,8 +16,14 @@ then
     exit 1
 fi
 
+mkdir /tmp/tests
+
+cd /tmp/tests
+
+rsync -r --exclude=vendor /home/site/repository/* ./ 
 
 php composer.phar install -n
+
 
 
 php bin/console doctrine:schema:update --force
@@ -28,5 +34,5 @@ php bin/console asset:install --symlink
 
 cd /home/site/wwwroot/
 
-cp -r /home/site/repository/* ./
+cp -r /tmp/tests/* ./
 
