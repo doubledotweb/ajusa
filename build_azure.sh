@@ -16,16 +16,17 @@ then
     exit 1
 fi
 
-cd /home/site/wwwroot/
 
+php composer.phar install -n
 
 
 php bin/console doctrine:schema:update --force
 
 
-composer.phar install
 
 php bin/console asset:install --symlink
+
+cd /home/site/wwwroot/
 
 cp -r /home/site/repository/* ./
 
