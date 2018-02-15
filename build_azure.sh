@@ -16,7 +16,10 @@ then
     exit 1
 fi
 
-mkdir /tmp/tests
+if [ ! -d "/tmp/tests" ]; then
+  # Control will enter here if $DIRECTORY doesn't exist.
+	mkdir /tmp/tests
+fi
 
 cd /tmp/tests
 
