@@ -23,7 +23,9 @@ fi
 
 cd /tmp/tests
 
-rsync -r --exclude=vendor /home/site/repository/ ./ 
+cp -r /home/site/repository/* ./ 
+
+rm -r vendor/
 
 php composer.phar install -n
 
