@@ -1,0 +1,207 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+{% block javascripts %}
+	<script type="text/javascript" src="{{asset("/bundles/destcados/js/form.js")}}"></script>
+{% endblock %}
+
+{% block title %}
+	{% if form.children.titulo.vars.value=="" %}
+		Nuevo Destacado
+	{% else %}
+		Editar Destacado
+	{% endif %}
+{% endblock %}
+{% block section %}
+
+	<section class="menu-brother">
+		<div class="container">
+		
+			{% if form.children.titulo.vars.value=="" %}
+				<h1>Nuevo destacado</h1>
+			{% else %}
+				<h1>Editar destacado</h1>
+			{% endif %}
+
+			<form method="{{form.vars.method}}" name="{{form.vars.full_name}}">
+
+				<h2>{{form.children.titulo.vars.label}}</h2>
+
+				<div class="input-field">
+					<input 
+					type="{{form.children.titulo.vars.block_prefixes.1}}" 
+					name="{{form.children.titulo.vars.full_name}}"
+					value="{{form.children.titulo.vars.value}}"
+					maxlength="{{form.children.titulo.vars.attr.maxlength}}" 
+					{{form.children.titulo.vars.required?"required":""}}
+					>					
+				</div>
+
+				<h2>{{form.children.idioma.vars.label}}</h2>
+				
+				<div class="input-field">
+					
+					
+						{% for idioma in form.children.idioma.children %}
+							<input 
+								type="radio" 
+								id="{{idioma.vars.id}}" 
+								value="{{idioma.vars.value}}" 
+								{{idioma.vars.checked?"checked":""}}
+								{{idioma.vars.required?"required":""}}
+								name="{{idioma.vars.full_name}}"
+								>
+							<label for="{{idioma.vars.id}}">{{idioma.vars.label}}</label>
+							
+						{% endfor %}
+					
+
+				</div>
+				
+				<h2>Visibilidad</h2>
+				<div class="switch">
+					<input 
+					type="{{form.children.visible.vars.block_prefixes.1}}" 
+					name="{{form.children.visible.vars.full_name}}"
+					id="{{form.children.visible.vars.full_name}}"
+					{{(form.children.visible.vars.checked)?"checked":""}}							
+					>
+					<label for="{{form.children.visible.vars.full_name}}">
+						{{form.children.visible.vars.label}}
+					</label>
+				</div>
+
+				<h2>{{form.children.tipo.vars.label}}</h2>
+
+				<div class="input-field">
+					<select name="{{form.children.tipo.vars.full_name}}" {{form.children.tipo.vars.required?"required":""}}>
+
+						<option value=""></option>
+
+						{% for choice in form.children.tipo.vars.choices %}
+						    <option value="{{choice.value}}" {{choice.value==form.children.tipo.vars.value?"selected":""}}>{{choice.label}}</option>
+						{% endfor %}
+					</select>
+				</div>
+
+
+				<h2>{{form.children.imagen.vars.label}}</h2>
+				<div class="input-field">
+
+					{% for key,tipo in form.children.imagen.children %}
+						<div>
+
+							<img src="{{asset("/bundles/destcados/img/"~form.children.tipo.vars.value~"_"~(key+1)~".jpg")}}" style="{{form.children.tipo.vars.value?"":"display:none"}}" height="150px">
+							<input 
+							type="radio" 
+							id="{{tipo.vars.id}}"
+							name="{{tipo.vars.full_name}}"
+							value="{{tipo.vars.value}}" 
+							{{tipo.vars.checked?"checked":""}}
+							{{tipo.vars.required?"required":""}}
+							>
+							<label for="{{tipo.vars.id}}">{{tipo.vars.label}}</label>
+
+						</div>
+
+					{% endfor %}
+				</div>
+
+				<h2>{{form.children.resumen.vars.label}}</h2>
+
+				<div class="input-field">
+					<textarea
+					
+					name="{{form.children.resumen.vars.full_name}}"
+					
+					maxlength="{{form.children.resumen.vars.attr.maxlength}}" 
+					{{form.children.resumen.vars.required?"required":""}}>{{form.children.resumen.vars.value}}</textarea>
+				</div>
+
+				<h2>{{form.children.texto_enlace.vars.label}}</h2>
+
+				<div class="input-field">
+					<input 
+					type="{{form.children.texto_enlace.vars.block_prefixes.1}}" 
+					name="{{form.children.texto_enlace.vars.full_name}}"
+					value="{{form.children.texto_enlace.vars.value}}"
+					maxlength="{{form.children.texto_enlace.vars.attr.maxlength}}" 
+					{{form.children.texto_enlace.vars.required?"required":""}}
+					>					
+				</div>
+
+				<h2>{{form.children.enlace.vars.label}}</h2>
+
+				<div class="input-field">
+					<input 
+					type="{{form.children.enlace.vars.block_prefixes.1}}" 
+					name="{{form.children.enlace.vars.full_name}}"
+					value="{{form.children.enlace.vars.value}}"
+					maxlength="{{form.children.enlace.vars.attr.maxlength}}" 
+					{{form.children.enlace.vars.required?"required":""}}
+					>					
+				</div>
+
+				<div id="botones" class="contenedor-botones row-start">
+
+					<div>
+						<button
+						class="btn waver-effect"
+						type="submit" 
+						name="{{form.children.submit.vars.full_name}}"
+						>{{form.children.submit.vars.label}}</button>
+					</div>
+
+					{% if form.children.delete is defined %}
+						<div>
+							<button class="btn waver-effect red darken-4" href="" id="{{form.children.delete.vars.id}}">{{form.children.delete.vars.label}}</button>
+						</div>
+						<div style="display:none;">
+							<button
+							type="submit" 
+							name="{{form.children.delete.vars.full_name}}"							
+							>{{form.children.delete.vars.label}}</button>
+						</div>
+					{% endif %}
+
+					<div>
+						<a
+						class="btn waver-effect grey"
+						href="{{path("listado_destacados")}}"
+						
+						>Cancelar</a>
+					</div>
+
+				</div>
+				
+				<div>
+					<input 
+					type="hidden" 
+					name="{{form.children.id.vars.full_name}}"
+					value="{{form.children.id.vars.value}}"
+					>
+				</div>
+				<div>
+					<input 
+					type="hidden" 
+					name="{{form.children._token.vars.full_name}}"
+					value="{{form.children._token.vars.value}}">
+				</div>
+
+			</form>
+		</div>
+	</section>
+{% endblock %}
+
+{% block popup %}
+	<div id="popup" class="modal">
+		<div class="modal-content">
+			<div id="box">
+				<div id="message"></div>
+				<div id="box_options"></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

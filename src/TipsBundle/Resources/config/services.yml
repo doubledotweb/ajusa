@@ -1,0 +1,4 @@
+services:
+#    tips.example:
+#        class: TipsBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

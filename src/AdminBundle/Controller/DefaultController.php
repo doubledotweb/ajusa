@@ -273,7 +273,7 @@ class DefaultController extends BaseController
             return new JsonResponse(array("mensaje"=>$this->mensaje_error($e)),500);
         }
 
-        return new JsonResponse(array("estado"=>$estado));
+        return new JsonResponse(array("estado"=>$estado,"mensaje"=>"El usuario se ha ".($estado?"activado":"desactivado")." satisfactoriamentes"));
 
     }
 

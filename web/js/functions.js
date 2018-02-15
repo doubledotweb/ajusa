@@ -150,3 +150,8 @@ function borrar_imagen()
 	$(this).parents(".file-field").find(".js-imagen-input .btn input").not('input[type="hidden"]').val("");
 	$(this).parents(".file-field").find(".js-imagen-preview").hide();
 }
+
+function recortar_cadena(texto,length)
+{
+	return texto.substring(0,length);
+}
