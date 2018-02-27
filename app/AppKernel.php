@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new AdminBundle\AdminBundle(),
             new DestcadosBundle\DestcadosBundle(),
             new TipsBundle\TipsBundle(),
+            new PrensaBundle\PrensaBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
