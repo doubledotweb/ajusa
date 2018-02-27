@@ -86,7 +86,7 @@ class SecurityController extends Controller
         $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
         $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
 
-        $this->redirect($path);
+        $this->redirect("/manager");
     }
     
 
