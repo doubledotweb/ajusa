@@ -64,29 +64,12 @@ class SecurityController extends Controller
      * @Route("/logout", name="salir")     
      */
     public function logoutUserAction(Request $request)
-    {
-        switch ($this->getCurrentUser()) 
-        {
-            case 'Administrador':
-                $path="/manager/login";
-            break;
-            
-            case 'Profesional':
-                $path="/zona-profesional/login";
-            break;
-
-            case 'Cliente':
-                $path="/zona-cliente/login";
-            break;
-        }
-        
+    {                    
         $session = $request->getSession();
 
         // get the login error if there is one
         $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
-        $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
-
-        $this->redirect("/manager");
+        $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);        
     }
     
 

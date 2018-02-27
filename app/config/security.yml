@@ -62,7 +62,7 @@ security:
                 remember_me_parameter:  _remember_me
             logout:
                 path:               /manager/logout
-                target:             
+                target:             /manager
                 invalidate_session: true
         
     access_control:
