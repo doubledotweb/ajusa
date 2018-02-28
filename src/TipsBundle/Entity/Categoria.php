@@ -6,14 +6,14 @@ namespace TipsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use AppBundle\Entity\Archivo;
+use AppBundle\Entity\Entity;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="categorias")
  * @ORM\HasLifecycleCallbacks()
  */
-class Categoria extends Archivo
+class Categoria extends Entity
 {
 
 	/**
@@ -35,7 +35,7 @@ class Categoria extends Archivo
 
     /**
      * Many Groups have Many Users.
-     * @ORM\ManyToMany(targetEntity="TipsBundle\Entity\Tip", mappedBy="categorias")
+     * @ORM\ManyToMany(targetEntity="\TipsBundle\Entity\Tip", mappedBy="categorias")
      */
     private $tips;
 
