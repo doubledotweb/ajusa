@@ -4,9 +4,14 @@ prensa:
     prefix:   /manager/prensa/
 
 tips:
-    resource: "@TipsBundle/Controller/"
+    resource: "@TipsBundle/Controller/DefaultController.php"
     type:     annotation
-    prefix:   /manager/tips
+    prefix:   /manager/tips/
+
+categorias:
+    resource: "@TipsBundle/Controller/CategoriasController.php"
+    type:     annotation
+    prefix:   /manager/categorias/
 
 destcados:
     resource: "@DestcadosBundle/Controller/"
