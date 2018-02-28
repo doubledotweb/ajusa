@@ -1,0 +1,54 @@
+.keywords-input input
+{
+	margin-bottom: 0px;
+}
+
+#js-fake-select-keywords
+{
+	width: 100%;
+	background: white;
+	border-right: 1px solid;
+	border-left:  1px solid;
+	border-bottom:  1px solid;
+	display: none;
+}
+
+#js-fake-select-keywords ul
+{
+	list-style: none;
+
+}
+#js-fake-select-keywords li
+{
+	padding: 5px;
+}
+#js-fake-select-keywords li:hover
+{
+	background: #cecece;
+}
+#js-tips-keyword-container
+{
+	margin-top: 10px;
+}
+#js-hidden-input-keyword-container
+{
+	display: none;
+}
+.chip
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	background: #cecece;
+	border-radius: 50px;
+	padding: 0px 10px;
+}
+.chip i
+{
+	cursor: pointer;
+    float: right;
+    font-size: 16px;
+    line-height: 32px;
+    padding-left: 8px;
+}

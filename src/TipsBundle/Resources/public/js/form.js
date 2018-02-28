@@ -26,6 +26,9 @@ $(document).ready(function(e)
 		}
 	});
 	
+	$("#js-fake-input-keywords").on("keyup",keywords);
+	$("#js-fake-select-keywords li").on("click",keywords_selected);
+	$("body").on("click",".chip .close",delete_keyword);
 	
 });
 
@@ -68,4 +71,54 @@ function borrar_tip(e)
 	e.preventDefault();
 
 	$('button[name="'+name+'[delete]"]').trigger('click');	
+}
+
+function keywords(e)
+{
+	if(e.originalEvent.keyCode==27)
+		$(this).val("");
+	if($(this).val().length>0)
+	{	
+		var escrito=$(this).val();
+		$("#js-fake-select-keywords").show();
+		$("#js-fake-select-keywords li").each(function()
+		{
+			if($(this).text().toLowerCase().includes(escrito))
+			{
+				$(this).show();
+			}
+			else
+			{
+				$(this).hide();
+			}
+		});
+	}
+	else
+	{
+		$("#js-fake-select-keywords").hide();
+	}
+}
+
+function keywords_selected(e)
+{
+	e.preventDefault();
+
+
+	var chip='<div class="chip" >'+$(this).text()+'<i class="borrar material-icons">delete</i></div>';
+	var input='<input type="hidden" name="'+name+'[keywords]" value="'+$(this).attr('data-id')+'" >';
+	if($('#js-hidden-input-keyword-container input[value="'+$(this).attr('data-id')+'"]').length==0)
+	{		
+		$("#js-tips-keyword-container").append(chip);
+		$("#js-hidden-input-keyword-container").append(input);
+	}
+
+}
+
+function delete_keyword(e)
+{
+	var pos=$(this).index();
+	$(this).parents(".chip").remove();
+
+	$("#js-hidden-input-keyword-container input")[pos].remove();
+	
 }

@@ -55,12 +55,21 @@ class Tip extends Archivo
      */
     private $categorias;
 
+    /**
+     * Many Users have Many Groups.
+     * @ORM\ManyToMany(targetEntity="\TipsBundle\Entity\Keyword", inversedBy="tips")
+     * @ORM\JoinTable(name="tips_keywords")
+     */
+    private $keywords;
+
 	public $archivo_aux;
 
 	public function __construct()
 	{
 		$this->visible=true;
         $this->destacado=false;
+        $this->keywords=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->categorias=new \Doctrine\Common\Collections\ArrayCollection();
 	}
 
     /** 
@@ -330,5 +339,39 @@ class Tip extends Archivo
     public function getCategorias()
     {
         return $this->categorias;
+    }
+
+    /**
+     * Add keyword
+     *
+     * @param \TipsBundle\Entity\Keyword $keyword
+     *
+     * @return Tip
+     */
+    public function addKeyword(\TipsBundle\Entity\Keyword $keyword)
+    {
+        $this->keywords[] = $keyword;
+
+        return $this;
+    }
+
+    /**
+     * Remove keyword
+     *
+     * @param \TipsBundle\Entity\Keyword $keyword
+     */
+    public function removeKeyword(\TipsBundle\Entity\Keyword $keyword)
+    {
+        $this->keywords->removeElement($keyword);
+    }
+
+    /**
+     * Get keywords
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getKeywords()
+    {
+        return $this->keywords;
     }
 }

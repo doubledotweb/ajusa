@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 use TipsBundle\Entity\Categoria;
+use TipsBundle\Entity\Keyword;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -59,6 +60,12 @@ class TipForm extends AbstractType
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.titulo', 'ASC');
+                    },"multiple"=>true,"expanded"=>true,'choice_label' => 'titulo',)),
+
+            array("keywords",EntityType::class,array("label"=>"Keywords","required"=>true,"class"=>Keyword::class,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('k')
+                            ->orderBy('k.titulo', 'ASC');
                     },"multiple"=>true,"expanded"=>true,'choice_label' => 'titulo',)),
 
             

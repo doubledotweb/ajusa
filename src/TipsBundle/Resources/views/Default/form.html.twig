@@ -4,8 +4,16 @@
 
 
 {% block javascripts %}
+	
 	<script type="text/javascript" src="{{asset("/bundles/tips/js/form.js")}}"></script>
 {% endblock %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{asset("/bundles/tips/css/form.css")}}">
+{% endblock %}
+
+
 
 {% block title %}
 	{% if form.children.titulo.vars.value=="" %}
@@ -15,7 +23,7 @@
 	{% endif %}
 {% endblock %}
 {% block section %}
-
+ 
 	<section class="menu-brother">
 		<div class="container">
 			
@@ -93,13 +101,14 @@
 					
 
 					{% for choice in form.children.categorias.children %}
-						    <input 
-						    	type="checkbox" 
-						    	name="{{choice.vars.full_name}}" 
-						    	value="{{choice.vars.value}}"
-						    	id="{{choice.vars.id}}"
-						    	>
-						    <label for="{{choice.vars.id}}">{{choice.vars.label}}</label>
+					    <input 
+					    	type="checkbox" 
+					    	name="{{choice.vars.full_name}}" 
+					    	value="{{choice.vars.value}}"
+					    	id="{{choice.vars.id}}"
+					    	{{choice.vars.checked?"checked":""}}
+					    	>
+					    <label for="{{choice.vars.id}}">{{choice.vars.label}}</label>
 					{% endfor %}
 					
 				</div>
@@ -131,8 +140,32 @@
 
 					</div>					
 				</div>
+				<h2>{{form.children.keywords.vars.label}}</h2>
+				<div class="input-field keywords-input">
 
-				
+
+					<input type="text" id="js-fake-input-keywords">
+					<div id="js-fake-select-keywords">
+						<ul>
+						{% set chips = "" %}
+						{% set inputs = "" %}
+						{% for keyword in form.children.keywords.children %}
+					    	<li data-id="{{keyword.vars.value}}" {#style="display:none"#}>{{keyword.vars.label}}</li>
+					    	{% if keyword.vars.checked %}
+					    		{% set chips = chips~'<div class="chip" >'~keyword.vars.label~'<i class="borrar material-icons">delete</i></div>' %}
+					    	{% set inputs = inputs~'<input type="hidden" name="'~form.children.keywords.vars.full_name~'" value="'~keyword.vars.value~'" >' %}
+					    	{% endif %}
+						{% endfor %}
+						</ul>
+					</div>
+					<div id="js-tips-keyword-container" class="fww row-start">
+						{{chips|raw}}
+					</div>
+					<div id="js-hidden-input-keyword-container">
+						{{inputs|raw}}
+					</div>
+
+				</div>
 
 				<div id="botones" class="contenedor-botones row-start">
 

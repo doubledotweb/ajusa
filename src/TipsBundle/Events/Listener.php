@@ -6,6 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 // for Doctrine 2.4: Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use TipsBundle\Entity\Categoria;
+use TipsBundle\Entity\Keyword;
 
 class Listener implements EventSubscriber
 {
@@ -41,7 +42,7 @@ class Listener implements EventSubscriber
         $entityManager = $args->getEntityManager();
 
         // perhaps you only want to act on some "Product" entity
-        if ($entity instanceof Categoria) 
+        if ($entity instanceof Categoria or $entity instanceof Keyword) 
         {
             
             $slug=$this->normalizator->calculate_slug($entity->getTitulo());
