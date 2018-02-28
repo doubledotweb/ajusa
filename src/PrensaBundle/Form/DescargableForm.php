@@ -56,7 +56,7 @@ class DescargableForm extends AbstractType
                 ))),
 
             
-            array("archivo_aux",FileType::class,array("label"=>"Archivo","required"=>true,)),            
+            array("archivo_aux",FileType::class,array("label"=>"Archivo","required"=>true,)),
 
             array("imagen",HiddenType::class,array("label"=>"Imagen","required"=>true,)),  
             

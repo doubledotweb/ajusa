@@ -99,14 +99,14 @@
 
 				</div>
 
-				<div class="js-archivo" style="{{form.children.categoria.vars.value=="clipping-de-prensa"?"":"display:none"}}">
+				<div class="js-archivo" style="">
 					<h2>{{form.children.archivo_aux.vars.label}}</h2>
 					<div class="file-field input-field image-field">
 						
 						{% if archivo is defined %}
 							{% set aux= archivo | split("/") %}
 						{% endif %}
-						<div class="js-imagen-input">
+						<div class="js-imagen-input" style="{{imagen is defined?"display:none":""}}">
 
 							<div class="file-path-wrapper">
 								<input class="file-path validate" type="text"
@@ -120,45 +120,20 @@
 								type="file" 
 								id="{{form.children.archivo_aux.vars.id}}"
 								name="{{form.children.archivo_aux.vars.full_name}}"
-								{{archivo is not defined and form.children.categoria.vars.value=="clipping-de-prensa" ?"required":""}}
-								accept=".pdf,.doc,.zip" 
-								>							
+								{{form.children.archivo_aux.vars.required?"required":""}}
+								{{form.children.categoria.vars.value=="clipping-de-prensa"?'acept=".doc,.pdf,.zip"':'acept="image/*"'}}
+								>
+
+								<input type="hidden" name="{{form.children.imagen.vars.full_name}}">
+
 							</div>									
 						</div>
-					</div>
-				</div>
-
-				<div class="js-imagen" style="{{form.children.categoria.vars.value!="clipping-de-prensa"?"":"display:none"}}">
-					<h2>{{form.children.imagen.vars.label}}</h2>
-					<div class="file-field input-field image-field">
-						
-						
-						<div class="js-imagen-input" style="{{form.children.categoria.vars.value!="clipping-de-prensa" and imagen is defined?"display:none":""}}">
-
-							<div class="file-path-wrapper">
-								<input class="file-path validate" type="text">
-							</div>					
-
-							<div class="btn">
-								<span>{{form.children.imagen.vars.label}}</span>
-								<input 
-								type="file" 
-								id="fake_button_file"							
-								{{form.children.categoria.vars.value!="clipping-de-prensa" and imagen is defined?"":"required"}}
-								accept="image/*" 
-								>
-								<input type="hidden" name="{{form.children.imagen.vars.full_name}}">
-							</div>
-						</div>
-						<div class="js-imagen-preview" style="{{form.children.categoria.vars.value!="clipping-de-prensa" and imagen is defined?"":"display:none;"}}">
-							<img src="{{form.children.categoria.vars.value!="clipping-de-prensa" and imagen is defined ?asset(imagen):""}}" width="100px" height="auto">
+						<div class="js-imagen-preview" style="{{imagen is defined ?"":"display:none"}}">
+							<img src="{{imagen is defined?imagen:""}}" width="100px" height="auto">
 							<i class="material-icons js-borrar-imagen">close</i>
 						</div>
-					</div>			
-				</div>
-				
-
-				
+					</div>
+				</div>				
 
 				<div id="botones" class="contenedor-botones row-start">
 
