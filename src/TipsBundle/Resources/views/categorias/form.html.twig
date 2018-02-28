@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+{% block javascripts %}
+	<script type="text/javascript" src="{{asset("/bundles/tips/js/form.js")}}"></script>
+{% endblock %}
+
+{% block title %}
+	{% if form.children.titulo.vars.value=="" %}
+		Nuevo Categoria
+	{% else %}
+		Editar Categoria
+	{% endif %}
+{% endblock %}
+{% block section %}
+
+	<section class="menu-brother">
+		<div class="container">
+			
+			{% if form.children.titulo.vars.value=="" %}
+				<h1>Nuevo Categoria</h1>
+			{% else %}
+				<h1>Editar Categoria</h1>
+			{% endif %}
+
+			<form method="{{form.vars.method}}" name="{{form.vars.full_name}}" enctype="multipart/form-data">
+
+				<h2>{{form.children.titulo.vars.label}}</h2>
+
+				<div class="input-field">
+					<input 
+					type="{{form.children.titulo.vars.block_prefixes.1}}" 
+					name="{{form.children.titulo.vars.full_name}}"
+					value="{{form.children.titulo.vars.value}}"
+					maxlength="{{form.children.titulo.vars.attr.maxlength}}" 
+					{{form.children.titulo.vars.required?"required":""}}
+					>					
+				</div>				
+
+				<div id="botones" class="contenedor-botones row-start">
+
+					<div>
+						<button
+						class="btn waver-effect"
+						type="submit" 
+						name="{{form.children.submit.vars.full_name}}"
+						>{{form.children.submit.vars.label}}</button>
+					</div>
+
+					{% if form.children.delete is defined %}
+						<div>
+							<button class="btn waver-effect red darken-4" href="" id="{{form.children.delete.vars.id}}">{{form.children.delete.vars.label}}</button>
+						</div>
+						<div style="display:none;">
+							<button
+							type="submit" 
+							name="{{form.children.delete.vars.full_name}}"							
+							>{{form.children.delete.vars.label}}</button>
+						</div>
+					{% endif %}
+
+					<div>
+						<a
+						class="btn waver-effect grey"
+						href="{{path("listado_categorias")}}"
+						
+						>Cancelar</a>
+					</div>
+
+				</div>
+				
+				<div>
+					<input 
+					type="hidden" 
+					name="{{form.children.id.vars.full_name}}"
+					value="{{form.children.id.vars.value}}"
+					>
+				</div>
+				<div>
+					<input 
+					type="hidden" 
+					name="{{form.children._token.vars.full_name}}"
+					value="{{form.children._token.vars.value}}">
+				</div>
+
+			</form>
+		</div>
+	</section>
+{% endblock %}
+
+{% block popup %}
+	<div id="popup" class="modal">
+		<div class="modal-content">
+			<div id="box">
+				<div id="message"></div>
+				<div id="box_options"></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
