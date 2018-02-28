@@ -15,6 +15,11 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
+use TipsBundle\Entity\Categoria;
+
+use Doctrine\ORM\EntityRepository;
 
 
 class TipForm extends AbstractType
@@ -50,17 +55,11 @@ class TipForm extends AbstractType
 
             array("destacado",CheckboxType::class,array("label"=>"Destacado","required"=>true,)),
 
-            array("categoria",ChoiceType::class,array("label"=>"Tipo","required"=>true,
-                "choices"=>array(
-                    "Actualidad"=>"actualidad",
-                    "Catálogo" => "catalogo",
-                    "Ferias"=>"ferias",
-                    "Energías alternativas"=>"energias-alternativas",
-                    "Vídeos"=>"videos",
-                    "Informes técnicos"=>"informes-tecnicos",
-                    "Webinarios"=>"webinarios",
-                    "Otros"=>"otros",
-                ))),
+            array("categorias",EntityType::class,array("label"=>"Tipo","required"=>true,"class"=>Categoria::class,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('c')
+                            ->orderBy('c.titulo', 'ASC');
+                    },"multiple"=>true,"expanded"=>true,'choice_label' => 'titulo',)),
 
             
             array("archivo_aux",FileType::class,array("label"=>"Archivo","required"=>true,)),            

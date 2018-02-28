@@ -9,54 +9,54 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-use TipsBundle\Entity\Tip;
-use TipsBundle\Form\TipForm;
+use TipsBundle\Entity\Categoria;
+use TipsBundle\Form\CategoriaForm;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class DefaultController extends BaseController
+class CategoriasController extends BaseController
 {
     /**
-     * @Route("",name="listado_tips")
+     * @Route("",name="listado_categorias")
      */
     public function listado()
     {
-        $params["tips"]=$this->findByField("TipsBundle:Tip",array(),array("creado"=>"DESC"));
+        $params["categorias"]=$this->findByField("TipsBundle:Categoria",array(),array("creado"=>"DESC"));
         
-        return $this->render('TipsBundle:Default:listado.html.twig',$params);
+        return $this->render('TipsBundle:categorias:listado.html.twig',$params);
     }
     /**
-     * @Route("añadir",name="añadir_tip")
+     * @Route("añadir",name="añadir_categoria")
      */
     public function añadir(Request $request)
     {
-        return $this->gestionar_tip($request);
+        return $this->gestionar_categoria($request);
     }
 
     /**
-     * @Route("editar/{id}",name="editar_tip")
+     * @Route("editar/{id}",name="editar_categoria")
      */
     public function editar(Request $request,$id)
     {
-        return $this->gestionar_tip($request,$id);
+        return $this->gestionar_categoria($request,$id);
     }
 
     /**
-     * @Route("eliminar",name="eliminar_tip")
+     * @Route("eliminar",name="eliminar_categoria")
      */
     public function eliminar(Request $request)
     {
         $id=$request->request->get("id");
 
-        $tip=$this->findById("TipsBundle:Tip",$id);        
+        $categoria=$this->findById("TipsBundle:Categoria",$id);
 
         
 
-        if($tip)
+        if($categoria)
         {
             try 
             {
-               $this->borrar_entity($tip);
+               $this->borrar_entity($categoria);
                $mensaje="Eliminado Correctamente";
                $status_code=200;
                 
@@ -68,96 +68,34 @@ class DefaultController extends BaseController
         }
         else
         {
-            $mensaje="Este archivo no existe";
+            $mensaje="Esta categoría no existe";
             $status_code=404;
         }
         return $this->json(array("status_code"=>$status_code,"message"=>$mensaje));
         
-    }
-    
-    /**
-     * @Route("estado",name="cambiar_estado_tip")
-     */
-    public function cambiar_estado(Request $request)
-    {
-        $id=$request->request->get("id");
+    }    
 
-        $tip=$this->findById("TipsBundle:Tip",$id);
-
-        if($tip==null)
-            return new JsonResponse(array("mensaje"=>"Este archivo no existe"),500);
-
-
-        $estado=!$tip->getVisible();
-
-        $tip->setVisible($estado);
-
-        try
-        {
-            $this->editar_entity($tip);            
-        }
-        catch(\Exception $e)
-        {
-            return new JsonResponse(array("mensaje"=>$this->mensaje_error($e)),500);
-        }
-
-        return new JsonResponse(array("estado"=>$estado,"mensaje"=>"El archivo se ha ".($estado?"activado":"desactivado")." satisfactoriamentes"));
-
-    }
-
-    /**
-     * @Route("destacado",name="cambiar_destacado_tip")
-     */
-    public function cambiar_destacado(Request $request)
-    {
-        $id=$request->request->get("id");
-
-        $tip=$this->findById("TipsBundle:Tip",$id);
-
-        if($tip==null)
-            return new JsonResponse(array("mensaje"=>"Este archivo no existe"),500);
-
-
-        $estado=!$tip->getDestacado();
-
-        $tip->setDestacado($estado);
-
-        try
-        {
-            $this->editar_entity($tip);            
-        }
-        catch(\Exception $e)
-        {
-            return new JsonResponse(array("mensaje"=>$this->mensaje_error($e)),500);
-        }
-
-        return new JsonResponse(array("estado"=>$estado,"mensaje"=>$estado?"El archivo ya está guardado como destacado":"El archivo ya no tiene la consideración de destacado"));
-
-    }
-
-
-    private function gestionar_tip(Request $request,$id=null)
+    private function gestionar_categoria(Request $request,$id=null)
     {
 		$accion=$id==null?"nuevo":"editar";
 
     	if($id==null)
-    		$tip= new Tip();
-    	else
-    	{
-    		$tip= $this->findById("TipsBundle:Tip",$id);
-    		$params["archivo"]=$tip->getArchivo();
-    	}
+    		$categoria= new Categoria();
+    	else    	
+    		$categoria= $this->findById("TipsBundle:Categoria",$id);
+    		
+    	
 
-    	if($tip==null)
+    	if($categoria==null)
     	{
 		    $this->addFlash("success","El archivo no existe");
-        	return $this->redirect($this->generateUrl("listado_tips"));
+        	return $this->redirect($this->generateUrl("listado_categorias"));
     	}
 
-    	$form 	= $this->createForm(TipForm::class,$tip);
+    	$form 	= $this->createForm(CategoriaForm::class,$categoria);
 
     	if($id!=null)
-            $form->add("delete",SubmitType::class, array("label"=>"Eliminar archivo"));
+            $form->add("delete",SubmitType::class, array("label"=>"Eliminar categoría"));
 
         $form	->  handleRequest($request);
         
@@ -190,7 +128,7 @@ class DefaultController extends BaseController
         				case 'editar':
         					try
 				        	{
-				        		$form->getData()->actualizar_archivo();
+				        		
 				        		//TODO: COMPROBAR DATOS
 				        	    $this->editar_entity($form->getData());
 				                $this->addFlash("success","Guardado Correctamente");				                
@@ -222,13 +160,13 @@ class DefaultController extends BaseController
 
         	if($redirect)
         	{
-        		return $this->redirect($this->generateUrl("listado_tips"));
+        		return $this->redirect($this->generateUrl("listado_categorias"));
         	}
         }
         
      	$params["form"] =   $form->createView();
 
-    	return $this->render('TipsBundle:Default:form.html.twig',$params);
+    	return $this->render('TipsBundle:categorias:form.html.twig',$params);
 
     }
 }

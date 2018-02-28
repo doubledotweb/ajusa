@@ -41,17 +41,19 @@ class Tip extends Archivo
     /**
      * @ORM\Column(type="boolean")
      */
-    private $destacado;
-
-	/**
-     * @ORM\Column(type="string")
-     */
-	private $categoria;
+    private $destacado;	
 
 	/**
      * @ORM\Column(type="string")
      */
 	private $archivo;
+
+    /**
+     * Many Users have Many Groups.
+     * @ORM\ManyToMany(targetEntity="\TipsBundle\Entity\Categoria", inversedBy="tips")
+     * @ORM\JoinTable(name="tips_categorias")
+     */
+    private $categorias;
 
 	public $archivo_aux;
 
@@ -68,8 +70,7 @@ class Tip extends Archivo
     {
         $fecha=date("Y/m/d");
 
-        $this->archivo=$this->subir($this->archivo_aux,"/archivos/".$fecha.
-            "/");
+        $this->archivo=$this->subir("/archivos/".$fecha."/",$this->archivo_aux);
     }
 
 
@@ -82,7 +83,7 @@ class Tip extends Archivo
         {
             $this->borrar($this->archivo);
 
-            $this->archivo=$this->subir($this->archivo_aux,"/archivos/".$fecha."/");
+            $this->archivo=$this->subir("/archivos/".$fecha."/",$this->archivo_aux);
         }        
     }
 
@@ -295,5 +296,39 @@ class Tip extends Archivo
     public function getDestacado()
     {
         return $this->destacado;
+    }
+
+    /**
+     * Add categoria
+     *
+     * @param \TipsBundle\Entity\Categoria $categoria
+     *
+     * @return Tip
+     */
+    public function addCategoria(\TipsBundle\Entity\Categoria $categoria)
+    {
+        $this->categorias[] = $categoria;
+
+        return $this;
+    }
+
+    /**
+     * Remove categoria
+     *
+     * @param \TipsBundle\Entity\Categoria $categoria
+     */
+    public function removeCategoria(\TipsBundle\Entity\Categoria $categoria)
+    {
+        $this->categorias->removeElement($categoria);
+    }
+
+    /**
+     * Get categorias
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategorias()
+    {
+        return $this->categorias;
     }
 }

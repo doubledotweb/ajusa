@@ -85,18 +85,23 @@
 						{{form.children.destacado.vars.label}}
 					</label>
 				</div>
-
-				<h2>{{form.children.categoria.vars.label}}</h2>
+				
+				<h2>{{form.children.categorias.vars.label}}</h2>
 
 				<div class="input-field">
-					<select name="{{form.children.categoria.vars.full_name}}" {{form.children.categoria.vars.required?"required":""}}>
 
-						<option value=""></option>
+					
 
-						{% for choice in form.children.categoria.vars.choices %}
-						    <option value="{{choice.value}}" {{choice.value==form.children.categoria.vars.value?"selected":""}}>{{choice.label}}</option>
-						{% endfor %}
-					</select>
+					{% for choice in form.children.categorias.children %}
+						    <input 
+						    	type="checkbox" 
+						    	name="{{choice.vars.full_name}}" 
+						    	value="{{choice.vars.value}}"
+						    	id="{{choice.vars.id}}"
+						    	>
+						    <label for="{{choice.vars.id}}">{{choice.vars.label}}</label>
+					{% endfor %}
+					
 				</div>
 
 
