@@ -13,6 +13,11 @@ categorias:
     type:     annotation
     prefix:   /manager/categorias/
 
+keywords:
+    resource: "@TipsBundle/Controller/KeywordsController.php"
+    type:     annotation
+    prefix:   /manager/keywords/
+
 destcados:
     resource: "@DestcadosBundle/Controller/"
     type:     annotation
