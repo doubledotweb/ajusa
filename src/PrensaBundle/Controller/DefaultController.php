@@ -132,16 +132,15 @@ class DefaultController extends BaseController
         	return $this->redirect($this->generateUrl("listado_destacados"));
     	}
 
+        $params["archivo"]=$descargable->getArchivo();
 
         switch ($descargable->getCategoria()) 
-        {
-            case 'clipping-de-prensa':
-                $params["archivo"]=$descargable->getArchivo();
-            break;
-            
+        {        
             case "logotipo":
             case "imagen":
-                $params["imagen"]=$descargable->getArchivo();
+            
+                if($descargable->getMiniatura()!="")
+                    $params["imagen"]=$descargable->getMiniatura();
                 
             break;
         }
@@ -183,7 +182,7 @@ class DefaultController extends BaseController
         					try
 				        	{
                                                                 
-				        		$form->getData()->actualizar_archivo();
+				        		
 				        		//TODO: COMPROBAR DATOS
 				        	    $this->insertar_entity($form->getData());
 				                $this->addFlash("success","Guardado Correctamente");				                

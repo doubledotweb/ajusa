@@ -8,7 +8,7 @@ $(document).ready(function(e)
 	$('input[name="'+name+'[categoria]"]').on("change",cambio_categoria);
 
 
-	$('input[name="'+name+'[archivo_aux]"],#fake_button_file').on("change",gestion_archivo);	
+	$('input[name="'+name+'[archivo_aux]"]').on("change",gestion_archivo);	
 
 	$("#"+name+"_delete").on("click",borrar);
 
@@ -99,20 +99,14 @@ function cambio_categoria(e)
 {
 	var categoria=$(this).val();
 
-	if(categoria=="clipping-de-prensa")
-	{
-		$(".js-archivo").show();
-		$(".js-archivo input[name]").attr('requried',1);
-		$("#fake_button_file").removeAttr("required");
-		$(".js-imagen").hide();
-	}
+	if(categoria=="clipping-de-prensa")		
+
+		$('.js-archivo input[name="'+name+'[archivo_aux]"]').attr('accept',".pdf,.doc,.zip");
+	
 	else
-	{
-		$(".js-archivo").hide();
-		$(".js-imagen").show();
-		$("#fake_button_file").attr('requried',1);
-		$(".js-archivo input[name]").removeAttr("required");
-	}
+
+		$('.js-archivo input[name="'+name+'[archivo_aux]"]').attr('accept',"image/*");
+	
 }
 
 function gestion_archivo(e)
@@ -165,22 +159,16 @@ function enviar_form(event)
 {
 	var categoria=$('input[name="'+name+'[categoria]"]:checked').val();
 
-	var archivo_size=0;
-
+	var archivo_size=$('input[name="'+name+'[archivo_aux]"]')[0].files[0].size/1024/1024;
+	var mini_size=0;
 	switch(categoria)
-	{
-
-		case "clipping-de-prensa":
-			if($('input[name="'+name+'[archivo_aux]"]')[0].files.length>0)
-				archivo_size=$('input[name="'+name+'[archivo_aux]"]')[0].files[0].size/1024/1024;
-		break;
-
+	{		
 		case "logotipo":
 		case "imagen":
 			var imagen=$('input[name="'+name+'[imagen]"]').val();
 
 			var head = imagen.substr(0,imagen.indexOf(","));
-			archivo_size = Math.round((imagen.length - head.length)*3/4)/1024/1024 ;
+			mini_size = Math.round((imagen.length - head.length)*3/4)/1024/1024 ;
 
 		break
 	
@@ -188,7 +176,7 @@ function enviar_form(event)
 
 	
 
-	if( archivo_size>2)
+	if( archivo_size>2 || mini_size>2)
 	{
 		event.preventDefault();
 		mostrar_popup("El archivo supera el tamaño máximo permitido","ok");
@@ -201,12 +189,11 @@ function enviar_form(event)
 
 	if(categoria=="imagen"||categoria=="logotipo")
 	{
-		if($("#fake_button_file")[0].files.length)
-		{
+		
 
-			var nombre_imagen=$("#fake_button_file")[0].files[0].name;
+			var nombre_imagen=$('input[name="'+name+'[archivo_aux]"]')[0].files[0].name;
 
 			$('input[name="'+name+'[imagen]"]').val(nombre_imagen+"+-+"+$('input[name="'+name+'[imagen]"]').val());
-		}
+		
 	}
 }

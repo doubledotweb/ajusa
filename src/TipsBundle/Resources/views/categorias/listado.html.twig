@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorias{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{asset("/bundles/tips/js/listado.js")}}"></script>
+{% endblock %}
+
+{% block section %}
+
+<section class="menu-brother">
+
+	
+	<div class="container-table">
+		<div class="contenedor-titulo row-between">	
+			<h1>Categorias</h1>
+			<a class="btn waves-effect" href="{{path("añadir_categoria")}}">Añadir nuevo</a>
+		</div>
+		<div class="contenedor-tabla">
+
+			<table class="table-js striped">
+				<thead>
+					<tr>
+						<th class="fecha">Alta</th>
+						<th class="nombre">Título</th>
+						<th class="opciones">Opciones</th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+					{% for categoria in categorias %}
+
+					<tr class="categoria" id="{{categoria.id}}">
+						<td class="fecha">{{categoria.creado|date("d/m/Y H:i:s")}}</td>
+						<td class="nombre">{{categoria.titulo}}</td>
+						<td class="opcion">
+							
+							<a class="ver" href="{{path("editar_categoria",{"id":categoria.id})}}"><span><i class="material-icons" >edit</i></span></a>
+							<a class="borrar" href="{{path("eliminar_categoria")}}"><span><i class="material-icons" >delete</i></span></a>
+						</td>
+					</tr>
+
+					{% endfor %}
+
+				</tbody>
+			</table>
+
+		</div>
+
+
+
+
+	</div>
+
+</section>
+
+{% endblock %}
+
+
+{% block popup %}
+
+	<div id="popup" class="modal">
+		<div class="modal-content">
+			<div id="box">
+				<div id="message"></div>
+				<div id="box_options"></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

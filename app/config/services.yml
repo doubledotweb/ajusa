@@ -43,6 +43,10 @@ services:
       class: AppBundle\Service\Acceso
       calls:
         - [setContainer, ["@service_container"]]
+
+    normalizator:
+      class: AppBundle\Service\Normalizator
+      
         
 
     app.test_voter:

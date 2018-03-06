@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
@@ -24,7 +25,7 @@ class Archivo extends Entity
         return false;
     }
 
-    protected function subir($file,$carpeta)
+    protected function subir($carpeta,UploadedFile $file)
     {      
           if($file!=null)
           {

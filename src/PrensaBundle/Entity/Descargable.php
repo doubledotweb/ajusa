@@ -48,51 +48,58 @@ class Descargable extends Archivo
      */
 	private $archivo;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $miniatura;
+
 	public $archivo_aux;
     public $imagen;
 
+    public $miniatura_aux;
+
 	public function __construct()
 	{
-		$this->visible=false;        
+		$this->visible=false;
+        $this->miniatura="";
 	}
 
     /** 
-     * @ORM\PrePersist
-     */
-    public function subir_archivo()
-    {
-        $fecha=date("Y/m/d");
-
-        $this->archivo=$this->subir($this->archivo_aux,"/descargables/".$fecha.
-            "/");
-    }
-
-
-    
+     * @ORM\PrePersist     
+     */        
     public function actualizar_archivo()
     {
         $fecha=date("Y/m/d");        
 
+        if($this->miniatura!="" || $this->miniatura!=null)
+            $this->borrar($this->miniatura);
 
         switch ($this->categoria) 
         {
             case 'clipping-de-prensa':
-                if($this->archivo_aux!=null)
-                {
+                
+                if($this->archivo!="" || $this->archivo!=null)
                     $this->borrar($this->archivo);
-                    
-                    $this->archivo=$this->subir($this->archivo_aux,"/archivos/".$fecha."/");
-                }
+                
+                $this->archivo=$this->subir("/archivos/".$this->categoria."/".$fecha."/",$this->archivo_aux);
+                $this->miniatura="";
+
             break;
             
             case "logotipo":
             case "imagen":
-                if($this->imagen!=null)
-                {
+                
+                if($this->archivo!="" || $this->archivo!=null)
                     $this->borrar($this->archivo);
 
-                    $this->archivo=$this->subir_base64("/archivos/".$fecha."/",$this->imagen);
-                }
+                if($this->miniatura!="" || $this->miniatura!=null)
+                    $this->borrar($this->miniatura);
+
+                
+                $this->archivo=$this->subir("/archivos/".$this->categoria."/".$fecha."/",$this->archivo_aux);
+
+                $this->miniatura=$this->subir_base64("/archivos/".$this->categoria."/miniaturas/".$fecha."/",$this->imagen);
+                
             break;
         }
         
@@ -282,5 +289,29 @@ class Descargable extends Archivo
     public function getModificado()
     {
         return $this->modificado;
+    }
+
+    /**
+     * Set miniatura
+     *
+     * @param string $miniatura
+     *
+     * @return Descargable
+     */
+    public function setMiniatura($miniatura)
+    {
+        $this->miniatura = $miniatura;
+
+        return $this;
+    }
+
+    /**
+     * Get miniatura
+     *
+     * @return string
+     */
+    public function getMiniatura()
+    {
+        return $this->miniatura;
     }
 }

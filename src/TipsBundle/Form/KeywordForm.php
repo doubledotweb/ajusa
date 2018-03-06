@@ -15,15 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-
-use TipsBundle\Entity\Categoria;
-use TipsBundle\Entity\Keyword;
-
-use Doctrine\ORM\EntityRepository;
 
 
-class TipForm extends AbstractType
+class KeywordForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -36,7 +30,7 @@ class TipForm extends AbstractType
 
     public function getName()
     {
-        return 'tip';        
+        return 'keyword';        
     }
 
 
@@ -52,25 +46,6 @@ class TipForm extends AbstractType
 
             array("titulo",TextType::class,array("label"=>"Título","required"=>true,"attr"=>array("maxlength"=>255))),
 
-            array("visible",CheckboxType::class,array("label"=>"Visible","required"=>true,)),
-
-            array("destacado",CheckboxType::class,array("label"=>"Destacado","required"=>true,)),
-
-            array("categorias",EntityType::class,array("label"=>"Tipo","required"=>true,"class"=>Categoria::class,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('c')
-                            ->orderBy('c.titulo', 'ASC');
-                    },"multiple"=>true,"expanded"=>true,'choice_label' => 'titulo',)),
-
-            array("keywords",EntityType::class,array("label"=>"Keywords","required"=>true,"class"=>Keyword::class,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('k')
-                            ->orderBy('k.titulo', 'ASC');
-                    },"multiple"=>true,"expanded"=>true,'choice_label' => 'titulo',)),
-
-            
-            array("archivo_aux",FileType::class,array("label"=>"Archivo","required"=>true,)),            
-            
             array("submit",SubmitType::class, array("label"=>"Guardar")),
             );
 

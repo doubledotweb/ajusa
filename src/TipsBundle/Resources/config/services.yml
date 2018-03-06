@@ -1,4 +1,7 @@
 services:
-#    tips.example:
-#        class: TipsBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+  my.listener:
+    class: TipsBundle\Events\Listener
+    arguments: ["@normalizator"]
+    tags:
+        - { name: doctrine.event_listener, event: prePersist }
+        - { name: doctrine.event_listener, event: preUpdate }
