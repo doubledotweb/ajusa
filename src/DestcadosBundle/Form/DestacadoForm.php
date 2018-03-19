@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 
 class DestacadoForm extends AbstractType
@@ -64,12 +65,12 @@ class DestacadoForm extends AbstractType
             array("imagen",ChoiceType::class,array("label"=>"Imagen","required"=>true,"choices"=>array(1,2),"multiple"=>false,"expanded"=>true)),
 
 
-            array("resumen",TextType::class,array("label"=>"Resumen","required"=>true,"attr"=>array("maxlength"=>500))),                 
+            array("resumen",TextType::class,array("label"=>"Resumen","required"=>false,"attr"=>array("maxlength"=>500))),                 
 
 
-            array("texto_enlace",TextType::class,array("label"=>"Texto enlace","required"=>true,"attr"=>array("maxlength"=>100))),
+            array("texto_enlace",TextType::class,array("label"=>"Texto enlace","required"=>false,"attr"=>array("maxlength"=>100))),
 
-            array("enlace",TextType::class,array("label"=>"Enlace","required"=>true,"attr"=>array("maxlength"=>300))),
+            array("enlace",UrlType::class,array("label"=>"Enlace","required"=>false,"attr"=>array("maxlength"=>300))),
 
             
             array("submit",SubmitType::class, array("label"=>"Guardar")),

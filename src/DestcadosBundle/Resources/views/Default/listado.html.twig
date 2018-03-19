@@ -10,7 +10,7 @@
 
 <section class="menu-brother">
 
-	
+	{% set lang = {"es":"Español","en":"Inglés"} %}
 	<div class="container-table">
 		<div class="contenedor-titulo row-between">	
 			<h1>Destacados</h1>
@@ -23,6 +23,7 @@
 					<tr>
 						<th class="fecha">Alta</th>
 						<th class="nombre">Título</th>
+						<th class="visible">Idioma</th>
 						<th class="tipo">Tipo</th>						
 						<th class="visible">visible</th>
 						<th class="opciones">Opciones</th>
@@ -36,12 +37,13 @@
 					<tr class="destacado" id="{{destacado.id}}">
 						<td class="fecha">{{destacado.creado|date("d/m/Y H:i:s")}}</td>
 						<td class="nombre">{{destacado.titulo}}</td>
+						<th class="visible">{{lang[destacado.idioma]}}</th>
 						<td class="tipo">{{categorias[destacado.tipo]}}</td>						
-						<td class="visible">{{(destacado.visible)?"Activado":"Desactivado"}}</td>
+						<td class="visible"><a class="estado" href="{{path("cambiar_estado_destacado")}}"><span><i class="material-icons" title="{{destacado.visible==false?"Hacer Visible":"Hacer No Visible"}}">{{destacado.visible==true?"check":"block"}}</i></span></a></td>
 						<td class="opcion">
-							<a class="ver" href="{{path("editar_destacado",{"id":destacado.id})}}"><span><i class="material-icons" >edit</i></span></a>
-							<a class="borrar" href="{{path("eliminar_destacado")}}"><span><i class="material-icons" >delete</i></span></a>
-							<a class="estado" href="{{path("cambiar_estado_destacado")}}"><span><i class="material-icons" >{{destacado.visible==false?"check":"block"}}</i></span></a>
+							<a class="ver" href="{{path("editar_destacado",{"id":destacado.id})}}"><span><i class="material-icons" title="Editar">edit</i></span></a>
+							<a class="borrar" href="{{path("eliminar_destacado")}}"><span><i class="material-icons" title="Borrar">delete</i></span></a>
+							
 						</td>
 					</tr>
 

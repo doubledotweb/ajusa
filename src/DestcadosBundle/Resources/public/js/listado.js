@@ -13,7 +13,7 @@ $(document).ready(function()
 	tabla(params);
 	$(".borrar").on("click",borrar);
 
-	$(".opcion .estado").on("click",estado);
+	$(".estado").on("click",estado);
 
 	$("#popup #box_options").on("click","#accept",borrar_destacado);
 	$("#popup #box_options").on("click","#decline",cancelar);
@@ -77,8 +77,8 @@ function estado(e)
 		"entity":"destacado",
 		"success":function(data)
 		{			
-			opcion.find('.material-icons').text(data.estado?"block":"check");
-			opcion.parents(".destacado").find("td.visible").text(data.estado?"Activado":"Desactivado");
+			opcion.find('.material-icons').text(data.estado?"check":"block");
+			
 			mostrar_popup(data.mensaje,"ok");
 		},
 		"fail":"Ha habido un error"

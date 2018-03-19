@@ -63,7 +63,8 @@ function cambiar_imagen(e)
 	$('input[name="'+name+'[imagen]"]').each(function(index, el) 
 	{
 		var value=$(this).val();
-		$(this).siblings('img').attr('src', '/bundles/destcados/img/'+cat+'_'+value+".jpg");
+		$(this).siblings("label").find('img').attr('src', '/bundles/destcados/img/'+cat+'_'+value+".jpg");
+		$(this).siblings('label').find("img").show();
 	});
 
 

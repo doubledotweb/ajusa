@@ -40,9 +40,20 @@
 					type="{{form.children.apellido.vars.block_prefixes.1}}" 
 					name="{{form.children.apellido.vars.full_name}}"
 					value="{{form.children.apellido.vars.value}}"
-					required 
+					required
+					maxlength="255" 
 					>
 					<label for="{{form.children.apellido.vars.full_name}}">{{form.children.apellido.vars.label}}</label>
+				</div>
+
+				<div class="input-field">
+					<input 
+					type="{{form.children.departamento.vars.block_prefixes.1}}" 
+					name="{{form.children.departamento.vars.full_name}}"
+					value="{{form.children.departamento.vars.value}}"
+					required 
+					>
+					<label for="{{form.children.departamento.vars.full_name}}">{{form.children.departamento.vars.label}}</label>
 				</div>
 
 

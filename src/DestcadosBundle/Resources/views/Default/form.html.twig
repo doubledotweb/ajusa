@@ -93,7 +93,7 @@
 					{% for key,tipo in form.children.imagen.children %}
 						<div>
 
-							<img src="{{asset("/bundles/destcados/img/"~form.children.tipo.vars.value~"_"~(key+1)~".jpg")}}" style="{{form.children.tipo.vars.value?"":"display:none"}}" height="150px">
+							
 							<input 
 							type="radio" 
 							id="{{tipo.vars.id}}"
@@ -102,7 +102,7 @@
 							{{tipo.vars.checked?"checked":""}}
 							{{tipo.vars.required?"required":""}}
 							>
-							<label for="{{tipo.vars.id}}">{{tipo.vars.label}}</label>
+							<label for="{{tipo.vars.id}}"><img src="{{asset("/bundles/destcados/img/"~form.children.tipo.vars.value~"_"~(key+1)~".jpg")}}" style="{{form.children.tipo.vars.value?"":"display:none"}}" height="150px"></label>
 
 						</div>
 
@@ -136,7 +136,7 @@
 
 				<div class="input-field">
 					<input 
-					type="{{form.children.enlace.vars.block_prefixes.1}}" 
+					type="url" 
 					name="{{form.children.enlace.vars.full_name}}"
 					value="{{form.children.enlace.vars.value}}"
 					maxlength="{{form.children.enlace.vars.attr.maxlength}}" 

@@ -43,6 +43,8 @@ class UserForm extends AbstractType
             array("id",HiddenType::class, array("label"=>false,"mapped"=>false)),
 
             array("nombre",TextType::class,array("label"=>"Nombre","attr"=>array("required"=>true,"id" => "nombre",))),
+
+            array("departamento",TextType::class,array("label"=>"Departamento","attr"=>array("required"=>true,"id" => "nombre",))),
             
             array("apellido",TextType::class,array("label"=>"Apellido","attr"=>array("required"=>true,"id" => "apellido",))),
 
