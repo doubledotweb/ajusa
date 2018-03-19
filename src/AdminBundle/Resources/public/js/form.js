@@ -3,7 +3,7 @@ $(document).ready(function()
 	tiempo_mensaje();
 	$("#user_form_delete").on("click",borrar);
 
-	$("form").on("click",comprobar_contraseñas);	
+	$('button[type="submit"]').on("click",comprobar_contraseñas);	
 
 	name=$("form").attr("name");
 
@@ -65,6 +65,8 @@ function comprobar_contraseñas(e)
 
 		real.addClass('error');
 		verificada.addClass('error');
+		mostrar_popup("Las contraseñas no coinciden","ok");
+		$("#popup #box_options").on("click","#decline",cancelar);
 	}
 
 
