@@ -27,12 +27,7 @@ class CategoriasController extends BaseController
      */
     public function indexAction()
     {   
-        $params["categorias"] = $this->findByField("CategoriasBundle:Categoria");        
-        
-        foreach ($params["categorias"] as $categoria) 
-        {
-            $params["total"][$categoria->getId()]=$this->noticias_categoria($categoria);
-        }
+        $params["categorias"] = $this->findByField("CategoriasBundle:Categoria");
 
         return $this->render('CategoriasBundle:Default:categorias.html.twig',$params);
     }
@@ -183,47 +178,7 @@ class CategoriasController extends BaseController
 
     	foreach ($categoria->getNombre() as $lang => $value) 
     	{
-    		$aux[$lang]=strtolower(str_replace(" ", "-", $value));
-
-            $rules=array(
-                "á"=>"a",
-            "é"=>"e",
-            "í"=>"i",
-            "ó"=>"o",
-            "ú"=>"u",
-            "Á"=>"a",
-            "É"=>"e",
-            "Í"=>"i",
-            "Ó"=>"o",
-            "Ú"=>"u",
-            "´"=>"",
-            "ñ"=>"n",
-            "ä"=>"a",
-            "ë"=>"e",
-            "ï"=>"i",
-            "ö"=>"o",
-            "ü"=>"u",
-            "Ä"=>"a",
-            "Ë"=>"e",
-            "Ï"=>"i",
-            "Ö"=>"o",
-            "Ü"=>"u",
-            "."=>"",
-            ","=>"",
-            ":"=>"",
-            "¿"=>"",
-            "?"=>"",
-            "¡"=>"",
-            "!"=>"",
-            "'"=>"",
-            '"'=>"",
-            "’"=>"",
-            "‘"=>"",
-            );
-            foreach ($rules as $key => $value) 
-            {
-                $aux[$lang]=str_replace($key, $value, $aux[$lang]);
-            }
+    		$aux[$lang]=$this->container->get("normalizator")->calculate_slug($aux[$lang]);
 
             
     		$result = $em->createQuery("SELECT c FROM CategoriasBundle:Categoria c where c.slug like :nombre")->setParameter("nombre","%".$aux[$lang]."%")->getResult();
@@ -240,7 +195,7 @@ class CategoriasController extends BaseController
     }
 
 
-    private function noticias_categoria($categoria)
+    /*private function noticias_categoria($categoria)
     {
         $em=$this->getDoctrine()->getManager();
         $rsm = new ResultSetMapping();
@@ -251,5 +206,5 @@ class CategoriasController extends BaseController
 
         return count($result);
         
-    }
+    }*/
 }
