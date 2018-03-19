@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Noticias") 
+ * @ORM\Table(name="noticias") 
  * @ORM\HasLifecycleCallbacks()
  */
 class Noticia
@@ -108,14 +108,14 @@ class Noticia
         $this->fecha_publicacion= new \DateTime("now");
         $this->visible      = true;
 
-    	$this->titulo 		= array("es"=>null,"en"=>null,"pt"=>null);
-        $this->idioma       = array("es"=>true,"en"=>false,"pt"=>false);
-        $this->entradilla   = array("es"=>null,"en"=>null,"pt"=>null);
-        $this->imagen       = array("es"=>null,"en"=>null,"pt"=>null);
-        $this->imagen_aux   = array("es"=>null,"en"=>null,"pt"=>null);
-        $this->descargable_aux   = array("es"=>null,"en"=>null,"pt"=>null);
-        $this->cuerpo         = array("es"=>null,"en"=>null,"pt"=>null);
-    	$this->slug      	= array("es"=>null,"en"=>null,"pt"=>null);
+    	$this->titulo 		= array("es"=>null,"en"=>null);
+        $this->idioma       = array("es"=>true,"en"=>false);
+        $this->entradilla   = array("es"=>null,"en"=>null);
+        $this->imagen       = array("es"=>null,"en"=>null);
+        $this->imagen_aux   = array("es"=>null,"en"=>null);
+        $this->descargable_aux   = array("es"=>null,"en"=>null);
+        $this->cuerpo         = array("es"=>null,"en"=>null);
+    	$this->slug      	= array("es"=>null,"en"=>null);
 
         $this->likes=0;
         $this->hints=0;

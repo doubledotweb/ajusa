@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cerca de ti{% endblock %}
+{% block title %}Noticias{% endblock %}
 {% block stylesheets %}
 <link rel="stylesheet" type="text/css" href="{{asset("/bundles/noticias/css/admin.css")}}">
 {% endblock %}
@@ -16,8 +16,8 @@
 	
 	<div class="container-table">
 		<div class="contenedor-titulo row-between">	
-			<h1>{{"Cerca de ti"|trans}}</h1>
-			<a class="btn waves-effect" href="{{path("anadir_noticia")}}">{{"Añadir nuevo"|trans}}</a>
+			<h1>Noticias</h1>
+			<a class="btn waves-effect" href="{{path("anadir_noticia")}}">Añadir nuevo</a>
 		</div>
 		<div class="contenedor-tabla">
 
