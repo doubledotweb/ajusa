@@ -1,0 +1,7 @@
+i.material-icons.js-borrar-item {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 100000;
+    cursor: pointer;
+}

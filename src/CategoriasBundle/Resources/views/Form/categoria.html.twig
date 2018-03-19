@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %} 
+    <script type="text/javascript" src="{{asset("/bundles/categorias/js/form.js")}}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block title %}
+	{% if form.children.nombre.vars.value=="" %}
+	    {{"Nuevo Categoría"|trans}}
+	{% else %}
+	    {{"Editar Categoría"|trans}}
+	{% endif %}
+{% endblock %}
+
+
+{% block section %}
+	<section class="menu-brother">		
+		<div class="container">
+			{% if form.children.nombre.vars.value=="" %}
+			    <h1>{{"Nuevo Categoría"|trans}}</h1>
+			{% else %}
+			    <h1>{{"Editar Categoría"|trans}}</h1>
+			{% endif %}
+
+			<form method="post" enctype="multipart/form-data" name="{{form.vars.full_name}}">
+				
+				{% set  aux = {"es":"español","en":"inglés"} %}
+
+				<h2>Nombre de la categoría</h2>
+
+				{% for index,idioma in form.children.nombre.children %}
+				<h3 class="capitalize">{{aux[index]}}</h3>
+					<div class="input-field">
+						<input 
+							id="{{idioma.vars.id}}"
+							type="{{idioma.vars.block_prefixes.1}}" 
+							name="{{idioma.vars.full_name}}"
+							value="{{idioma.vars.value}}"
+							maxlength="{{idioma.vars.attr.maxlength}}" 
+
+							>							
+						<label id="{{idioma.vars.id}}">Nombre para {{aux[index]}}</label>
+					</div>
+				{% endfor %}
+
+
+				<div id="botones" class="contenedor-botones row-start">
+
+					<div>
+						<button
+						class="btn waver-effect"
+						type="submit" 
+						name="{{form.children.submit.vars.full_name}}"
+						>{{form.children.submit.vars.label}}</button>
+					</div>
+
+					{% if form.children.delete is defined %}
+						<div>
+							<button class="btn waver-effect red darken-4" href="" id="js-delete">{{form.children.delete.vars.label}}</button>
+						</div>
+						<div style="display:none;">
+							<button
+							type="submit" 
+							name="{{form.children.delete.vars.full_name}}"							
+							>{{form.children.delete.vars.label}}</button>
+						</div>
+					{% endif %}
+
+					<div>
+						<a
+						class="btn waver-effect grey"
+						href="{{path("listado_categorias")}}"
+						
+						>Cancelar</a>
+					</div>
+
+				</div>	
+				
+				<div>
+					<input 
+					type="hidden" 
+					name="{{form.children._token.vars.full_name}}"
+					value="{{form.children._token.vars.value}}">
+				</div>
+				
+			</form>
+		</div>
+	</section>
+	
+
+{% endblock %}
