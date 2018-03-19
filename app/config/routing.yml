@@ -1,3 +1,9 @@
+noticias:
+    resource: "@NoticiasBundle/Resources/config/routing.yml"
+    
+categorias:
+    resource: "@CategoriasBundle/Resources/config/routing.yml"
+
 prensa:
     resource: "@PrensaBundle/Controller/"
     type:     annotation
