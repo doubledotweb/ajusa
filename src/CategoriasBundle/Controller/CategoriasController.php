@@ -192,19 +192,5 @@ class CategoriasController extends BaseController
         $categoria->setSlug($aux);
 
         return $categoria;
-    }
-
-
-    /*private function noticias_categoria($categoria)
-    {
-        $em=$this->getDoctrine()->getManager();
-        $rsm = new ResultSetMapping();
-        $rsm->addEntityResult('NoticiasBundle:Noticia', 'u');
-        $rsm->addFieldResult('u', 'id', 'id');      
-        
-        $result=$em->createNativeQuery("SELECT n.id FROM noticia n, noticias_categorias nc where n.id=nc.noticia_id and nc.categoria_id=?",$rsm)->setParameter(1,$categoria->getId())->getResult();
-
-        return count($result);
-        
-    }*/
+    }    
 }
