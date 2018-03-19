@@ -1,0 +1,5 @@
+noticias:
+    resource: "@NoticiasBundle/Controller/"
+    type:     annotation
+    prefix:   /manager/noticias/
+

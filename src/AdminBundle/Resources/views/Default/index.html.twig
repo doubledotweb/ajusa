@@ -43,9 +43,9 @@
 						<td class="email">{{admin.username}}</td>
 						<td class="estado">{{(admin.isActive)?"Activado":"Desactivado"}}</td>
 						<td class="opcion">
-							<a class="ver" href="{{path("editar_admin",{"id":admin.id})}}"><span><i class="material-icons" >edit</i></span></a>
-							<a class="borrar" href="{{path("eliminar_admin",{"id":admin.id})}}"><span><i class="material-icons" >delete</i></span></a>
-							<a class="estado" href="{{path("cambiar_estado")}}"><span><i class="material-icons" >{{admin.isActive==false?"check":"block"}}</i></span></a>
+							<a class="ver" href="{{path("editar_admin",{"id":admin.id})}}"><span><i class="material-icons" title="Editar">edit</i></span></a>
+							<a class="borrar" href="{{path("eliminar_admin",{"id":admin.id})}}"><span><i class="material-icons" title="Borrar">delete</i></span></a>
+							<a class="estado" href="{{path("cambiar_estado")}}"><span><i class="material-icons" title="{{admin.isActive==false?"Habilitar Usario":"Bloquear Usuario"}}">{{admin.isActive==false?"check":"block"}}</i></span></a>
 						</td>
 					</tr>
 

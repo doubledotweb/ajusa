@@ -18,6 +18,11 @@ class Admin extends Usuario
      * @ORM\Column(type="string")
      */
     private $apellido;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $departamento;
     
 
 
@@ -78,4 +83,28 @@ class Admin extends Usuario
     }
 
     
+
+    /**
+     * Set departamento
+     *
+     * @param string $departamento
+     *
+     * @return Admin
+     */
+    public function setDepartamento($departamento)
+    {
+        $this->departamento = $departamento;
+
+        return $this;
+    }
+
+    /**
+     * Get departamento
+     *
+     * @return string
+     */
+    public function getDepartamento()
+    {
+        return $this->departamento;
+    }
 }

@@ -108,9 +108,9 @@ class DefaultController extends BaseController
         {
            $user=$this->getCurrentUser();
 
-           $params["perfil"]=true;
         }
         
+           $params["perfil"]=true;
         $form=$this->createForm(UserForm::class,$user);
 
         if($id==null)
@@ -133,7 +133,7 @@ class DefaultController extends BaseController
 
         if($form->isSubmitted() && $form->isValid()) 
         {
-            $redirect=false;	
+            $redirect=true;	
             
         	switch ($form->getClickedButton()->getName()) 
         	{
@@ -141,10 +141,16 @@ class DefaultController extends BaseController
     				try
 		        	{
                         if($params["perfil"] and $form->get("password")->getData()!=null and $form->get("password")->getData()!="" )
+                        {
                             $form->getData()->setPassword($form->get("password")->getData());
+                            $this->insertar_usuario($form->getData());     
+                        }
+                        else
+                        {
+
+                            $this->insertar_entity($form->getData());
                         
-                        
-		        		$this->insertar_usuario($form->getData());     
+                        }  
 		        		$this->addFlash("success","Guardado Correctamente");  
 		        	}
 		        	catch(\Exception $e)

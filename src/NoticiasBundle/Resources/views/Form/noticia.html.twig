@@ -28,7 +28,7 @@
 
 		<form method="post" enctype="multipart/form-data" name="{{form.vars.full_name}}">
 
-			{% set  aux = {"es":"Español","en":"Inglés","pt":"Portugués"} %}
+			{% set  aux = {"es":"Español","en":"Inglés"} %}
 
 			<div class="input-field">
 				<input type="text" name="{{form.children.fecha_publicacion.vars.full_name}}" value="{{form.children.fecha_publicacion.vars.value|date("d/m/Y")}}"

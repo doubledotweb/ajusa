@@ -45,7 +45,8 @@ services:
         - [setContainer, ["@service_container"]]
 
     normalizator:
-      class: AppBundle\Service\Normalizator
+        public: true
+        class: AppBundle\Service\Normalizator
       
         
 

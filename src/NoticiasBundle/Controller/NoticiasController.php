@@ -21,8 +21,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class NoticiasController extends BaseController
 {
     /**
-     * @Route("/manager/noticias",name="listado_noticias")
-     * @Security("is_granted('cerca-de-ti')")
+     * @Route("",name="listado_noticias")
+     
      */
     public function indexAction()
     {
@@ -32,8 +32,8 @@ class NoticiasController extends BaseController
     }
 
     /**
-     * @Route("/manager/noticias/anadir",name="anadir_noticia")
-     * @Security("is_granted('cerca-de-ti')")
+     * @Route("anadir",name="anadir_noticia")
+     
      */
     public function anadir(Request $request)
     {
@@ -42,8 +42,8 @@ class NoticiasController extends BaseController
     }
 
     /**
-     * @Route("/manager/noticias/editar/{id}",name="editar_noticia")
-     * @Security("is_granted('cerca-de-ti')")
+     * @Route("editar/{id}",name="editar_noticia")
+     
      */
     public function editar(Request $request,$id)
     {
@@ -51,8 +51,8 @@ class NoticiasController extends BaseController
     }
 
     /**
-     * @Route("/manager/noticias/borrar/{id}",name="eliminar_noticia")
-     * @Security("is_granted('cerca-de-ti')")
+     * @Route("borrar/{id}",name="eliminar_noticia")
+     
      */
     public function borrar(Request $request,$id)
     {
@@ -102,7 +102,7 @@ class NoticiasController extends BaseController
         
         if($noticia->getId()!=null)
         {
-            $aux=array("es"=>null,"en"=>null,"pt"=>null);
+            $aux=array("es"=>null,"en"=>null);
 
             $noticia->imagen_aux=$aux;
             $noticia->descargable_aux=$aux;
@@ -202,49 +202,8 @@ class NoticiasController extends BaseController
         $old_slug=$slugs[$lang_code];
 
     	$em=$this->getDoctrine()->getManager();
-        
-
-		$new_slug=strtolower(str_replace(" ", "-", $noticia->getTitulo()[$lang_code]));
-
-        $rules=array(
-            "á"=>"a",
-            "é"=>"e",
-            "í"=>"i",
-            "ó"=>"o",
-            "ú"=>"u",
-            "Á"=>"a",
-            "É"=>"e",
-            "Í"=>"i",
-            "Ó"=>"o",
-            "Ú"=>"u",
-            "´"=>"",
-            "ñ"=>"n",
-            "ä"=>"a",
-            "ë"=>"e",
-            "ï"=>"i",
-            "ö"=>"o",
-            "ü"=>"u",
-            "Ä"=>"a",
-            "Ë"=>"e",
-            "Ï"=>"i",
-            "Ö"=>"o",
-            "Ü"=>"u",
-            "."=>"",
-            ","=>"",
-            ":"=>"",
-            "¿"=>"",
-            "?"=>"",
-            "¡"=>"",
-            "!"=>"",
-            "'"=>"",
-            '"'=>"",
-            "’"=>"",
-            "‘"=>"",
-        );
-        foreach ($rules as $key => $value) 
-        {
-            $new_slug=str_replace($key, $value, $new_slug);
-        }
+		
+        $new_slug=$this->container->get("normalizator")->calculate_slug($noticia->getTitulo()[$lang_code]);
         
 
         if($noticia->getId()!=null)

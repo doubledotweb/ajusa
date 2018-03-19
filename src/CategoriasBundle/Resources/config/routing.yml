@@ -1,0 +1,4 @@
+categorias:
+    resource: "@CategoriasBundle/Controller/"
+    type:     annotation
+    prefix:   /manager/categorias/

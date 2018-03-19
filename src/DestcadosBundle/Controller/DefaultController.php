@@ -110,8 +110,15 @@ class DefaultController extends BaseController
         {
             return new JsonResponse(array("mensaje"=>$this->mensaje_error($e)),500);
         }
-
-        return new JsonResponse(array("estado"=>$estado,"mensaje"=>"El destacado se ha ".($estado?"activado":"desactivado")." satisfactoriamentes"));
+        if($estado=="activado")
+        {
+            $mensaje="El destacado ya es visible. Se mostrará o no en función de su fecha de creación";
+        }
+        else
+        {
+            $mensaje="El destacado ya no tiene visibilidad, por lo que no se mostrará.";
+        }
+        return new JsonResponse(array("estado"=>$estado,"mensaje"=>$mensaje));
 
     }
 
