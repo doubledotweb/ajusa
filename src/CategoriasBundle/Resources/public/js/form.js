@@ -5,6 +5,9 @@ $(document).ready(function()
 
  	$("#popup #box_options").on("click","#accept",borrar_categoria);
     $("#popup #box_options").on("click","#decline",no_borrar);
+
+    $('input[type="file"]').on("change",ver_imagen);
+    $(".js-borrar-imagen").on("click",borrar_imagen);
     
 });
 

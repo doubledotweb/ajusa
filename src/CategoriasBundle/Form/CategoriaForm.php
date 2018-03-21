@@ -51,6 +51,13 @@ class CategoriaForm extends AbstractType
 						"entry_options"=>array("attr"=>array("maxlength"=>255))
 
 					)),
+				array(
+					"imagen_aux",
+					FileType::class,
+					array(
+						"label"		=>"Imagen",
+						"required"	=>true,
+					)),
 									
 				array("submit",SubmitType::class, array("label"=>"Guardar")));
 
