@@ -1,3 +1,6 @@
+front:    
+    resource: "@FrontBundle/Resources/config/routing.yml"
+
 noticias:
     resource: "@NoticiasBundle/Resources/config/routing.yml"
     
