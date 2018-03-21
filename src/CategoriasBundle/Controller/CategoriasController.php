@@ -85,24 +85,28 @@ class CategoriasController extends BaseController
         $form   ->  add("delete",SubmitType::class,array("label"=>"Eliminar"));
 
         $form   ->  handleRequest($request);
+
+        $params["imagen"]=$categoria->getImagen();
         
         if($form->isSubmitted() && $form->isValid()) 
         {
             $redirect=true;
-
+            
             switch ($form->getClickedButton()->getName()) 
             {
                 case 'submit':
                    try
                     {
                         $categoria=$this->generar_slug($form->getData());
+                        $categoria->actualizar_imagen(); 
                         $this->insertar_entity($categoria);
                         $this->addFlash("success",$translator->trans("Guardado Correctamente"));
                     }
                     catch(\Exception $e)
                     {             
-                        $redirect=false;      
+                        $redirect=false;                        
                         $this->addFlash("error",$this->mensaje_error($e));
+                        
                     }
                 break;
                
@@ -178,7 +182,7 @@ class CategoriasController extends BaseController
 
     	foreach ($categoria->getNombre() as $lang => $value) 
     	{
-    		$aux[$lang]=$this->container->get("normalizator")->calculate_slug($aux[$lang]);
+    		$aux[$lang]=$this->container->get("normalizator")->calculate_slug($value);
 
             
     		$result = $em->createQuery("SELECT c FROM CategoriasBundle:Categoria c where c.slug like :nombre")->setParameter("nombre","%".$aux[$lang]."%")->getResult();

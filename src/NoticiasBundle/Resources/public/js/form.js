@@ -346,7 +346,7 @@ function cargar_modulo(e)
 
 		'<div class="js-imagen-preview" style="display:none;">'+
 		'<img src="" width="100px" height="auto">'+
-		'<i class="material-icons js-borrar-imagen">close</i>'+
+		'<i class="material-icons js-borrar-imagen" title="Eliminar imagen">close</i>'+
 		'</div>'+
 
 		'<h4>Pie de imagen</h4><div class="input-field">'+

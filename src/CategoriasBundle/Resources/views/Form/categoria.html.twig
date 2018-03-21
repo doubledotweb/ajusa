@@ -46,6 +46,39 @@
 					</div>
 				{% endfor %}
 
+				<div class="js-archivo" style="">
+					<h2>{{form.children.imagen_aux.vars.label}}</h2>
+					<div class="file-field input-field image-field">						
+						
+						<div class="js-imagen-input" style="{{imagen is defined?"display:none":""}}">
+
+							<div class="file-path-wrapper">
+								<input class="file-path validate" type="text"
+								value=""
+								>
+							</div>					
+
+							<div class="btn">
+								<span>{{form.children.imagen_aux.vars.label}}</span>
+								<input 
+								type="file" 
+								id="{{form.children.imagen_aux.vars.id}}"
+								name="{{form.children.imagen_aux.vars.full_name}}"
+								{{form.children.imagen_aux.vars.required and imagen is not defined ?"required":""}}
+								acept="image/*"
+								>
+
+								{#<input type="hidden" name="{{form.children.imagen.vars.full_name}}">#}
+
+							</div>									
+						</div>
+						<div class="js-imagen-preview" style="{{imagen is defined ?"":"display:none"}}">
+							<img src="{{imagen is defined?imagen:""}}" width="100px" height="auto">
+							<i class="material-icons js-borrar-imagen" title="Eliminar imagen">close</i>
+						</div>
+					</div>
+				</div>		
+
 
 				<div id="botones" class="contenedor-botones row-start">
 

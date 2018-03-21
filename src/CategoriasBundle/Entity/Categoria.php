@@ -4,14 +4,14 @@ namespace CategoriasBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
+use AppBundle\Entity\Archivo;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="Categorias_noticias") 
  * @ORM\HasLifecycleCallbacks()
  */
-class Categoria
+class Categoria extends Archivo
 {
  
 	/**
@@ -42,6 +42,14 @@ class Categoria
     private $modification;
 
     /**
+    * @ORM\Column(type="string",nullable=true)
+    */
+    private $imagen;
+
+    public $imagen_aux;
+
+
+    /**
     * @ORM\ManyToMany(targetEntity="NoticiasBundle\Entity\Noticia", mappedBy="categorias")
     */
     private $noticias;
@@ -66,6 +74,12 @@ class Categoria
     public function modificado()
     {
     	$this->modification=new \DateTime("now");
+    }
+
+    public function actualizar_imagen()
+    {
+        if($this->imagen_aux)
+            $this->imagen=$this->subir("/bundles/categorias/img/",$this->imagen_aux);   
     }
 
     
@@ -208,5 +222,77 @@ class Categoria
     public function getNoticias()
     {
         return $this->noticias;
+    }
+
+    /**
+     * Set imagen
+     *
+     * @param string $imagen
+     *
+     * @return Categoria
+     */
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
+
+        return $this;
+    }
+
+    /**
+     * Get imagen
+     *
+     * @return string
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * Set creado
+     *
+     * @param \DateTime $creado
+     *
+     * @return Categoria
+     */
+    public function setCreado($creado)
+    {
+        $this->creado = $creado;
+
+        return $this;
+    }
+
+    /**
+     * Get creado
+     *
+     * @return \DateTime
+     */
+    public function getCreado()
+    {
+        return $this->creado;
+    }
+
+    /**
+     * Set modificado
+     *
+     * @param \DateTime $modificado
+     *
+     * @return Categoria
+     */
+    public function setModificado($modificado)
+    {
+        $this->modificado = $modificado;
+
+        return $this;
+    }
+
+    /**
+     * Get modificado
+     *
+     * @return \DateTime
+     */
+    public function getModificado()
+    {
+        return $this->modificado;
     }
 }
