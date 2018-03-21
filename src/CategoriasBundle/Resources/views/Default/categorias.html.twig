@@ -39,11 +39,10 @@
 						<td class="nombre">{{categoria.nombre.en}}</td>
 						<td class="total">{{categoria.noticias.getValues()|length}}</td>
 						<td class="opcion">
-							<a class="ver" href="{{path("editar_categoria",{"id":categoria.id})}}"><span><i class="material-icons" >edit</i></span></a>
-							{% if categoria.slug["es"] != "movimiento-rap" and categoria.slug["es"] != "cuidamos-lo-natural"  %}
+							<a class="ver" href="{{path("editar_categoria",{"id":categoria.id})}}"><span><i class="material-icons" title="Editar">edit</i></span></a>
 
-								<a class="borrar" href="{{path("eliminar_categoria",{"id":categoria.id})}}"><span><i class="material-icons" >delete</i></span></a>
-							{% endif %}
+							<a class="borrar" href="{{path("eliminar_categoria",{"id":categoria.id})}}"><span><i class="material-icons" title="Borrar">delete</i></span></a>
+							
 						</td>
 					</tr>
 

@@ -44,10 +44,10 @@
 						<td class="visible">{{(tip.visible)?"Activado":"Desactivado"}}</td>
 						<td class="destacado">{{(tip.destacado)?"Si":"No"}}</td>
 						<td class="opcion">
-							<a class="destacado" href="{{path("cambiar_destacado_tip")}}"><span><i class="material-icons" style="{{tip.destacado?"color:#db9c0d":""}}">star</i></span></a>
-							<a class="ver" href="{{path("editar_tip",{"id":tip.id})}}"><span><i class="material-icons" >edit</i></span></a>
-							<a class="borrar" href="{{path("eliminar_tip")}}"><span><i class="material-icons" >delete</i></span></a>
-							<a class="estado" href="{{path("cambiar_estado_tip")}}"><span><i class="material-icons" >{{tip.visible==false?"check":"block"}}</i></span></a>
+							<a class="destacado" href="{{path("cambiar_destacado_tip")}}"><span><i class="material-icons" style="{{tip.destacado?"color:#db9c0d":""}}" title="Destacar">star</i></span></a>
+							<a class="ver" href="{{path("editar_tip",{"id":tip.id})}}"><span><i class="material-icons" title="Editar">edit</i></span></a>
+							<a class="borrar" href="{{path("eliminar_tip")}}"><span><i class="material-icons" title="Borrar">delete</i></span></a>
+							<a class="estado" href="{{path("cambiar_estado_tip")}}"><span><i class="material-icons" title="{{tip.visible?"Ocultar":"Mostrar"}}">{{tip.visible==false?"check":"block"}}</i></span></a>
 						</td>
 					</tr>
 

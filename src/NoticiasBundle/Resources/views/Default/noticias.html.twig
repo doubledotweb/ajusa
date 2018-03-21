@@ -53,7 +53,7 @@
 							{% endfor %}
 						</td>
 						<td class="publicacion">{{noticia.getFechaPublicacion()|date("d/m/Y")}}</td>						
-						<td class="visible"><span><i class="material-icons" {{noticia.visible?"Activado":"Desactivado"}}>{{noticia.visible?"done":"block"}}</i></span></td>
+						<td class="visible"><span><i class="material-icons" {{noticia.visible?"Activado":"Desactivado"}} title="{{noticia.visible?"Ocultar":"Mostrar"}}">{{noticia.visible?"done":"block"}}</i></span></td>
 						<th class="categoria">
 							{% for categoria in noticia.categorias %}
 								{{categoria.nombre.es}}
@@ -62,7 +62,7 @@
 						<th class="titulo">{{noticia.titulo.es}}</th>
 						<td class="opcion">
 							<a class="ver" href="{{path("editar_noticia",{"id":noticia.id})}}"><span><i class="material-icons" title="Editar">edit</i></span></a>
-							<a class="borrar" href="{{path("eliminar_noticia",{"id":noticia.id})}}"><span><i class="material-icons" title="Eliminar">delete</i></span></a>
+							<a class="borrar" href="{{path("eliminar_noticia",{"id":noticia.id})}}"><span><i class="material-icons" title="Borrar">delete</i></span></a>
 						</td>
 					</tr>
 

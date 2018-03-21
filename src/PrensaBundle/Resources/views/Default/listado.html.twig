@@ -10,7 +10,7 @@
 
 <section class="menu-brother">
 
-	
+	{% set tipo = {"clipping-de-prensa":"Clipping de prensa","imagen":"Imagen","logotipo":"Logotipo"} %}
 	<div class="container-table">
 		<div class="contenedor-titulo row-between">	
 			<h1>Descargables</h1>
@@ -37,13 +37,13 @@
 					<tr class="descargable" id="{{descargable.id}}">
 						<td class="fecha">{{descargable.creado|date("d/m/Y H:i:s")}}</td>
 						<td class="nombre">{{descargable.titulo}}</td>
-						<td class="tipo">{{descargable.categoria}}</td>						
+						<td class="tipo">{{tipo[descargable.categoria]}}</td>						
 						<td class="visible">{{(descargable.visible)?"Activado":"Desactivado"}}</td>
 						
 						<td class="opcion">						
-							<a class="ver" href="{{path("editar_descargable",{"id":descargable.id})}}"><span><i class="material-icons" >edit</i></span></a>
-							<a class="borrar" href="{{path("eliminar_descargable")}}"><span><i class="material-icons" >delete</i></span></a>
-							<a class="estado" href="{{path("cambiar_estado_descargable")}}"><span><i class="material-icons" >{{descargable.visible==false?"check":"block"}}</i></span></a>
+							<a class="ver" href="{{path("editar_descargable",{"id":descargable.id})}}"><span><i class="material-icons" title="Editar">edit</i></span></a>
+							<a class="borrar" href="{{path("eliminar_descargable")}}"><span><i class="material-icons" title="Borrar" >delete</i></span></a>
+							<a class="estado" href="{{path("cambiar_estado_descargable")}}"><span><i class="material-icons" title="{{descargable.visible?"Ocultar":"Mostrar"}}">{{descargable.visible==false?"check":"block"}}</i></span></a>
 						</td>
 					</tr>
 
