@@ -49,17 +49,17 @@ class Destacado extends Entity
 	private $imagen;
 
 	/**
-     * @ORM\Column(type="string",length=500)
+     * @ORM\Column(type="string",length=500,nullable=true)
      */
 	private $resumen;
 
 	/**
-     * @ORM\Column(type="string",length=100)
+     * @ORM\Column(type="string",length=100,nullable=true)
      */
 	private $texto_enlace;
 
 	/**
-     * @ORM\Column(type="string",length=300)
+     * @ORM\Column(type="string",length=300,nullable=true)
      */
 	private $enlace;
 	
