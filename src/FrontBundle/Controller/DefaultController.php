@@ -11,8 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 use AppBundle\Controller\BaseController;
 
+Use ComentariosBundle\Entity\Comentario;
+
 class DefaultController extends BaseController
 {
+    
+
     /**
      * @Route("/noticias")
      */
@@ -90,6 +94,7 @@ class DefaultController extends BaseController
 			$aux["categorias"]=$this->get_categorias($noticia[0],$lang);
 			$aux["likes"]=$noticia[0]->getLikes();
     		$aux["modulos"]=$this->get_modulos($noticia[0],$lang);
+            $aux["comentarios"]=$this->get_comentarios($noticia[0],$lang);
 
     		$response["noticia"]=$aux;
     	}
@@ -106,24 +111,84 @@ class DefaultController extends BaseController
      */
     public function comentario(Request $request)
     {
-        $aux=$request->query->get("texto"); 
-
-        $iv = hex2bin('000000000000000000000000000000');
 
 
-        //$aux=openssl_encrypt($aux, "AES-256-CBC", $_SERVER["REMOTE_ADDR"]);
 
-        echo "<pre>";
-        var_dump($iv);
-        var_dump($aux);
+        $user=$request->server->get("PHP_AUTH_USER");
+        $pass=$request->server->get("PHP_AUTH_PW");
 
-        //$aux=openssl_decrypt($aux, "AES-256-CBC", $_SERVER["REMOTE_ADDR"]);
 
-        var_dump($aux);
 
-        echo "</pre>";
+        if($user=="mario" and $pass=="1234")
+        {
+            $data=$request->request->get("datos");
 
-        return new Response();
+            $json=base64_decode($data);
+            $comentario=json_decode($json,1);
+
+            if($this->validar_comentario($comentario))
+            {
+
+                $noticia=null;
+
+                $select_noticia="SELECT n FROM NoticiasBundle:Noticia n where n.slug LIKE :slug";
+
+                $conditions=array("slug"=>'%'.$comentario["slug"].'%',);
+
+                
+                $noticias=$this->query_builder($select_noticia,$conditions);
+                $new_comentario=new Comentario();
+                foreach ($noticias as $key => $aux) 
+                {
+                    if($aux->getSlug()["es"]==$comentario["slug"] )
+                    {
+                        $noticia=$aux;
+                        $new_comentario->setIdioma("es");
+                        break;
+                    }
+                    elseif ($aux->getSlug()["en"]==$comentario["slug"]) 
+                    {
+                        $noticia=$aux;
+                        $new_comentario->setIdioma("en");
+                        break;
+                    }
+                }
+
+                if($noticia)
+                {
+                    
+
+                    $new_comentario->setNoticia($noticia);
+                    $new_comentario->setNombre($comentario["nombre"]);
+                    $new_comentario->setTexto($comentario["texto"]);
+                    
+                    try
+                    {
+                        $this->insertar_entity($new_comentario);
+                    }
+                    catch(\Exception $e)
+                    {                        
+                        return new JsonResponse(array("mensaje"=>"No se ha podido procesar su comentario"));
+                    }
+
+                    return new JsonResponse(array("mensaje"=>"Almacenado correctamente"));
+
+                }
+                else
+                {
+                    return new JsonResponse(array("mensaje"=>"No existe la noticia"));
+                }
+
+            }
+            else
+            {
+                return new JsonResponse(array("mensaje"=>"Formato de datos inválido"));       
+            }
+        }
+        else
+        {
+            return new JsonResponse(array("mensaje"=>"I'm sorry but we don't like script guys ;)"));
+        }        
 
     }
 
@@ -193,6 +258,36 @@ class DefaultController extends BaseController
 	    	}
     	}
     	return $modulos;
+    }
+
+    private function validar_comentario($comentario)
+    {
+        if(!isset($comentario["nombre"]) or $comentario["nombre"]=="")
+            return false;
+        if(!isset($comentario["texto"]) or $comentario["texto"]=="")
+            return false;
+        if(!isset($comentario["slug"]) or $comentario["slug"]=="")
+            return false;
+
+        return true;
+    }
+
+    private function get_comentarios($noticia,$lang)
+    {
+        $comentarios=array();
+
+        foreach ($noticia->getComentarios()->getValues() as $key => $comentario) 
+        {   
+            if($comentario->getIdioma()==$lang)
+            {
+                $aux["nombre"]=$comentario->getNombre();
+                $aux["fecha"]=$comentario->getCreado()->format("d/m/Y H:i");
+                $aux["texto"]=$comentario->getTexto();
+                $comentarios[]=$aux;
+            }
+
+        }
+        return $comentarios;
     }
 }
 
