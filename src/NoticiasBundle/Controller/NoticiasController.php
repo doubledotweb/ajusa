@@ -208,11 +208,11 @@ class NoticiasController extends BaseController
 
         if($noticia->getId()!=null)
         {
-            $result = $em->createQuery("SELECT n FROM NoticiasBundle:Noticia n where n.slug like :slug  and n.idioma LIKE :lang and n.id != :id")->setParameter("slug","%".$new_slug."%")->setParameter("id",$noticia->getId())->setParameter("lang","%".$lang_code."%");
+            $result = $em->createQuery("SELECT n FROM NoticiasBundle:Noticia n where n.slug like :slug  and n.id != :id")->setParameter("slug","%".$new_slug."%")->setParameter("id",$noticia->getId());
         }
         else
         {
-            $result = $em->createQuery("SELECT n FROM NoticiasBundle:Noticia n where n.slug like :slug and n.idioma LIKE :lang")->setParameter("slug","%".$new_slug."%")->setParameter("lang","%".$lang_code."%");
+            $result = $em->createQuery("SELECT n FROM NoticiasBundle:Noticia n where n.slug like :slug")->setParameter("slug","%".$new_slug."%");
         }
 
         $result=$result->getResult();
