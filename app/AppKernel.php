@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new NoticiasBundle\NoticiasBundle(),
             new CategoriasBundle\CategoriasBundle(),
             new FrontBundle\FrontBundle(),
+            new ComentariosBundle\ComentariosBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
