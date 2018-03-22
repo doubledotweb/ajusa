@@ -96,6 +96,13 @@ class Noticia
     */
     private $hints;
 
+     /**
+     * One Product has Many Features.
+     * @ORM\OneToMany(targetEntity="\ComentariosBundle\Entity\Comentario", mappedBy="noticia")
+     */
+
+    private $comentarios;
+
     public $imagen_aux;
     public $descargable_aux;
 
@@ -104,7 +111,8 @@ class Noticia
 
     public function __construct()
     {   
-        $this->categorias = new \Doctrine\Common\Collections\ArrayCollection(); 	
+        $this->categorias = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comentarios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->fecha_publicacion= new \DateTime("now");
         $this->visible      = true;
 
@@ -677,5 +685,39 @@ class Noticia
     public function getHints()
     {
         return $this->hints;
+    }
+
+    /**
+     * Add comentario
+     *
+     * @param \ComentariosBundle\Entity\Comentario $comentario
+     *
+     * @return Noticia
+     */
+    public function addComentario(\ComentariosBundle\Entity\Comentario $comentario)
+    {
+        $this->comentarios[] = $comentario;
+
+        return $this;
+    }
+
+    /**
+     * Remove comentario
+     *
+     * @param \ComentariosBundle\Entity\Comentario $comentario
+     */
+    public function removeComentario(\ComentariosBundle\Entity\Comentario $comentario)
+    {
+        $this->comentarios->removeElement($comentario);
+    }
+
+    /**
+     * Get comentarios
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComentarios()
+    {
+        return $this->comentarios;
     }
 }

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+	
+{% endblock %}
+
+{% block title %}
+	Ver comentario
+{% endblock %}
+{% block section %}
+
+	<section class="menu-brother">
+		<div class="container">
+			
+			<h1>Ver comentario</h1>
+
+			<div class="info">
+				<p>Autor: {{comentario.nombre}}</p>
+				<p>Realizado: {{comentario.getCreado()|date("d/m/Y H:i")}}</p>
+				<p>Noticia: {{comentario.noticia.titulo["es"]}}</p>
+				
+				<p class="mt-20">{{comentario.texto}}</p>
+			</div>
+			
+		</div>
+	</section>
+{% endblock %}
+
+{% block popup %}
+	<div id="popup" class="modal">
+		<div class="modal-content">
+			<div id="box">
+				<div id="message"></div>
+				<div id="box_options"></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
