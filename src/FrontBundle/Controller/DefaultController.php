@@ -62,34 +62,121 @@ class DefaultController extends BaseController
 
     }
 
+    /**
+     * @Route("/zona_tecnica")
+     */
+    public function zona_tecnica(Request $request)
+    {
+        $lang=$request->request->get("lang");
+
+        if($lang=="")
+        {
+            $lang=$request->query->get("lang");
+
+            if($lang=="")
+                $lang="es";
+        }
+
+        $select_categoria='
+            SELECT titulo'.($lang=="en"?"_en":"").'"titulo", slug 
+            FROM categorias 
+            ORDER BY titulo'.($lang=="en"?"_en":"").' DESC';
+
+        $params["categorias"]=$this->query($select_categoria);
+
+        $select_keywords='
+            SELECT titulo, slug 
+            FROM keywords 
+            WHERE idioma = :lang
+            ORDER BY titulo DESC';
+
+        $conditions=array("lang"=>$lang);
+
+
+        $params["keyword"]=$this->query($select_keywords,$conditions);
+
+        $select_novedades='
+            SELECT titulo,archivo 
+            FROM tips 
+            WHERE idioma = :lang
+            ORDER BY creado DESC
+            LIMIT 3';
+
+        $params["novedades"]=$this->query($select_novedades,$conditions);
+
+
+        return new JsonResponse($params);
+    }  
+
+
+    /**
+     * @Route("/actualidad")
+     */
+    public function actualidad(Request $request)
+    {       
+        $lang=$request->request->get("lang");
+
+        if($lang=="")
+        {
+            $lang=$request->query->get("lang");
+
+            if($lang=="")
+                $lang="es";
+        }
+
+
+        $noticias=$this->get_noticias($lang);
+        $params["noticias"]=array();
+        for($i=0;$i<count($noticias) and $i<6;$i++)
+        {
+            $aux=$this->get_comunes($noticias[$i],$lang);
+
+            $params["noticias"][]=$aux;
+        }
+        return new JsonResponse($params);
+    }
+
+     /**
+     * @Route("/pressroom")
+     */
+    public function pressroom(Request $request)
+    {   
+        $lang=$request->request->get("lang");
+
+        if($lang=="")
+        {
+            $lang=$request->query->get("lang");
+
+            if($lang=="")
+                $lang="es";
+        }
+        
+    }
+
 
 
     /**
      * @Route("/noticias")
      */
-    public function listado(Request $request)
+    public function noticias(Request $request)
     {
     	$lang=$request->request->get("lang");
 
-    	$lang=$lang==""?"es":$lang;
+        if($lang=="")
+        {
+            $lang=$request->query->get("lang");
+
+            if($lang=="")
+                $lang="es";
+        }
+
 
     	$response=array();
 
-    	$query='SELECT n
-    		FROM NoticiasBundle:Noticia n
-    		WHERE 	n.idioma LIKE :idioma and 
-    				n.fecha_publicacion <= :now and
-    				n.visible = 1
-    		ORDER BY n.fecha_publicacion DESC';
+        $response["listado"]=array();
+        
 
-    	$conditions=array(
-
-    		"idioma"=>'%"'.$lang.'";b:1;%',
-    		"now"=>(new \DateTime("now"))->format("Y-m-d"),
-    	);
-
-    	$response["listado"]=array();
-    	$result=$this->query_builder($query,$conditions);
+    	$result=$this->get_noticias($lang);
 
     	foreach ($result as $key => $noticia) 
     	{
@@ -101,7 +188,10 @@ class DefaultController extends BaseController
     		$response["listado"][]=$aux;
     	}
         return new JsonResponse($response);
-    }    
+    }
+
+
+
 
     /**
      * @Route("/noticias/{slug}")
@@ -111,7 +201,13 @@ class DefaultController extends BaseController
 
     	$lang=$request->request->get("lang");
 
-    	$lang=$lang==""?"es":"en";
+        if($lang=="")
+        {
+            $lang=$request->query->get("lang");
+
+            if($lang=="")
+                $lang="es";
+        }
 
     	$response=array();
     	$response["status_code"]=200;
@@ -139,7 +235,6 @@ class DefaultController extends BaseController
 			$aux["descargable"]["enlace"]=$noticia[0]->getDescargable()[$lang]["valor"];
 			$aux["descargable"]["pie"]=$noticia[0]->getDescargable()[$lang]["pie"];
 			$aux["categorias"]=$this->get_categorias($noticia[0],$lang);
-			$aux["likes"]=$noticia[0]->getLikes();
     		$aux["modulos"]=$this->get_modulos($noticia[0],$lang);
             $aux["comentarios"]=$this->get_comentarios($noticia[0],$lang);
 
@@ -239,6 +334,24 @@ class DefaultController extends BaseController
 
     }
 
+
+    private function get_noticias($lang)
+    {
+        $query='SELECT n
+            FROM NoticiasBundle:Noticia n
+            WHERE   n.idioma LIKE :idioma and 
+                    n.fecha_publicacion <= :now and
+                    n.visible = 1
+            ORDER BY n.fecha_publicacion DESC';
+
+        $conditions=array(
+
+            "idioma"=>'%"'.$lang.'";b:1;%',
+            "now"=>(new \DateTime("now"))->format("Y-m-d"),
+        );
+
+        return $this->query_builder($query,$conditions);
+    }
     private function get_comunes($noticia,$lang)
     {
     	$aux["titulo"]=$noticia->getTitulo()[$lang];
@@ -246,6 +359,8 @@ class DefaultController extends BaseController
 		$aux["img"]["pie"]=$noticia->getImagen()[$lang]["pie"];
 		$aux["slug"]=$noticia->getSlug()[$lang];
 		$aux["entradilla"]=$noticia->getEntradilla()[$lang];
+        $aux["likes"]=$noticia->getLikes();
+            $aux["hints"]=$noticia->getHints();
 
 		return $aux;
     }
