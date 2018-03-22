@@ -73,6 +73,20 @@ abstract class BaseController extends Controller
         return $stmt->fetchAll();
     }
 
+    protected function query_builder($query_string,$params=array())
+    {        
+        $em=$this->getDoctrine()->getManager();
+
+        $query=$em->createQuery($query_string);
+
+        foreach ($params as $key => $value) 
+        {
+            $query->setParameter($key,$value);
+        }
+
+        return $query->execute();
+    }
+
     protected function mensaje_error($exception)
     {
         

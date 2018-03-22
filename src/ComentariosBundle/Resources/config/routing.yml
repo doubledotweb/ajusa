@@ -1,0 +1,4 @@
+comentarios:
+    resource: "@ComentariosBundle/Controller/"
+    type:     annotation
+    prefix:   /manager/comentarios/

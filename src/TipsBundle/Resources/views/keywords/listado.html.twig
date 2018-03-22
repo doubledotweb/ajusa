@@ -33,7 +33,7 @@
 					{% for keyword in keywords %}
 
 					<tr class="keyword" id="{{keyword.id}}">
-						<td class="fecha">{{keyword.creado|date("d/m/Y H:i:s")}}</td>
+						<td class="fecha">{{keyword.getCreado()|date("d/m/Y H:i:s")}}</td>
 						<td class="nombre">{{keyword.titulo}}</td>
 						<td class="Idioma">{{idiomas[keyword.idioma]}}</td>
 						<td class="opcion">

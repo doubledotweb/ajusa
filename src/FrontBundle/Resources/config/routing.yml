@@ -1,0 +1,4 @@
+front:
+    resource: "@FrontBundle/Controller/"
+    type:     annotation
+    prefix:   /
