@@ -15,7 +15,54 @@ Use ComentariosBundle\Entity\Comentario;
 
 class DefaultController extends BaseController
 {
-    
+    /**
+     * @Route("/destacados")
+     */
+    public function destacados(Request $request)
+    {
+
+
+        $tipos=array(
+            "actualidad"=>"Actualidad",
+             "catalogo"=>"Catálogo" ,
+            "ferias"=>"Ferias",
+            "energias-alternativas"=>"Energías alternativas",
+            "videos"=>"Vídeos",
+            "informes-tecnicos"=>"Informes técnicos",
+            "webinarios"=>"Webinarios",
+            "otros"=>"Otros",
+        );
+        $lang=$request->request->get("lang");
+
+        if($lang=="")
+        {
+            $lang=$request->query->get("lang");
+
+            if($lang=="")
+                $lang="es";
+        }
+
+
+
+        $params["destacados"]=array();
+        $destacados=$this->findByField("DestcadosBundle:Destacado",array("visible"=>1,"idioma"=>$lang),array("creado"=>"desc"));
+        
+        for($i=0;$i<count($destacados) and $i<4;$i++)
+        {
+            $aux["titulo"]=$destacados[$i]->getTitulo();
+            $aux["tipo"]=$tipos[$destacados[$i]->getTipo()];
+            $aux["imagen"]="/bundles/destacados/img/".$destacados[$i]->getTipo()."_".$destacados[$i]->getImagen().".jpg";
+            $aux["resumen"]=$destacados[$i]->getResumen();
+            $aux["enlace"]=$destacados[$i]->getEnlace();
+
+            $params["destacados"][]=$aux;
+        }
+        return new JsonResponse($params);
+        
+
+    }
+
+
 
     /**
      * @Route("/noticias")
