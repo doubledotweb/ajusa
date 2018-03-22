@@ -28,6 +28,11 @@ class Categoria extends Entity
      */
     private $titulo;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $titulo_en;
+
 	/**
      * @ORM\Column(type="string")
  	 */
@@ -185,5 +190,29 @@ class Categoria extends Entity
     public function getTips()
     {
         return $this->tips;
+    }
+
+    /**
+     * Set tituloEn
+     *
+     * @param string $tituloEn
+     *
+     * @return Categoria
+     */
+    public function setTituloEn($tituloEn)
+    {
+        $this->titulo_en = $tituloEn;
+
+        return $this;
+    }
+
+    /**
+     * Get tituloEn
+     *
+     * @return string
+     */
+    public function getTituloEn()
+    {
+        return $this->titulo_en;
     }
 }
