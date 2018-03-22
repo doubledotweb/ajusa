@@ -150,7 +150,36 @@ class DefaultController extends BaseController
             if($lang=="")
                 $lang="es";
         }
-        
+
+
+        $select_clipping="
+            SELECT archivo
+            FROM descargables
+            WHERE idioma = :lang AND categoria='clipping-de-prensa' AND visible=1
+            ORDER BY creado DESC
+            LIMIT 1";
+
+        $select_images="
+            SELECT titulo,miniatura,archivo
+            FROM descargables
+            WHERE idioma= :lang AND categoria=:tipo AND visible=1
+            ORDER BY creado DESC";
+
+        $conditions["lang"]=$lang;
+
+        $params["clipping"]=$this->query($select_clipping,$conditions);
+
+        $conditions["tipo"]="imagen";
+
+        $params["imagenes"]=$this->query($select_images,$conditions);
+
+        $conditions["tipo"]="logotipo";
+
+        $params["logotipos"]=$this->query($select_images,$conditions);
+
+        return new JsonResponse($params);
+
+
     }
 
 
