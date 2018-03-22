@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 use AppBundle\Controller\BaseController;
 
@@ -17,7 +18,6 @@ class DefaultController extends BaseController
      */
     public function listado(Request $request)
     {
-
     	$lang=$request->request->get("lang");
 
     	$lang=$lang==""?"es":$lang;
@@ -99,6 +99,32 @@ class DefaultController extends BaseController
     		$response["mensaje"]="Esta noticia no existe";
     	}
         return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/comentar")
+     */
+    public function comentario(Request $request)
+    {
+        $aux=$request->query->get("texto"); 
+
+        $iv = hex2bin('000000000000000000000000000000');
+
+
+        //$aux=openssl_encrypt($aux, "AES-256-CBC", $_SERVER["REMOTE_ADDR"]);
+
+        echo "<pre>";
+        var_dump($iv);
+        var_dump($aux);
+
+        //$aux=openssl_decrypt($aux, "AES-256-CBC", $_SERVER["REMOTE_ADDR"]);
+
+        var_dump($aux);
+
+        echo "</pre>";
+
+        return new Response();
+
     }
 
     private function get_comunes($noticia,$lang)
