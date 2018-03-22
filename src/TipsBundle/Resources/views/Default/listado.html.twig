@@ -38,7 +38,7 @@
 							{% set categorias=categorias|merge([categoria.titulo]) %}
 						{% endfor %}
 					<tr class="tip" id="{{tip.id}}">
-						<td class="fecha">{{tip.creado|date("d/m/Y H:i:s")}}</td>
+						<td class="fecha">{{tip.getCreado()|date("d/m/Y H:i:s")}}</td>
 						<td class="nombre">{{tip.titulo}}</td>
 						<td class="tipo">{{categorias|join(" / ")}}</td>						
 						<td class="visible">{{(tip.visible)?"Activado":"Desactivado"}}</td>

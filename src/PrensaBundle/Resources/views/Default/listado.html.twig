@@ -35,7 +35,7 @@
 					{% for descargable in descargables %}
 
 					<tr class="descargable" id="{{descargable.id}}">
-						<td class="fecha">{{descargable.creado|date("d/m/Y H:i:s")}}</td>
+						<td class="fecha">{{descargable.getCreado()|date("d/m/Y H:i:s")}}</td>
 						<td class="nombre">{{descargable.titulo}}</td>
 						<td class="tipo">{{tipo[descargable.categoria]}}</td>						
 						<td class="visible">{{(descargable.visible)?"Activado":"Desactivado"}}</td>

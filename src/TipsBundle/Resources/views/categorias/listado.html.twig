@@ -32,7 +32,7 @@
 					{% for categoria in categorias %}
 
 					<tr class="categoria" id="{{categoria.id}}">
-						<td class="fecha">{{categoria.creado|date("d/m/Y H:i:s")}}</td>
+						<td class="fecha">{{categoria.getCreado()|date("d/m/Y H:i:s")}}</td>
 						<td class="nombre">{{categoria.titulo}}</td>
 						<td class="opcion">
 							
