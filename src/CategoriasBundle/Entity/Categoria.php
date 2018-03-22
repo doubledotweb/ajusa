@@ -79,7 +79,7 @@ class Categoria extends Archivo
     public function actualizar_imagen()
     {
         if($this->imagen_aux)
-            $this->imagen=$this->subir("/bundles/categorias/img/",$this->imagen_aux);   
+            $this->imagen=$this->subir("/archivos/categorias/img/",$this->imagen_aux);   
     }
 
     

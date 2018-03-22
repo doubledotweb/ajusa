@@ -81,7 +81,7 @@ class Descargable extends Archivo
                 if($this->archivo!="" || $this->archivo!=null)
                     $this->borrar($this->archivo);
                 
-                $this->archivo=$this->subir("/archivos/".$this->categoria."/".$fecha."/",$this->archivo_aux);
+                $this->archivo=$this->subir("/archivos/pressroom/".$this->categoria."/".$fecha."/",$this->archivo_aux);
                 $this->miniatura="";
 
             break;
@@ -96,9 +96,9 @@ class Descargable extends Archivo
                     $this->borrar($this->miniatura);
 
                 
-                $this->archivo=$this->subir("/archivos/".$this->categoria."/".$fecha."/",$this->archivo_aux);
+                $this->archivo=$this->subir("/archivos/pressroom/".$this->categoria."/".$fecha."/",$this->archivo_aux);
 
-                $this->miniatura=$this->subir_base64("/archivos/".$this->categoria."/miniaturas/".$fecha."/",$this->imagen);
+                $this->miniatura=$this->subir_base64("/archivos/pressroom/".$this->categoria."/miniaturas/".$fecha."/",$this->imagen);
                 
             break;
         }

@@ -79,7 +79,7 @@ class Tip extends Archivo
     {
         $fecha=date("Y/m/d");
 
-        $this->archivo=$this->subir("/archivos/".$fecha."/",$this->archivo_aux);
+        $this->archivo=$this->subir("/archivos/ajusatips/",$this->archivo_aux);
     }
 
 
@@ -92,7 +92,7 @@ class Tip extends Archivo
         {
             $this->borrar($this->archivo);
 
-            $this->archivo=$this->subir("/archivos/".$fecha."/",$this->archivo_aux);
+            $this->archivo=$this->subir("/archivos/ajusatips/",$this->archivo_aux);
         }        
     }
 

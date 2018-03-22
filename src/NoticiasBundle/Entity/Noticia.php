@@ -170,10 +170,10 @@ class Noticia
             }
             if($this->slug[$lang]!=null)
             {
-                if(count(glob("./noticias/".$this->slug[$lang]."/media/*"))==0)
-                    is_dir("./noticias/".$this->slug[$lang]."/media")?rmdir("./noticias/".$this->slug[$lang]."/media"):"";
-                if(count(glob("./noticias/".$this->slug[$lang]."/*"))==0)
-                    is_dir("./noticias/".$this->slug[$lang])?rmdir("./noticias/".$this->slug[$lang]):"";
+                if(count(glob("./archivos/posts/".$this->slug[$lang]."/media/*"))==0)
+                    is_dir("./archivos/posts/".$this->slug[$lang]."/media")?rmdir("./archivos/posts/".$this->slug[$lang]."/media"):"";
+                if(count(glob("./archivos/posts/".$this->slug[$lang]."/*"))==0)
+                    is_dir("./archivos/posts/".$this->slug[$lang])?rmdir("./archivos/posts/".$this->slug[$lang]):"";
                 
             }
         }
@@ -204,7 +204,7 @@ class Noticia
                 }
             }
 
-            $total=glob("./noticias/".$this->slug[$lang_code]."/media/*");
+            $total=glob("./archivos/posts/".$this->slug[$lang_code]."/media/*");
 
             $paths=array_flip($paths);            
 
@@ -238,7 +238,7 @@ class Noticia
 
             
 
-            $ruta="/noticias/".$carpeta."/media/";
+            $ruta="/archivos/posts/".$carpeta."/media/";
 
 
             $format=$file->getClientOriginalExtension();
@@ -271,12 +271,12 @@ class Noticia
     */
     public function rename_media_folder()
     {   
-        $is_dir=is_dir("./noticias/".$this->rename["old"]);        
+        $is_dir=is_dir("./archivos/posts/".$this->rename["old"]);        
         
         if($is_dir)
         {
             
-            $renamed=rename("./noticias/".$this->rename["old"], "./noticias/".$this->rename["new"]);
+            $renamed=rename("./archivos/posts/".$this->rename["old"], "./archivos/posts/".$this->rename["new"]);
         
             if($renamed)
             {   
