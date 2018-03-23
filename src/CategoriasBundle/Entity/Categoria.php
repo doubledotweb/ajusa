@@ -50,12 +50,14 @@ class Categoria extends Archivo
 
 
     /**
-    * @ORM\ManyToMany(targetEntity="NoticiasBundle\Entity\Noticia", mappedBy="categorias")
-    */
+     * One Product has Many Features.
+     * @ORM\OneToMany(targetEntity="\NoticiasBundle\Entity\Noticia", mappedBy="noticia")
+     */
     private $noticias;
 
     public function __construct()
     {    	
+        $this->noticias     = new ArrayCollection();
     	$this->nombre 		= array("es"=>"","en"=>"");
     	$this->slug      	= array("es"=>"","en"=>"");    	
     }
@@ -83,6 +85,7 @@ class Categoria extends Archivo
     }
 
     
+
 
     /**
      * Get id
@@ -191,40 +194,6 @@ class Categoria extends Archivo
     }
 
     /**
-     * Add noticia
-     *
-     * @param \NoticiasBundle\Entity\Noticia $noticia
-     *
-     * @return Categoria
-     */
-    public function addNoticia(\NoticiasBundle\Entity\Noticia $noticia)
-    {
-        $this->noticias[] = $noticia;
-
-        return $this;
-    }
-
-    /**
-     * Remove noticia
-     *
-     * @param \NoticiasBundle\Entity\Noticia $noticia
-     */
-    public function removeNoticia(\NoticiasBundle\Entity\Noticia $noticia)
-    {
-        $this->noticias->removeElement($noticia);
-    }
-
-    /**
-     * Get noticias
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getNoticias()
-    {
-        return $this->noticias;
-    }
-
-    /**
      * Set imagen
      *
      * @param string $imagen
@@ -294,5 +263,39 @@ class Categoria extends Archivo
     public function getModificado()
     {
         return $this->modificado;
+    }
+
+    /**
+     * Add noticia
+     *
+     * @param \NoticiasBundle\Entity\Noticia $noticia
+     *
+     * @return Categoria
+     */
+    public function addNoticia(\NoticiasBundle\Entity\Noticia $noticia)
+    {
+        $this->noticias[] = $noticia;
+
+        return $this;
+    }
+
+    /**
+     * Remove noticia
+     *
+     * @param \NoticiasBundle\Entity\Noticia $noticia
+     */
+    public function removeNoticia(\NoticiasBundle\Entity\Noticia $noticia)
+    {
+        $this->noticias->removeElement($noticia);
+    }
+
+    /**
+     * Get noticias
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNoticias()
+    {
+        return $this->noticias;
     }
 }

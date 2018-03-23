@@ -357,21 +357,16 @@ class NoticiasController extends BaseController
         $noticia->setCuerpo($cuerpo);
 
         
-        if(isset($noticia_aux["categorias"]))
-        {
-            $categorias= new \Doctrine\Common\Collections\ArrayCollection();
-            foreach ($noticia_aux["categorias"] as $key => $categoria_id) 
-            {
-                $categoria=$this->findById("CategoriasBundle:Categoria",$categoria_id);
-                $categorias[]=$categoria;
-            }
-        }
+        if(isset($noticia_aux["categoria"]))
+                    
+            $categoria=$this->findById("CategoriasBundle:Categoria",$noticia_aux["categoria"]);
+        
         else
-        {
-            $categorias= new \Doctrine\Common\Collections\ArrayCollection();            
-        }
+        
+            $categoria= null;            
+        
 
-        $noticia->setCategorias($categorias);
+        $noticia->setCategoria($categoria);
 
         return $noticia;
     }

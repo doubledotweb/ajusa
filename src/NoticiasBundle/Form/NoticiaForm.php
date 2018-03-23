@@ -18,6 +18,10 @@ use Symfony\Component\Form\Extension\Core\Type\URlType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+use CategoriasBundle\Entity\Categoria;
+
+use Doctrine\ORM\EntityRepository;
+
 
 class NoticiaForm extends AbstractType
 {
@@ -49,13 +53,6 @@ class NoticiaForm extends AbstractType
 
     private function form()
 	{	
-		if($this->security->getToken()->getUser()->getRole()=="Gestor Medio Ambiente")
-	
-			$categorias=$this->em->createQuery('SELECT c FROM CategoriasBundle:Categoria c where c.nombre LIKE :nombre1 or c.nombre LIKE :nombre2 ')->setParameter("nombre1","%Cuidamos lo natural%")->setParameter("nombre2","%Movimiento RAP%")->getResult();			
-		
-		else
-
-			$categorias=$this->em->getRepository("CategoriasBundle:Categoria")->findAll();
 
 		$form = array(
 
@@ -65,13 +62,15 @@ class NoticiaForm extends AbstractType
 				array("destacado",CheckboxType::class,array("label"=>"Destacado")),
 
 				array(
-					"categorias",EntityType::class,
+					"categoria",EntityType::class,
 					array(
-						"label"		=>"Categorias",
-						"class" 	=>"CategoriasBundle:Categoria",
-						"multiple"=>true,
-						"expanded"=>true,
-						"choices"=> $categorias,
+						"label"		=>"Categorias",						
+						"class"		=>Categoria::class,
+						"query_builder"=> function (EntityRepository $er) {
+					        return $er->createQueryBuilder('c')
+					            ->orderBy('c.nombre', 'ASC');
+					    },
+    
 						"choice_label"=>function($categorias)
 						{
 							return $categorias->getNombre()["es"];

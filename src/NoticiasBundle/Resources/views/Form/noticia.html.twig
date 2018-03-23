@@ -61,23 +61,17 @@
 			</div>
 
 			<h2>Categorías</h2>
-
+			
 			<div class="row-start max-width-input-field fww">
 				
-				{% for categoria in form.children.categorias.children %}
 				<div class="input-field">
-
-					<input 
-					id="{{categoria.vars.id}}"
-					type="{{categoria.vars.block_prefixes.1}}"
-					name="{{categoria.vars.full_name}}"
-					{{(categoria.vars.checked)?"checked":""}}
-					value="{{categoria.vars.value}}"
-					>
-					<label for="{{categoria.vars.id}}">{{categoria.vars.label}}</label>
-
+					<select name="{{form.children.categoria.vars.full_name}}" required>
+						<option value=""></option>
+						{% for categoria in form.children.categoria.vars.choices %}
+							<option value="{{categoria.value}}" {{form.children.categoria.vars.value==categoria.value?"selected":""}}>{{categoria.label}}</option>
+						{% endfor %}
+					</select>
 				</div>
-				{% endfor %}
 			</div>
 
 			<h2>Idioma</h2>
