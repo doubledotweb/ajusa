@@ -22,7 +22,7 @@ use Doctrine\ORM\Query\ResultSetMapping;
 class CategoriasController extends BaseController
 {
     /**
-     * @Route("",name="listado_categorias")
+     * @Route("",name="listado_categorias_noticias")
      
      */
     public function indexAction()
@@ -33,7 +33,7 @@ class CategoriasController extends BaseController
     }
 
     /**
-     * @Route("anadir",name="anadir_categoria")
+     * @Route("anadir",name="anadir_categoria_noticias")
      
      */
     public function anadir(Request $request)
@@ -70,7 +70,7 @@ class CategoriasController extends BaseController
     }
 
     /**
-     * @Route("editar/{id}",name="editar_categoria")
+     * @Route("editar/{id}",name="editar_categoria_noticias")
      
      */
     public function editar(Request $request,$id)
@@ -142,7 +142,7 @@ class CategoriasController extends BaseController
     }
 
     /**
-     * @Route("borrar/{id}",name="eliminar_categoria")
+     * @Route("borrar/{id}",name="eliminar_categoria_noticias")
      
      */
     public function borrar(Request $request,$id)

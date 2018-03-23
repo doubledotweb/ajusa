@@ -7,7 +7,7 @@ front:
 noticias:
     resource: "@NoticiasBundle/Resources/config/routing.yml"
     
-categorias_noticias:
+CategoriasBundle:
     resource: "@CategoriasBundle/Resources/config/routing.yml"
 
 prensa:
