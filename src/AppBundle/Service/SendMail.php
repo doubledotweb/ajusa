@@ -25,7 +25,7 @@ class SendMail
 	        $logo=$message->embed(\Swift_Image::fromPath("img/logo-pascual.png"));
 	        
 	        $message->setSubject($params["subject"])
-	        ->setFrom($params["from"])
+	        ->setFrom("social@ajusa.es")
 	        ->setTo($params["to"])
 	        ->setBody(                  
 	            $this->templating->render(                    
