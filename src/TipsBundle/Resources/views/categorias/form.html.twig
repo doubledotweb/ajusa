@@ -37,7 +37,20 @@
 					maxlength="{{form.children.titulo.vars.attr.maxlength}}" 
 					{{form.children.titulo.vars.required?"required":""}}
 					>					
-				</div>				
+				</div>
+
+				<h2>{{form.children.titulo_en.vars.label}}</h2>
+
+				<div class="input-field">
+					<input 
+					type="{{form.children.titulo_en.vars.block_prefixes.1}}" 
+					name="{{form.children.titulo_en.vars.full_name}}"
+					value="{{form.children.titulo_en.vars.value}}"
+					maxlength="{{form.children.titulo_en.vars.attr.maxlength}}" 
+					{{form.children.titulo_en.vars.required?"required":""}}
+					>					
+				</div>	
+
 
 				<div id="botones" class="contenedor-botones row-start">
 

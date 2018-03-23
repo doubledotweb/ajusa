@@ -76,10 +76,11 @@ class Noticia
     private $modification;
 
     /**
-    * @ORM\ManyToMany(targetEntity="CategoriasBundle\Entity\Categoria", inversedBy="noticias")
-    * @ORM\JoinTable(name="noticias_categorias")
-    */
-    private $categorias;
+     * Many Features have One Product.
+     * @ORM\ManyToOne(targetEntity="\CategoriasBundle\Entity\Categoria", inversedBy="noticias")
+     * @ORM\JoinColumn(name="categoria_id", referencedColumnName="id")
+     */ 
+    private $categoria;
 
     /**
     * @ORM\Column(type="boolean")
@@ -111,7 +112,7 @@ class Noticia
 
     public function __construct()
     {   
-        $this->categorias = new \Doctrine\Common\Collections\ArrayCollection();
+        
         $this->comentarios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->fecha_publicacion= new \DateTime("now");
         $this->visible      = true;
@@ -170,10 +171,10 @@ class Noticia
             }
             if($this->slug[$lang]!=null)
             {
-                if(count(glob("./noticias/".$this->slug[$lang]."/media/*"))==0)
-                    is_dir("./noticias/".$this->slug[$lang]."/media")?rmdir("./noticias/".$this->slug[$lang]."/media"):"";
-                if(count(glob("./noticias/".$this->slug[$lang]."/*"))==0)
-                    is_dir("./noticias/".$this->slug[$lang])?rmdir("./noticias/".$this->slug[$lang]):"";
+                if(count(glob("./archivos/posts/".$this->slug[$lang]."/media/*"))==0)
+                    is_dir("./archivos/posts/".$this->slug[$lang]."/media")?rmdir("./archivos/posts/".$this->slug[$lang]."/media"):"";
+                if(count(glob("./archivos/posts/".$this->slug[$lang]."/*"))==0)
+                    is_dir("./archivos/posts/".$this->slug[$lang])?rmdir("./archivos/posts/".$this->slug[$lang]):"";
                 
             }
         }
@@ -204,7 +205,7 @@ class Noticia
                 }
             }
 
-            $total=glob("./noticias/".$this->slug[$lang_code]."/media/*");
+            $total=glob("./archivos/posts/".$this->slug[$lang_code]."/media/*");
 
             $paths=array_flip($paths);            
 
@@ -238,7 +239,7 @@ class Noticia
 
             
 
-            $ruta="/noticias/".$carpeta."/media/";
+            $ruta="/archivos/posts/".$carpeta."/media/";
 
 
             $format=$file->getClientOriginalExtension();
@@ -271,12 +272,12 @@ class Noticia
     */
     public function rename_media_folder()
     {   
-        $is_dir=is_dir("./noticias/".$this->rename["old"]);        
+        $is_dir=is_dir("./archivos/posts/".$this->rename["old"]);        
         
         if($is_dir)
         {
             
-            $renamed=rename("./noticias/".$this->rename["old"], "./noticias/".$this->rename["new"]);
+            $renamed=rename("./archivos/posts/".$this->rename["old"], "./archivos/posts/".$this->rename["new"]);
         
             if($renamed)
             {   
@@ -298,6 +299,7 @@ class Noticia
         }
         
     }
+
 
 
     /**
@@ -503,6 +505,30 @@ class Noticia
     }
 
     /**
+     * Set cuerpo
+     *
+     * @param array $cuerpo
+     *
+     * @return Noticia
+     */
+    public function setCuerpo($cuerpo)
+    {
+        $this->cuerpo = $cuerpo;
+
+        return $this;
+    }
+
+    /**
+     * Get cuerpo
+     *
+     * @return array
+     */
+    public function getCuerpo()
+    {
+        return $this->cuerpo;
+    }
+
+    /**
      * Set created
      *
      * @param \DateTime $created
@@ -548,71 +574,6 @@ class Noticia
     public function getModification()
     {
         return $this->modification;
-    }
-
-    /**
-     * Set cuerpo
-     *
-     * @param array $cuerpo
-     *
-     * @return Noticia
-     */
-    public function setCuerpo($cuerpo)
-    {
-        $this->cuerpo = $cuerpo;
-
-        return $this;
-    }
-
-    /**
-     * Get cuerpo
-     *
-     * @return array
-     */
-    public function getCuerpo()
-    {
-        return $this->cuerpo;
-    }
-
-    /**
-     * Add categoria
-     *
-     * @param \NoticiasBundle\Entity\Categoria $categoria
-     *
-     * @return Noticia
-     */
-    public function addCategoria(\CategoriasBundle\Entity\Categoria $categoria)
-    {
-        $this->categorias[] = $categoria;
-
-        return $this;
-    }
-
-    /**
-     * Remove categoria
-     *
-     * @param \NoticiasBundle\Entity\Categoria $categoria
-     */
-    public function removeCategoria(\CategoriasBundle\Entity\Categoria $categoria)
-    {
-        $this->categorias->removeElement($categoria);
-    }
-
-    /**
-     * Get categorias
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCategorias()
-    {
-        return $this->categorias;
-    }
-
-    public function setCategorias($categorias)
-    {
-        $this->categorias=$categorias;
-
-        return $this;
     }
 
     /**
@@ -685,6 +646,30 @@ class Noticia
     public function getHints()
     {
         return $this->hints;
+    }
+
+    /**
+     * Set categoria
+     *
+     * @param \CategoriasBundle\Entity\Categoria $categoria
+     *
+     * @return Noticia
+     */
+    public function setCategoria(\CategoriasBundle\Entity\Categoria $categoria = null)
+    {
+        $this->categoria = $categoria;
+
+        return $this;
+    }
+
+    /**
+     * Get categoria
+     *
+     * @return \CategoriasBundle\Entity\Categoria
+     */
+    public function getCategoria()
+    {
+        return $this->categoria;
     }
 
     /**

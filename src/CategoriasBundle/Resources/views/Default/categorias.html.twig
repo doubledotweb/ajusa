@@ -16,7 +16,7 @@
 	<div class="container-table">
 		<div class="contenedor-titulo row-between">	
 			<h1>{{"Categorías"|trans}}</h1>
-			<a class="btn waves-effect" href="{{path("anadir_categoria")}}">{{"Añadir nuevo"|trans}}</a>
+			<a class="btn waves-effect" href="{{path("anadir_categoria_noticias")}}">{{"Añadir nuevo"|trans}}</a>
 		</div>
 		<div class="contenedor-tabla">
 
@@ -37,11 +37,11 @@
 					<tr class="categoria">
 						<td class="nombre">{{categoria.nombre.es}}</td>
 						<td class="nombre">{{categoria.nombre.en}}</td>
-						<td class="total">{{categoria.noticias.getValues()|length}}</td>
+						<td class="total">{{categoria.noticias.count()}}</td>
 						<td class="opcion">
-							<a class="ver" href="{{path("editar_categoria",{"id":categoria.id})}}"><span><i class="material-icons" title="Editar">edit</i></span></a>
+							<a class="ver" href="{{path("editar_categoria_noticias",{"id":categoria.id})}}"><span><i class="material-icons" title="Editar">edit</i></span></a>
 
-							<a class="borrar" href="{{path("eliminar_categoria",{"id":categoria.id})}}"><span><i class="material-icons" title="Borrar">delete</i></span></a>
+							<a class="borrar" href="{{path("eliminar_categoria_noticias",{"id":categoria.id})}}"><span><i class="material-icons" title="Borrar">delete</i></span></a>
 							
 						</td>
 					</tr>

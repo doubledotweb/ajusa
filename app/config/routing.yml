@@ -7,7 +7,7 @@ front:
 noticias:
     resource: "@NoticiasBundle/Resources/config/routing.yml"
     
-categorias:
+CategoriasBundle:
     resource: "@CategoriasBundle/Resources/config/routing.yml"
 
 prensa:
@@ -23,12 +23,12 @@ tips:
 categorias:
     resource: "@TipsBundle/Controller/CategoriasController.php"
     type:     annotation
-    prefix:   /manager/categorias/
+    prefix:   /manager/destacados/categorias/
 
 keywords:
     resource: "@TipsBundle/Controller/KeywordsController.php"
     type:     annotation
-    prefix:   /manager/keywords/
+    prefix:   /manager/destacados/keywords/
 
 destcados:
     resource: "@DestcadosBundle/Controller/"

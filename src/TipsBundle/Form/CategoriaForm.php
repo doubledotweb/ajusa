@@ -44,7 +44,8 @@ class CategoriaForm extends AbstractType
 
 /*            array("idioma",ChoiceType::class,array("label"=>"Idioma","required"=>true,"choices"=>array("Español"=>"es","Inglés"=>"en"),"multiple"=>false,"expanded"=>true)),*/
 
-            array("titulo",TextType::class,array("label"=>"Título","required"=>true,"attr"=>array("maxlength"=>255))),                   
+            array("titulo",TextType::class,array("label"=>"Título","required"=>true,"attr"=>array("maxlength"=>255))),
+            array("titulo_en",TextType::class,array("label"=>"Título Inglés","required"=>true,"attr"=>array("maxlength"=>255))),                   
             
             array("submit",SubmitType::class, array("label"=>"Guardar")),
             );

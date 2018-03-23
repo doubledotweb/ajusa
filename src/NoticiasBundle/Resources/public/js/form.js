@@ -133,6 +133,8 @@ $(document).ready(function()
 			}
 		});
 
+		formdata.append($('select[name="noticia_form[categoria]"]').attr("name"),$('select[name="noticia_form[categoria]"]').val());
+
 
 
 		$('input[name="noticia_form[idioma]['+idioma+']"]').each(anadir_al_form);

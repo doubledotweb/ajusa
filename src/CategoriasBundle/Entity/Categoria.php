@@ -50,12 +50,14 @@ class Categoria extends Archivo
 
 
     /**
-    * @ORM\ManyToMany(targetEntity="NoticiasBundle\Entity\Noticia", mappedBy="categorias")
-    */
+     * One Product has Many Features.
+     * @ORM\OneToMany(targetEntity="\NoticiasBundle\Entity\Noticia", mappedBy="categoria")
+     */
     private $noticias;
 
     public function __construct()
     {    	
+        $this->noticias     = new \Doctrine\Common\Collections\ArrayCollection();
     	$this->nombre 		= array("es"=>"","en"=>"");
     	$this->slug      	= array("es"=>"","en"=>"");    	
     }
@@ -79,10 +81,11 @@ class Categoria extends Archivo
     public function actualizar_imagen()
     {
         if($this->imagen_aux)
-            $this->imagen=$this->subir("/bundles/categorias/img/",$this->imagen_aux);   
+            $this->imagen=$this->subir("/archivos/categorias/img/",$this->imagen_aux);   
     }
 
     
+
 
     /**
      * Get id
@@ -191,40 +194,6 @@ class Categoria extends Archivo
     }
 
     /**
-     * Add noticia
-     *
-     * @param \NoticiasBundle\Entity\Noticia $noticia
-     *
-     * @return Categoria
-     */
-    public function addNoticia(\NoticiasBundle\Entity\Noticia $noticia)
-    {
-        $this->noticias[] = $noticia;
-
-        return $this;
-    }
-
-    /**
-     * Remove noticia
-     *
-     * @param \NoticiasBundle\Entity\Noticia $noticia
-     */
-    public function removeNoticia(\NoticiasBundle\Entity\Noticia $noticia)
-    {
-        $this->noticias->removeElement($noticia);
-    }
-
-    /**
-     * Get noticias
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getNoticias()
-    {
-        return $this->noticias;
-    }
-
-    /**
      * Set imagen
      *
      * @param string $imagen
@@ -294,5 +263,41 @@ class Categoria extends Archivo
     public function getModificado()
     {
         return $this->modificado;
+    }
+
+    /**
+     * Add noticia
+     *
+     * @param \NoticiasBundle\Entity\Noticia $noticia
+     *
+     * @return Categoria
+     */
+    public function addNoticia(\NoticiasBundle\Entity\Noticia $noticia)
+    {
+        $noticia->setCategoria($this);
+        $this->noticias[] = $noticia;
+
+
+        return $this;
+    }
+
+    /**
+     * Remove noticia
+     *
+     * @param \NoticiasBundle\Entity\Noticia $noticia
+     */
+    public function removeNoticia(\NoticiasBundle\Entity\Noticia $noticia)
+    {
+        $this->noticias->removeElement($noticia);
+    }
+
+    /**
+     * Get noticias
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNoticias()
+    {
+        return $this->noticias;
     }
 }

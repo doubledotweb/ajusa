@@ -1,4 +1,4 @@
-categorias:
+categorias_noticias:
     resource: "@CategoriasBundle/Controller/"
     type:     annotation
-    prefix:   /manager/categorias/
+    prefix:   /manager/noticias/categorias/
