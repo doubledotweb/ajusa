@@ -185,9 +185,9 @@ class DefaultController extends BaseController
 
 
     /**
-     * @Route("/noticias")
+     * @Route("/blog")
      */
-    public function noticias(Request $request)
+    public function blog(Request $request)
     {
     	$lang=$request->request->get("lang");
 
@@ -202,7 +202,7 @@ class DefaultController extends BaseController
 
     	$response=array();
 
-        $response["listado"]=array();
+        $response["noticias"]=array();
         
 
     	$result=$this->get_noticias($lang);
@@ -211,19 +211,75 @@ class DefaultController extends BaseController
     	{
     		$aux=$this->get_comunes($noticia,$lang);
 
-			$aux["categorias"]=$this->get_categorias($noticia,$lang);
+			$aux["categorias"]=$this->get_categorias_noticia($noticia,$lang);
     		
 
-    		$response["listado"][]=$aux;
+    		$response["noticias"][]=$aux;
     	}
+
+        $response["categorias"]=$this->get_categorias($lang);
         return new JsonResponse($response);
+    }
+
+    /**
+     * @Route("/blog/{slug_categoria}")
+     */
+    public function blog_categoria(Request $request,$slug_categoria)
+    {
+        $lang=$request->request->get("lang");
+
+        if($lang=="")
+        {
+            $lang=$request->query->get("lang");
+
+            if($lang=="")
+                $lang="es";
+        }
+
+
+        $response=array();
+
+        $response["noticias"]=array();
+            
+        $select_categoria="
+            SELECT c
+            FROM CategoriasBundle:Categoria c
+            Where c.slug LIKE :slug";
+
+        $conditions=array("slug"=>"%".$slug_categoria."%");
+
+        $result=$this->query_builder($select_categoria,$conditions);
+
+        $categoria=null;
+
+        foreach ($result as $key => $cat) 
+        {            
+            if($cat->getSlug()[$lang]==$slug_categoria)
+            {                
+                $categoria=$cat;
+                break;
+            }
+        }
+
+        if($categoria)
+        {            
+            foreach ($categoria->getNoticias()->getValues() as $key => $noticia) 
+            {
+                $response["noticias"][]=$this->get_comunes($noticia,$lang);
+            }
+            return new JsonResponse($response);    
+        }
+        else
+        {
+            return new JsonResponse(array("mensaje"=>"no existe esta categoria","code"=>0));
+        }        
     }
 
 
 
 
     /**
-     * @Route("/noticias/{slug}")
+     * @Route("/post/{slug}")
      */
     public function noticia(Request $request,$slug)
     {   	
@@ -263,7 +319,7 @@ class DefaultController extends BaseController
 			
 			$aux["descargable"]["enlace"]=$noticia[0]->getDescargable()[$lang]["valor"];
 			$aux["descargable"]["pie"]=$noticia[0]->getDescargable()[$lang]["pie"];
-			$aux["categorias"]=$this->get_categorias($noticia[0],$lang);
+			$aux["categorias"]=$this->get_categorias_noticia($noticia[0],$lang);
     		$aux["modulos"]=$this->get_modulos($noticia[0],$lang);
             $aux["comentarios"]=$this->get_comentarios($noticia[0],$lang);
 
@@ -271,7 +327,7 @@ class DefaultController extends BaseController
     	}
     	else
     	{
-    		$response["status_code"]=404;
+    		$response["code"]=0;
     		$response["mensaje"]="Esta noticia no existe";
     	}
         return new JsonResponse($response);
@@ -292,7 +348,7 @@ class DefaultController extends BaseController
 
         if($user=="mario" and $pass=="1234")
         {
-            $data=$request->request->get("datos");
+            $data=$request->request->get("datos");                        
 
             $json=base64_decode($data);
             $comentario=json_decode($json,1);
@@ -339,26 +395,26 @@ class DefaultController extends BaseController
                     }
                     catch(\Exception $e)
                     {                        
-                        return new JsonResponse(array("mensaje"=>"No se ha podido procesar su comentario"));
+                        return new JsonResponse(array("mensaje"=>"No se ha podido procesar su comentario","code"=>0));
                     }
 
-                    return new JsonResponse(array("mensaje"=>"Almacenado correctamente"));
+                    return new JsonResponse(array("mensaje"=>"Almacenado correctamente","code"=>1));
 
                 }
                 else
                 {
-                    return new JsonResponse(array("mensaje"=>"No existe la noticia"));
+                    return new JsonResponse(array("mensaje"=>"No existe la noticia","code"=>-1));
                 }
 
             }
             else
             {
-                return new JsonResponse(array("mensaje"=>"Formato de datos inválido"));       
+                return new JsonResponse(array("mensaje"=>"Formato de datos inválido","code"=>-2));
             }
         }
         else
         {
-            return new JsonResponse(array("mensaje"=>"I'm sorry but we don't like script guys ;)"));
+            return new JsonResponse(array("mensaje"=>"I'm sorry but we don't like script guys ;)","code"=>-3));
         }        
 
     }
@@ -389,17 +445,38 @@ class DefaultController extends BaseController
 		$aux["slug"]=$noticia->getSlug()[$lang];
 		$aux["entradilla"]=$noticia->getEntradilla()[$lang];
         $aux["likes"]=$noticia->getLikes();
-            $aux["hints"]=$noticia->getHints();
+        $aux["hints"]=$noticia->getHints();
 
 		return $aux;
     }
 
-    private function get_categorias($noticia,$lang)
+    private function get_categorias($lang)
+    {
+        $select_categorias="SELECT c FROM CategoriasBundle:Categoria c";
+
+        $result=$this->query_builder($select_categorias);
+
+        $categorias=array();
+
+
+        foreach ($result as $key => $categoria) 
+        {
+            $aux["nombre"]=$categoria->getNombre()[$lang];
+            $aux["slug"]=$categoria->getSlug()[$lang];
+
+            $categorias[]=$aux;
+        }
+
+        return $categorias;
+    }
+
+    private function get_categorias_noticia($noticia,$lang)
     {
     	$aux=array();
 		foreach ($noticia->getCategorias()->getValues() as $key => $categoria) 
 		{
-			$aux[]=$categoria->getNombre()[$lang];
+			$aux["nombre"]=$categoria->getNombre()[$lang];
+            $aux["slug"]=$categoria->getSlug()[$lang];
 		}
 
 		return $aux;
