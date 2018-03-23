@@ -11,9 +11,11 @@ parameters:
     #database_path: '%kernel.project_dir%/var/data/data.sqlite'
 
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: ~
-    mailer_password: ~
+    mailer_host: '%env(MAIL_HOST)%'
+    mailer_user: '%env(MAIL_USER)%'
+    mailer_password: '%env(MAIL_PASS)%'
+    mailer_encryption: '%env(MAIL_ENCRYPTION)%'
+    mailer_port: '%env(MAIL_PORT)%'
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
