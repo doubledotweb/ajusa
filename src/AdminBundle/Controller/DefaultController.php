@@ -307,12 +307,21 @@ class DefaultController extends BaseController
         
         $sendmail=$this->container->get("app.sendmail");
 
-        $params["subject"]   = "[Pascual]: Se ha solicitado restablecido la contraseña";
+        $params["subject"]   = "[Ajusa]: Se ha solicitado restablecido la contraseña";
         $params["to"]     = $to;
         $params["from"]     = "no-reply@doubledot.es";
         $params["template"] = "AdminBundle:Emails:contraseña.html.twig";
         $params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
         $params["datos"]["pass"]     = $pass;
+
+        ob_start();
+
+        echo "<pre>";
+        var_dump($params);
+        echo "</pre>";
+        $aux_debug=ob_get_clean();
+
+        file_put_contents("/tmp/debug.txt", $aux_debug);
         
         return $sendmail->send($params);
     }
