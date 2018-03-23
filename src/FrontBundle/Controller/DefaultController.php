@@ -211,7 +211,7 @@ class DefaultController extends BaseController
     	{
     		$aux=$this->get_comunes($noticia,$lang);
 
-			$aux["categorias"]=$this->get_categorias_noticia($noticia,$lang);
+			$aux["categoria"]=$this->get_categoria_noticia($noticia,$lang);
     		
 
     		$response["noticias"][]=$aux;
@@ -263,7 +263,7 @@ class DefaultController extends BaseController
 
         if($categoria)
         {            
-            foreach ($categoria->getNoticias()->getValues() as $key => $noticia) 
+            foreach ($categoria->getNoticias() as $key => $noticia) 
             {
                 $response["noticias"][]=$this->get_comunes($noticia,$lang);
             }
@@ -317,9 +317,9 @@ class DefaultController extends BaseController
     	{
     		$aux=$this->get_comunes($noticia[0],$lang);
 			
-			$aux["descargable"]["enlace"]=$noticia[0]->getDescargable()[$lang]["valor"];
-			$aux["descargable"]["pie"]=$noticia[0]->getDescargable()[$lang]["pie"];
-			$aux["categorias"]=$this->get_categorias_noticia($noticia[0],$lang);
+			$aux["descargable"]["enlace"]=isset($noticia[0]->getDescargable()[$lang]["valor"])?$noticia[0]->getDescargable()[$lang]["valor"]:"";
+			$aux["descargable"]["pie"]=isset($noticia[0]->getDescargable()[$lang]["pie"])?$noticia[0]->getDescargable()[$lang]["pie"]:"";
+			$aux["categoria"]=$this->get_categoria_noticia($noticia[0],$lang);
     		$aux["modulos"]=$this->get_modulos($noticia[0],$lang);
             $aux["comentarios"]=$this->get_comentarios($noticia[0],$lang);
 
@@ -440,8 +440,8 @@ class DefaultController extends BaseController
     private function get_comunes($noticia,$lang)
     {
     	$aux["titulo"]=$noticia->getTitulo()[$lang];
-		$aux["img"]["enlace"]=$noticia->getImagen()[$lang]["valor"];
-		$aux["img"]["pie"]=$noticia->getImagen()[$lang]["pie"];
+		$aux["img"]["enlace"]=isset($noticia->getImagen()[$lang]["valor"])?$noticia->getImagen()[$lang]["valor"]:"";
+		$aux["img"]["pie"]=isset($noticia->getImagen()[$lang]["pie"])?$noticia->getImagen()[$lang]["pie"]:"";
 		$aux["slug"]=$noticia->getSlug()[$lang];
 		$aux["entradilla"]=$noticia->getEntradilla()[$lang];
         $aux["likes"]=$noticia->getLikes();
@@ -470,14 +470,15 @@ class DefaultController extends BaseController
         return $categorias;
     }
 
-    private function get_categorias_noticia($noticia,$lang)
+    private function get_categoria_noticia($noticia,$lang)
     {
     	$aux=array();
-		foreach ($noticia->getCategorias()->getValues() as $key => $categoria) 
-		{
-			$aux["nombre"]=$categoria->getNombre()[$lang];
-            $aux["slug"]=$categoria->getSlug()[$lang];
-		}
+		if($noticia->getCategoria()!=null)
+        {            
+          $aux["nombre"]=$noticia->getCategoria()->getNombre()[$lang];
+          $aux["slug"]=$noticia->getCategoria()->getSlug()[$lang];
+        }
+		
 
 		return $aux;
     }
