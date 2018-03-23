@@ -358,15 +358,19 @@ class NoticiasController extends BaseController
 
         
         if(isset($noticia_aux["categoria"]))
-                    
+        {
             $categoria=$this->findById("CategoriasBundle:Categoria",$noticia_aux["categoria"]);
+
+            $categoria->addNoticia($noticia);
+        }
         
         else
-        
+        {            
             $categoria= null;            
+            $noticia->setCategoria($categoria);
+        }    
         
 
-        $noticia->setCategoria($categoria);
 
         return $noticia;
     }
