@@ -51,13 +51,13 @@ class Categoria extends Archivo
 
     /**
      * One Product has Many Features.
-     * @ORM\OneToMany(targetEntity="\NoticiasBundle\Entity\Noticia", mappedBy="noticia")
+     * @ORM\OneToMany(targetEntity="\NoticiasBundle\Entity\Noticia", mappedBy="categoria")
      */
     private $noticias;
 
     public function __construct()
     {    	
-        $this->noticias     = new ArrayCollection();
+        $this->noticias     = new \Doctrine\Common\Collections\ArrayCollection();
     	$this->nombre 		= array("es"=>"","en"=>"");
     	$this->slug      	= array("es"=>"","en"=>"");    	
     }
@@ -274,7 +274,9 @@ class Categoria extends Archivo
      */
     public function addNoticia(\NoticiasBundle\Entity\Noticia $noticia)
     {
+        $noticia->setCategoria($this);
         $this->noticias[] = $noticia;
+
 
         return $this;
     }
