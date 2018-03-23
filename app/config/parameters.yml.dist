@@ -15,7 +15,7 @@ parameters:
     mailer_user: '%env(MAIL_USER)%'
     mailer_password: '%env(MAIL_PASS)%'
     mailer_encryption: '%env(MAIL_ENC)%'
-    mailer_port: '%env(MAIL_PORT)%'
+    mailer_port: tls
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
