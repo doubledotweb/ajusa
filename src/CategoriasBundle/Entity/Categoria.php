@@ -65,7 +65,7 @@ class Categoria extends Archivo
     /**
 	* @ORM\PrePersist
     */
-    public function creado()
+    public function created()
     {
     	$this->created=new \DateTime("now");
     }
@@ -73,7 +73,7 @@ class Categoria extends Archivo
     /**
 	* @ORM\PreUpdate
     */
-    public function modificado()
+    public function modificated()
     {
     	$this->modification=new \DateTime("now");
     }
