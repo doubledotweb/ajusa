@@ -133,7 +133,7 @@ class CategoriasController extends BaseController
                 break;
             }           
             if($redirect)
-                return $this->redirect($this->generateUrl("listado_categorias"));
+                return $this->redirect($this->generateUrl("listado_categorias_noticias"));
 
         }
         

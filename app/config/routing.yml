@@ -20,15 +20,16 @@ tips:
     type:     annotation
     prefix:   /manager/tips/
 
+keywords:
+    resource: "@TipsBundle/Controller/KeywordsController.php"
+    type:     annotation
+    prefix:   /manager/tips/keywords/
+    
 categorias:
     resource: "@TipsBundle/Controller/CategoriasController.php"
     type:     annotation
     prefix:   /manager/destacados/categorias/
 
-keywords:
-    resource: "@TipsBundle/Controller/KeywordsController.php"
-    type:     annotation
-    prefix:   /manager/destacados/keywords/
 
 destcados:
     resource: "@DestcadosBundle/Controller/"
