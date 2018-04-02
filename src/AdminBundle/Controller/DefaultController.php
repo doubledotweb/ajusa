@@ -355,8 +355,14 @@ class DefaultController extends BaseController
                 {
                     $this->editar_entity($user);
                     $this->preparar_email($new_pass,$user->getUsername());
-                    $this->addFlash("success","Pronto recibirá un email con su nueva contraseña");
-                    return $this->redirect($this->generateUrl("login_admin"));       
+                    if($this->preparar_email($new_pass,$user->getUsername()))
+                    {
+                        
+                        $this->addFlash("success","Pronto recibirá un email con su nueva contraseña");
+                        return $this->redirect($this->generateUrl("login_admin"));       
+                    }
+                    else
+                        $this->addFlash("error","Algo ha ido mal");
                 }
                 catch(\Exception $e)
                 {
