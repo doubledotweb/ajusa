@@ -4,40 +4,40 @@
 
 
 {% block javascripts %}
-	<script type="text/javascript" src="">
+	<script type="text/javascript">
 
-	$(document).ready(function(e)
-	{
-		name=$("form").attr("name");
-		$("#"+name+"_delete").on("click",borrar);
-
-
-	});
-
-	function borrar(e)
-	{
-		e.preventDefault();
-		texto="La categoria va ser eliminado ¿Está seguro?";
-
-		$("#popup #box_options").on("click","#accept",borrar_tip);
-		$("#popup #box_options").on("click","#decline",cancelar);
-
-		mostrar_popup(texto,"s/n");
-
-	}
+		$(document).ready(function(e)
+		{
+			name=$("form").attr("name");
+			$("#"+name+"_delete").on("click",borrar);
 
 
-	function cancelar()
-	{
-		ocultar_popup();
-	}
+		});
 
-	function borrar_tip(e)
-	{
-		e.preventDefault();
-		$("input[required]").removeAttr('required');
-		$('button[name="'+name+'[delete]"]').trigger('click');	
-	}
+		function borrar(e)
+		{
+			e.preventDefault();
+			texto="La categoria va ser eliminado ¿Está seguro?";
+
+			$("#popup #box_options").on("click","#accept",borrar_tip);
+			$("#popup #box_options").on("click","#decline",cancelar);
+
+			mostrar_popup(texto,"s/n");
+
+		}
+
+
+		function cancelar()
+		{
+			ocultar_popup();
+		}
+
+		function borrar_tip(e)
+		{
+			e.preventDefault();
+			$("input[required]").removeAttr('required');
+			$('button[name="'+name+'[delete]"]').trigger('click');	
+		}
 
 
 	</script>
