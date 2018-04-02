@@ -388,6 +388,7 @@ class DefaultController extends BaseController
                     $new_comentario->setNoticia($noticia);
                     $new_comentario->setNombre($comentario["nombre"]);
                     $new_comentario->setTexto($comentario["texto"]);
+                    $new_comentario->setEmail($comentario["email"]);
                     
                     try
                     {
