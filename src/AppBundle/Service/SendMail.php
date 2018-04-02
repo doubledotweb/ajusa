@@ -22,7 +22,7 @@ class SendMail
 		try 
 		{					
 	        $message = \Swift_Message::newInstance();
-	        $logo=$message->embed(\Swift_Image::fromPath("img/logo-pascual.png"));
+	        $logo=$message->embed(\Swift_Image::fromPath(__DIR__."/../../../web/img/logo.png"));
 	        
 	        $message->setSubject($params["subject"])
 	        ->setFrom($params["from"])
