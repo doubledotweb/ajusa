@@ -446,6 +446,7 @@ class DefaultController extends BaseController
 		$aux["entradilla"]=$noticia->getEntradilla()[$lang];
         $aux["likes"]=$noticia->getLikes();
         $aux["hints"]=$noticia->getHints();
+        $aux["fecha"]=$noticia->getCreado()->format("Y-m-d");
 
 		return $aux;
     }
