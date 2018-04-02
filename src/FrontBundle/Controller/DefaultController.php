@@ -93,7 +93,7 @@ class DefaultController extends BaseController
         $conditions=array("lang"=>$lang);
 
 
-        $params["keyword"]=$this->query($select_keywords,$conditions);
+        $params["keywords"]=$this->query($select_keywords,$conditions);
 
         $select_novedades='
             SELECT titulo,archivo 
