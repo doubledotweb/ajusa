@@ -442,7 +442,7 @@ class DefaultController extends BaseController
     	$aux["titulo"]=$noticia->getTitulo()[$lang];
 		$aux["img"]["enlace"]=isset($noticia->getImagen()[$lang]["valor"])?$noticia->getImagen()[$lang]["valor"]:"";
 		$aux["img"]["pie"]=isset($noticia->getImagen()[$lang]["pie"])?$noticia->getImagen()[$lang]["pie"]:"";
-		$aux["slug"]=$noticia->getSlug()[$lang];
+		$aux["slugs"]=$noticia->getSlug();
 		$aux["entradilla"]=$noticia->getEntradilla()[$lang];
         $aux["likes"]=$noticia->getLikes();
         $aux["hints"]=$noticia->getHints();
