@@ -538,6 +538,8 @@ class DefaultController extends BaseController
             return false;
         if(!isset($comentario["slug"]) or $comentario["slug"]=="")
             return false;
+        if(!isset($comentario["email"]) or $comentario["email"]=="")
+            return false;
 
         return true;
     }
