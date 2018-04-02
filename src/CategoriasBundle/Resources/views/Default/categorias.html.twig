@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Categorías{% endblock %}
+{% block title %}Categorías noticias{% endblock %}
 {% block stylesheets %}
 <link rel="stylesheet" type="text/css" href="{{asset("/bundles/noticias/css/admin.css")}}">
 {% endblock %}
@@ -15,7 +15,7 @@
 	
 	<div class="container-table">
 		<div class="contenedor-titulo row-between">	
-			<h1>{{"Categorías"|trans}}</h1>
+			<h1>{{"Categorías noticias"|trans}}</h1>
 			<a class="btn waves-effect" href="{{path("anadir_categoria_noticias")}}">{{"Añadir nuevo"|trans}}</a>
 		</div>
 		<div class="contenedor-tabla">

@@ -100,6 +100,7 @@
 				</div>
 
 				<div class="js-archivo" style="">
+
 					<h2>{{form.children.archivo_aux.vars.label}}</h2>
 					<div class="file-field input-field image-field">
 						
@@ -120,8 +121,8 @@
 								type="file" 
 								id="{{form.children.archivo_aux.vars.id}}"
 								name="{{form.children.archivo_aux.vars.full_name}}"
-								{{form.children.archivo_aux.vars.required?"required":""}}
-								{{form.children.categoria.vars.value=="clipping-de-prensa"?'acept=".doc,.pdf,.zip"':'acept="image/*"'}}
+								{{form.children.archivo_aux.vars.required and imagen is not defined?"required":""}}
+								{{form.children.categoria.vars.value=="clipping-de-prensa"?'accept=".doc,.pdf,.zip"':'accept="image/*"'}}
 								>
 
 								<input type="hidden" name="{{form.children.imagen.vars.full_name}}">

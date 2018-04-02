@@ -56,7 +56,7 @@ class TipForm extends AbstractType
 
             array("destacado",CheckboxType::class,array("label"=>"Destacado","required"=>true,)),
 
-            array("categorias",EntityType::class,array("label"=>"Tipo","required"=>true,"class"=>Categoria::class,
+            array("categorias",EntityType::class,array("label"=>"Categoría","required"=>true,"class"=>Categoria::class,
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.titulo', 'ASC');
