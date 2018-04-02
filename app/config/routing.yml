@@ -28,7 +28,7 @@ keywords:
 categorias:
     resource: "@TipsBundle/Controller/CategoriasController.php"
     type:     annotation
-    prefix:   /manager/destacados/categorias/
+    prefix:   /manager/tips/categorias/
 
 
 destcados:
