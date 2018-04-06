@@ -388,6 +388,7 @@ class DefaultController extends BaseController
                     $new_comentario->setNoticia($noticia);
                     $new_comentario->setNombre($comentario["nombre"]);
                     $new_comentario->setTexto($comentario["texto"]);
+                    $new_comentario->setEmail($comentario["email"]);
                     
                     try
                     {
@@ -538,6 +539,8 @@ class DefaultController extends BaseController
             return false;
         if(!isset($comentario["slug"]) or $comentario["slug"]=="")
             return false;
+        if(!isset($comentario["email"]) or $comentario["email"]=="")
+            return false;
 
         return true;
     }
@@ -551,7 +554,7 @@ class DefaultController extends BaseController
             if($comentario->getIdioma()==$lang)
             {
                 $aux["nombre"]=$comentario->getNombre();
-                $aux["fecha"]=$comentario->getCreated()->format("d/m/Y H:i");
+                $aux["fecha"]=$comentario->getCreado()->format("U");
                 $aux["texto"]=$comentario->getTexto();
                 $comentarios[]=$aux;
             }

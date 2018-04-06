@@ -28,6 +28,11 @@ class Comentario extends Entity
      */
     private $idioma;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $email;
+
 	/**
      * @ORM\Column(type="string")
  	 */
@@ -240,5 +245,29 @@ class Comentario extends Entity
     public function getPermitido()
     {
         return $this->permitido;
+    }
+
+    /**
+     * Set email
+     *
+     * @param boolean $email
+     *
+     * @return Comentario
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return boolean
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }
