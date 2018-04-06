@@ -554,7 +554,7 @@ class DefaultController extends BaseController
             if($comentario->getIdioma()==$lang)
             {
                 $aux["nombre"]=$comentario->getNombre();
-                $aux["fecha"]=$comentario->getCreated()->format("d/m/Y H:i");
+                $aux["fecha"]=$comentario->getCreado()->format("U");
                 $aux["texto"]=$comentario->getTexto();
                 $comentarios[]=$aux;
             }
