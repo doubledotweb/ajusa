@@ -152,7 +152,7 @@ class DefaultController extends BaseController
             {
                 $keywords_json[] = $key["titulo"];
             }
-            $tip['keyword'] = $keywords_json;
+            $tip['keywords'] = $keywords_json;
         }
 
 
