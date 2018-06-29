@@ -108,6 +108,56 @@ class DefaultController extends BaseController
         return new JsonResponse($params);
     }  
 
+    /*
+        {
+            titulo : "Probando prueba 3",
+            keywords : ["taqués hidráulicos", "bomba de inyección", "reglaje-de-valvulas", 'probaremos'],
+            categoria : 'probando',
+            archivo : "http://www.google.es"
+        }
+    */
+
+    /**
+     * @Route("/tips")
+     */
+    public function tips(Request $request)
+    {
+        $lang=$request->request->get("lang");
+
+        if($lang=="")
+        {
+            $lang=$request->query->get("lang");
+
+            if($lang=="")
+                $lang="es";
+        }
+
+        $conditions=array("lang"=>$lang);
+
+        $select_tips='
+            SELECT a.titulo as tip_titulo, a.id as tip_id, a.archivo as archivo, b.titulo as categoria
+            FROM tips as a, categorias as b, tips_categorias as d
+            WHERE b.id = d.categoria_id AND d.tip_id = a.id AND a.idioma = :lang
+            ORDER BY a.creado DESC';
+
+        $tips = $this->query($select_tips,$conditions);
+        
+        foreach ($tips as &$tip)
+        {
+            $conditions=array("id"=>$tip["tip_id"]);
+            $select_keywords = 'SELECT titulo FROM keywords as a, tips_keywords as b WHERE a.id = b.keyword_id AND b.tip_id = :id';
+            $keywords = $this->query($select_keywords,$conditions);
+            $keywords_json = [];
+            foreach ($keywords as $key)
+            {
+                $keywords_json[] = $key["titulo"];
+            }
+            $tip['keyword'] = $keywords_json;
+        }
+
+
+        return new JsonResponse($tips);
+    }
 
     /**
      * @Route("/actualidad")
