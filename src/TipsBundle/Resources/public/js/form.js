@@ -105,13 +105,14 @@ function keywords_selected(e)
 
 
 	var chip='<div class="chip" >'+$(this).text()+'<i class="borrar material-icons">delete</i></div>';
-	var input='<input type="hidden" name="'+name+'[keywords]" value="'+$(this).attr('data-id')+'" >';
+	var input='<input type="hidden" name="'+name+'[keywords]['+$(this).attr('data-id')+']" value="'+$(this).attr('data-id')+'" >';
 	//$("#add_keywords").val($("#add_keywords").val() + ", " + $(this).attr('data-id'));
 	if($('#js-hidden-input-keyword-container input[value="'+$(this).attr('data-id')+'"]').length==0)
 	{		
 		$("#js-tips-keyword-container").append(chip);
 	 	$("#js-hidden-input-keyword-container").append(input);		
 		$("#js-fake-select-keywords").hide();
+		$("#js-fake-input-keywords").val("");
 	}
 
 }
@@ -124,3 +125,4 @@ function delete_keyword(e)
 	$("#js-hidden-input-keyword-container input")[pos].remove();
 	
 }
+

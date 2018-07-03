@@ -19,6 +19,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 use Doctrine\ORM\Query\ResultSetMapping;
 
+use Psr\Log\LoggerInterface;
+
+
 class CategoriasController extends BaseController
 {
     /**
@@ -148,12 +151,12 @@ class CategoriasController extends BaseController
     public function borrar(Request $request,$id)
     {
         $translator=$this->get("translator");
-
+        
         $categoria = $this->findById("CategoriasBundle:Categoria",$id);
         if($categoria!=null)
         {
 
-            if($this->noticias_categoria($categoria)==0)
+            if(count($categoria->getNoticias())==0)
             {
 
                 try 

@@ -26,7 +26,7 @@ function borrar(e)
 
 	$(this).addClass("removed");
 
-	texto="El tip va ser eliminado ¿Está seguro?";
+	texto="El descargable va ser eliminado ¿Está seguro?";
 
 	mostrar_popup(texto,"s/n","removed");
 }

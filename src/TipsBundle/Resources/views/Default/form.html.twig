@@ -154,7 +154,7 @@
 					    	<li data-id="{{keyword.vars.value}}" {#style="display:none"#}>{{keyword.vars.label}}</li>
 					    	{% if keyword.vars.checked %}
 					    		{% set chips = chips~'<div class="chip" >'~keyword.vars.label~'<i class="borrar material-icons">delete</i></div>' %}
-					    	{% set inputs = inputs~'<input type="hidden" name="'~form.children.keywords.vars.full_name~'" value="'~keyword.vars.value~'" >' %}
+					    	{% set inputs = inputs~'<input type="hidden" id="add_keywords" name="'~form.children.keywords.vars.full_name~'['~keyword.vars.value~']" value="'~keyword.vars.value~'" >' %}
 					    	{% endif %}
 						{% endfor %}
 						</ul>
@@ -165,7 +165,7 @@
 					<div id="js-hidden-input-keyword-container">
 						{{inputs|raw}}
 					</div>
-
+					{# <input type="hidden" id="add_keywords" name="tip_form[keywords]" value="" > #}
 				</div>
 
 				<div id="botones" class="contenedor-botones row-start">

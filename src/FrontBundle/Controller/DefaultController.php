@@ -11,7 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 use AppBundle\Controller\BaseController;
 
-Use ComentariosBundle\Entity\Comentario;
+use ComentariosBundle\Entity\Comentario;
+
+use Abraham\TwitterOAuth\TwitterOAuth;
+
+use Psr\Log\LoggerInterface;
 
 class DefaultController extends BaseController
 {
@@ -152,7 +156,7 @@ class DefaultController extends BaseController
             {
                 $keywords_json[] = $key["titulo"];
             }
-            $tip['keywords'] = $keywords_json;
+            $tip['keyword'] = $keywords_json;
         }
 
 
@@ -183,6 +187,7 @@ class DefaultController extends BaseController
 
             $params["noticias"][]=$aux;
         }
+        $logger = $this->get("logger");
         return new JsonResponse($params);
     }
 
@@ -384,6 +389,48 @@ class DefaultController extends BaseController
     }
 
     /**
+     * @Route("/like/{slug}")
+     */
+    public function addlike(Request $request,$slug)
+    {   	
+
+        $lang=$request->request->get("lang");
+
+        if($lang=="")
+        {
+            $lang=$request->query->get("lang");
+
+            if($lang=="")
+                $lang="es";
+        }
+
+    	$response=array();
+    	$response["status_code"]=200;
+    	$response["noticia"]=array();
+    	
+
+    	$query='SELECT n
+    		FROM NoticiasBundle:Noticia n
+    		WHERE 	n.slug LIKE :slug and     		
+    				n.visible = 1
+    		ORDER BY n.fecha_publicacion DESC';
+
+    	$conditions=array(
+
+    		"slug"=>'%'.$slug.'%',    		
+    	);
+
+    	
+        $noticia=$this->query_builder($query,$conditions);
+        $noticia[0]->setLikes($noticia[0]->getLikes()+1);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($noticia[0]);
+        $em->flush();        
+    
+        return new JsonResponse(array("likes"=>$noticia[0]->getLikes(),"code"=>200));
+    }
+
+    /**
      * @Route("/comentar")
      */
     public function comentario(Request $request)
@@ -496,8 +543,11 @@ class DefaultController extends BaseController
 		$aux["slugs"]=$noticia->getSlug();
 		$aux["entradilla"]=$noticia->getEntradilla()[$lang];
         $aux["likes"]=$noticia->getLikes();
+        $aux["destacado"]=$noticia->getDestacado();
+        $aux["comentarios"]=count($noticia->getComentarios());        
         $aux["hints"]=$noticia->getHints();
         $aux["fecha"]=$noticia->getCreated()->format("Y-m-d");
+        
 
 		return $aux;
     }
@@ -612,7 +662,17 @@ class DefaultController extends BaseController
         }
         return $comentarios;
     }
+
+    /**
+     * @Route("/tweets")
+     */
+    public function tweets(Request $request)
+    {
+
+        $connection = new TwitterOAuth('jK2s2Kow0oNCZ0CAXYf2IyvXK', 'EuGvFjqf2Kb0ThqCijNB93Nf29iAoJfIqEJIds6O0FyHQ6acen', '1010836765803012099-CrKfWRDGubqBF1eu06gVwmwpkmISbY', '8ZXuKi1bxKZ0iZTojhzHV2f5dkS9ZAszvBhYNHj0Vd4Z5');
+        $content = $connection->get("account/verify_credentials");
+        
+        $tweets_result = $connection->get("search/tweets", ["q" => "@Ajusa_Spain", "count" => 3, "exclude_replies" => true]);
+        return new JsonResponse(array("tweets"=>$tweets_result,"code"=>200));
+    }
 }
-
-
-

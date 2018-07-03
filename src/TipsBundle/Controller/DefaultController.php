@@ -14,6 +14,8 @@ use TipsBundle\Form\TipForm;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+use Psr\Log\LoggerInterface;
+
 class DefaultController extends BaseController
 {
     /**
@@ -175,6 +177,12 @@ class DefaultController extends BaseController
 
         					try
 				        	{
+                                /**
+                                 * if (in_array($form["anio"]->getData(), $anios)) {
+                                 *        throw new PreconditionFailedHttpException("Ya hay una configuracion para ese año");
+                                 *   }
+                                 */
+                                
 				        		//TODO: COMPROBAR DATOS
 				        	    $this->insertar_entity($form->getData());
 				                $this->addFlash("success","Guardado Correctamente");  				                
@@ -190,6 +198,15 @@ class DefaultController extends BaseController
         				case 'editar':
         					try
 				        	{
+                                
+                                /* $logger = $this->get('logger');
+                                $logger->info($form["keywords"]->getData());
+                                foreach ($form["keywords"]->getData() as $keyword)
+                                {
+                                    $logger->info($keyword->getTitulo());
+                                } */
+                                    
+                                
 				        		$form->getData()->actualizar_archivo();
 				        		//TODO: COMPROBAR DATOS
 				        	    $this->editar_entity($form->getData());

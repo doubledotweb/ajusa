@@ -14,6 +14,8 @@ use TipsBundle\Form\KeywordForm;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+use Psr\Log\LoggerInterface;
+
 class KeywordsController extends BaseController
 {
     /**
@@ -44,14 +46,16 @@ class KeywordsController extends BaseController
     /**
      * @Route("eliminar",name="eliminar_keyword")
      */
-    public function eliminar(Request $request)
+    public function eliminar_keyword(Request $request)
     {
         $id=$request->request->get("id");
 
         $keyword=$this->findById("TipsBundle:Keyword",$id);
-
-        
-
+		/* return $this->json(array("status_code"=>200,"message"=>"que te peten"));
+		$logger = $this->get('logger');
+		$logger->info("********************************");
+		$logger->info($id);
+		 */
         if($keyword)
         {
             try 
