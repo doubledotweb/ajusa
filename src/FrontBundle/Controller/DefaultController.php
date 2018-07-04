@@ -446,7 +446,7 @@ class DefaultController extends BaseController
         
             
         $message->setSubject($subject)
-        ->setFrom('contactoweb@calidadpascual.com')
+        ->setFrom('ajusa@ajusa.es')
         ->setTo("millan.hermana@doubledot.es")
         ->setBody(                  
             /* $this->renderView(
