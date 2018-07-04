@@ -4,6 +4,7 @@ namespace FrontBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -112,15 +113,6 @@ class DefaultController extends BaseController
         return new JsonResponse($params);
     }  
 
-    /*
-        {
-            titulo : "Probando prueba 3",
-            keywords : ["taqués hidráulicos", "bomba de inyección", "reglaje-de-valvulas", 'probaremos'],
-            categoria : 'probando',
-            archivo : "http://www.google.es"
-        }
-    */
-
     /**
      * @Route("/tips")
      */
@@ -187,7 +179,7 @@ class DefaultController extends BaseController
 
             $params["noticias"][]=$aux;
         }
-        $logger = $this->get("logger");
+        
         return new JsonResponse($params);
     }
 
@@ -431,6 +423,45 @@ class DefaultController extends BaseController
     }
 
     /**
+     * @Route("/contacto")
+     * @Method("POST")
+     */
+
+    public function contacto(Request $request) {
+
+        $datos = $request->request->all();
+        $logger = $this->get("logger");
+        $logger->info(print_r($request, true));
+        $lang = $request->request->get("lang");
+        $asunto = $request->get("asunto");
+        $consulta = $request->get("consulta");
+        $email = $request->get("email");
+        $firstpolitica = $request->get("firstpolitica");
+        $nombre = $request->get("nombre");
+        $telefono = $request->get("telefono");
+        $tipo_consulta = $request->get("tipo_consulta");
+
+        $subject    = $datos["asunto"]; 
+        $message = \Swift_Message::newInstance();
+        
+            
+        $message->setSubject($subject)
+        ->setFrom('contactoweb@calidadpascual.com')
+        ->setTo("millan.hermana@doubledot.es")
+        ->setBody(                  
+            /* $this->renderView(
+                "app/Resources/views/emails/base.html.twig"
+                ,
+                array("email"=>$datos) 
+                
+            )*/"",
+            'text/html'
+        );
+        $this->get('mailer')->send($message);
+        return new JsonResponse(array('asunto' => $asunto, 'consulta' => $consulta, 'email' => $email, 'code' => 200));
+    }
+ 
+    /**
      * @Route("/comentar")
      */
     public function comentario(Request $request)
@@ -669,10 +700,66 @@ class DefaultController extends BaseController
     public function tweets(Request $request)
     {
 
-        $connection = new TwitterOAuth('jK2s2Kow0oNCZ0CAXYf2IyvXK', 'EuGvFjqf2Kb0ThqCijNB93Nf29iAoJfIqEJIds6O0FyHQ6acen', '1010836765803012099-CrKfWRDGubqBF1eu06gVwmwpkmISbY', '8ZXuKi1bxKZ0iZTojhzHV2f5dkS9ZAszvBhYNHj0Vd4Z5');
+       /*  $connection = new TwitterOAuth('jK2s2Kow0oNCZ0CAXYf2IyvXK', 'EuGvFjqf2Kb0ThqCijNB93Nf29iAoJfIqEJIds6O0FyHQ6acen', '1010836765803012099-CrKfWRDGubqBF1eu06gVwmwpkmISbY', '8ZXuKi1bxKZ0iZTojhzHV2f5dkS9ZAszvBhYNHj0Vd4Z5');
         $content = $connection->get("account/verify_credentials");
         
         $tweets_result = $connection->get("search/tweets", ["q" => "@Ajusa_Spain", "count" => 3, "exclude_replies" => true]);
-        return new JsonResponse(array("tweets"=>$tweets_result,"code"=>200));
+        return new JsonResponse(array("tweets"=>$tweets_result,"code"=>200)); */
+            
+        $method = 'GET';
+        
+        // Twitter still uses Oauth1 (which is a pain)
+        $oauth = array(
+            'oauth_consumer_key'=>'jK2s2Kow0oNCZ0CAXYf2IyvXK',
+            //'oauth_nonce'=>random(32),
+            'oauth_signature_method'=>'HMAC-SHA1',
+            'oauth_timestamp'=>time(),
+            'oauth_token'=>'1010836765803012099-CrKfWRDGubqBF1eu06gVwmwpkmISbY',
+            'oauth_version'=>'1.0',
+        );                    
+        
+        $url = "https://api.twitter.com/1.1/search/tweets.json?q=@Ajusa_Spain";
+        
+        $oauth['oauth_signature'] = $this->generateSignature($oauth,$url,$method,'');                                
+        
+        ksort($oauth);
+        
+        foreach ($oauth as $k=>$v){
+            $auths[] = $k.'="'.$v.'"';
+        }
+        
+        $stream = array('http' =>
+            array(
+                'method' => $method,
+                // ignore_errors should be true
+                'ignore_errors'=>true, // http://php.net/manual/en/context.http.php - otherwise browser returns error not error content
+                'follow_location'=>false,
+                'max_redirects'=>0,
+                'header'=> array(
+                'Authorization: OAuth '.implode(', ',$auths),
+                'Connection: close'
+                )                                             
+            )
+        );                                                                                                                 
+        
+        echo $url;                                                 
+        $response = file_get_contents($url, false, stream_context_create($stream));
+
+        return new JsonResponse(array("mensaje"=>$response ,"code"=>200));
+    }
+
+    private function generateSignature($oauth,$fullurl,$http_method){        
+
+        // Take params from url
+        $main_url = explode('?',$fullurl);        
+        
+        $urls = explode('&',$main_url[1]);
+        
+        foreach ($urls as $param){
+            $bits = explode('=',$param);
+            if (strlen($bits[0])){
+                $oauth[$bits[0]] = rawurlencode($bits[1]);
+            }    
+        }
     }
 }
