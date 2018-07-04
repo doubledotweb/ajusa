@@ -449,12 +449,12 @@ class DefaultController extends BaseController
         ->setFrom('ajusa@ajusa.es')
         ->setTo("millan.hermana@doubledot.es")
         ->setBody(                  
-            /* $this->renderView(
-                "app/Resources/views/emails/base.html.twig"
+            $this->renderView(
+                'base.html.twig'
                 ,
                 array("email"=>$datos) 
                 
-            )*/"",
+            ),
             'text/html'
         );
         $this->get('mailer')->send($message);
