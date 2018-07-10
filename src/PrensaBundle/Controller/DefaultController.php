@@ -25,8 +25,9 @@ class DefaultController extends BaseController
         $params["categorias"]=array(
 
                     "actualidad"=>"Actualidad",
-                     "catalogo"=>"Catálogo",
+                    "catalogo"=>"Catálogo",
                     "ferias"=>"Ferias",
+                    "historia" => "Historia",
                     "energias-alternativas"=>"Energías alternativas",
                     "videos"=>"Vídeos",
                     "informes-tecnicos"=>"Informes técnicos",

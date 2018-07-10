@@ -31,6 +31,7 @@ class DefaultController extends BaseController
             "actualidad"=>"Actualidad",
              "catalogo"=>"Catálogo" ,
             "ferias"=>"Ferias",
+            "historia" => "Historia",
             "energias-alternativas"=>"Energías alternativas",
             "videos"=>"Vídeos",
             "informes-tecnicos"=>"Informes técnicos",

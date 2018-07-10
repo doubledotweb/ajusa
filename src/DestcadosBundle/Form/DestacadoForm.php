@@ -54,6 +54,7 @@ class DestacadoForm extends AbstractType
                     "Actualidad"=>"actualidad",
                     "Catálogo" => "catalogo",
                     "Ferias"=>"ferias",
+                    "Historia" => "historia",
                     "Energías alternativas"=>"energias-alternativas",
                     "Vídeos"=>"videos",
                     "Informes técnicos"=>"informes-tecnicos",
