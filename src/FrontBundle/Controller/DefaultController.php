@@ -31,7 +31,6 @@ class DefaultController extends BaseController
             "actualidad"=>"Actualidad",
              "catalogo"=>"Catálogo" ,
             "ferias"=>"Ferias",
-            "historia" => "Historia",
             "energias-alternativas"=>"Energías alternativas",
             "videos"=>"Vídeos",
             "informes-tecnicos"=>"Informes técnicos",
@@ -57,7 +56,7 @@ class DefaultController extends BaseController
         {
             $aux["titulo"]=$destacados[$i]->getTitulo();
             $aux["tipo"]=$tipos[$destacados[$i]->getTipo()];
-            $aux["imagen"]="/bundles/destcados/img/".$destacados[$i]->getTipo()."_".$destacados[$i]->getImagen().".jpg";
+            $aux["imagen"]="/bundles/destacados/img/".$destacados[$i]->getTipo()."_".$destacados[$i]->getImagen().".jpg";
             $aux["resumen"]=$destacados[$i]->getResumen();
             $aux["enlace"]=$destacados[$i]->getEnlace();
 
@@ -149,7 +148,7 @@ class DefaultController extends BaseController
             {
                 $keywords_json[] = $key["titulo"];
             }
-            $tip['keywords'] = $keywords_json;
+            $tip['keyword'] = $keywords_json;
         }
 
 
@@ -461,6 +460,51 @@ class DefaultController extends BaseController
         $this->get('mailer')->send($message);
         return new JsonResponse(array('asunto' => $asunto, 'consulta' => $consulta, 'email' => $email, 'code' => 200));
     }
+
+    /**
+     * @Route("/addnewsletter")
+     * @Method("POST")
+     */
+
+    public function addnewsletter(Request $request) {
+
+        $datos = $request->request->all();
+        /*
+        Id Listas
+        ES -> Ajusa Web ES -> id: 1537892
+        EN -> Ajusa Web EN -> id: 1537891
+        */
+
+        $logger = $this->get("logger");
+        $logger->info(print_r($request, true));
+        $lang = $request->request->get("lang");
+        $asunto = $request->get("asunto");
+        $consulta = $request->get("consulta");
+        $email = $request->get("email");
+        $firstpolitica = $request->get("firstpolitica");
+        $nombre = $request->get("nombre");
+        $telefono = $request->get("telefono");
+        $tipo_consulta = $request->get("tipo_consulta");
+
+        $subject    = $datos["asunto"]; 
+        $message = \Swift_Message::newInstance();
+        
+            
+        $message->setSubject($subject)
+        ->setFrom('ajusa@ajusa.es')
+        ->setTo("millan.hermana@doubledot.es")
+        ->setBody(                  
+            $this->renderView(
+                'base.html.twig'
+                ,
+                array("email"=>$datos) 
+                
+            ),
+            'text/html'
+        );
+        $this->get('mailer')->send($message);
+        return new JsonResponse(array('asunto' => $asunto, 'consulta' => $consulta, 'email' => $email, 'code' => 200));
+    }
  
     /**
      * @Route("/comentar")
@@ -701,13 +745,13 @@ class DefaultController extends BaseController
     public function tweets(Request $request)
     {
 
-       /*  $connection = new TwitterOAuth('jK2s2Kow0oNCZ0CAXYf2IyvXK', 'EuGvFjqf2Kb0ThqCijNB93Nf29iAoJfIqEJIds6O0FyHQ6acen', '1010836765803012099-CrKfWRDGubqBF1eu06gVwmwpkmISbY', '8ZXuKi1bxKZ0iZTojhzHV2f5dkS9ZAszvBhYNHj0Vd4Z5');
+        $connection = new TwitterOAuth('jK2s2Kow0oNCZ0CAXYf2IyvXK', 'EuGvFjqf2Kb0ThqCijNB93Nf29iAoJfIqEJIds6O0FyHQ6acen', '1010836765803012099-CrKfWRDGubqBF1eu06gVwmwpkmISbY', '8ZXuKi1bxKZ0iZTojhzHV2f5dkS9ZAszvBhYNHj0Vd4Z5');
         $content = $connection->get("account/verify_credentials");
         
         $tweets_result = $connection->get("search/tweets", ["q" => "@Ajusa_Spain", "count" => 3, "exclude_replies" => true]);
-        return new JsonResponse(array("tweets"=>$tweets_result,"code"=>200)); */
+        return new JsonResponse(array("tweets"=>$tweets_result,"code"=>200));
             
-        $method = 'GET';
+       /*  $method = 'GET';
         
         // Twitter still uses Oauth1 (which is a pain)
         $oauth = array(
@@ -744,9 +788,9 @@ class DefaultController extends BaseController
         );                                                                                                                 
         
         echo $url;                                                 
-        $response = file_get_contents($url, false, stream_context_create($stream));
+        $response = file_get_contents($url, false, stream_context_create($stream)); 
 
-        return new JsonResponse(array("mensaje"=>$response ,"code"=>200));
+        return new JsonResponse(array("mensaje"=>$response ,"code"=>200));*/
     }
 
     private function generateSignature($oauth,$fullurl,$http_method){        
