@@ -313,7 +313,9 @@ class DefaultController extends BaseController
         {            
             foreach ($categoria->getNoticias() as $key => $noticia) 
             {
-                $response["noticias"][]=$this->get_comunes($noticia,$lang);
+                if ($noticia->getVisible) {
+                    $response["noticias"][]=$this->get_comunes($noticia,$lang);
+                }                
             }
             return new JsonResponse($response);    
         }
@@ -447,13 +449,13 @@ class DefaultController extends BaseController
         
             
         $message->setSubject($subject)
-        ->setFrom('social@ajusa.es')
+        ->setFrom('ajusa@ajusa.es')
         ->setTo("millan.hermana@doubledot.es")
         ->setBody(                  
             $this->renderView(
                 'base.html.twig'
                 ,
-                array("email"=>$datos) 
+                array("email"=>$email, "asunto"=>$asunto, "consulta" => $consulta) 
                 
             ),
             'text/html'
