@@ -49,8 +49,8 @@ $(document).ready(function(e)
     })
 
 
-	text.width(300);
-	text.height(300);
+	text.width(350);
+	text.height(160);
 	
 });
 
