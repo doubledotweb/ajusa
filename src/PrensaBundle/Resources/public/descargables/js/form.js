@@ -20,8 +20,8 @@ $(document).ready(function(e)
 	text=$("#croppie").croppie({		
 		"viewport": 
 		{
-        	width: 290,
-        	height: 220
+        	width: 350,
+        	height: 160
         }
     })
 	
