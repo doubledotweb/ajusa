@@ -141,28 +141,28 @@ class DefaultController extends BaseController
         $logger = $this->get("logger");
         $logger->info(print_r($tips));
         $ids = [];
+        $tips_json = [];
         foreach ($tips as &$tip)
-        {
+        {            
             
-            $ids[] = $tip["tip_id"];
-            $conditions=array("id"=>$tip["tip_id"]);
-            $select_keywords = 'SELECT titulo FROM keywords as a, tips_keywords as b WHERE a.id = b.keyword_id AND b.tip_id = :id';
-            $keywords = $this->query($select_keywords,$conditions);
-            $keywords_json = [];
-            foreach ($keywords as $key)
-            {
-                $keywords_json[] = $key["titulo"];
+            if (!in_array($tip["tip_id"], $ids)) {
+                $ids[] = $tip["tip_id"];
+                $conditions=array("id"=>$tip["tip_id"]);
+                $select_keywords = 'SELECT titulo FROM keywords as a, tips_keywords as b WHERE a.id = b.keyword_id AND b.tip_id = :id';
+                $keywords = $this->query($select_keywords,$conditions);
+                $keywords_json = [];
+                foreach ($keywords as $key)
+                {
+                    $keywords_json[] = $key["titulo"];
+                }
+                $tip['keywords'] = $keywords_json;
+                $tips_json[] = $tip;
             }
-            $tip['keywords'] = $keywords_json;
             
-        }
-        foreach($tips as $key => $tip) {
-            if (in_array($tip["tip_id"], $ids)) {
-                unset($tips[$key]);
-            }
-        }
+            
+        }        
 
-        return new JsonResponse($tips);
+        return new JsonResponse($tips_json);
     }
 
     /**
