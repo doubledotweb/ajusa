@@ -313,7 +313,7 @@ class DefaultController extends BaseController
         {            
             foreach ($categoria->getNoticias() as $key => $noticia) 
             {
-                if ($noticia->getVisible) {
+                if ($noticia->getVisible()) {
                     $response["noticias"][]=$this->get_comunes($noticia,$lang);
                 }                
             }
