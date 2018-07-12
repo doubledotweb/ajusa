@@ -138,31 +138,22 @@ class DefaultController extends BaseController
             ORDER BY a.creado DESC';
 
         $tips = $this->query($select_tips,$conditions);
-        $logger = $this->get("logger");
-        $logger->info(print_r($tips));
-        $ids = [];
-        $tips_json = [];
+        
         foreach ($tips as &$tip)
-        {            
-            
-            if (!in_array($tip["tip_id"], $ids)) {
-                $ids[] = $tip["tip_id"];
-                $conditions=array("id"=>$tip["tip_id"]);
-                $select_keywords = 'SELECT titulo FROM keywords as a, tips_keywords as b WHERE a.id = b.keyword_id AND b.tip_id = :id';
-                $keywords = $this->query($select_keywords,$conditions);
-                $keywords_json = [];
-                foreach ($keywords as $key)
-                {
-                    $keywords_json[] = $key["titulo"];
-                }
-                $tip['keywords'] = $keywords_json;
-                $tips_json[] = $tip;
+        {
+            $conditions=array("id"=>$tip["tip_id"]);
+            $select_keywords = 'SELECT titulo FROM keywords as a, tips_keywords as b WHERE a.id = b.keyword_id AND b.tip_id = :id';
+            $keywords = $this->query($select_keywords,$conditions);
+            $keywords_json = [];
+            foreach ($keywords as $key)
+            {
+                $keywords_json[] = $key["titulo"];
             }
-            
-            
-        }        
+            $tip['keywords'] = $keywords_json;
+        }
 
-        return new JsonResponse($tips_json);
+
+        return new JsonResponse($tips);
     }
 
     /**
