@@ -499,7 +499,7 @@ class DefaultController extends BaseController
         ); */
         try
     	{
-    		$this->editar_entity($user);
+    	
             $sendmail=$this->container->get("app.sendmail");
 
             $params["subject"]   = "[Ajusa]: Se ha solicitado restablecido la contraseña";
