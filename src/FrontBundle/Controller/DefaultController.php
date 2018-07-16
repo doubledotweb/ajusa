@@ -479,9 +479,9 @@ class DefaultController extends BaseController
         $firstpolitica = $request->get("firstpolitica");
         $nombre = $request->get("nombre");
         $telefono = $request->get("telefono");
-        $tipo_consulta = $request->get("tipo_consulta"); */
+        $tipo_consulta = $request->get("tipo_consulta");
 
-        $subject    = $asunto;
+        $subject    = $asunto; */
         $message = \Swift_Message::newInstance();
        
         try
