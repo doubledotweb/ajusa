@@ -432,9 +432,7 @@ class DefaultController extends BaseController
 
     public function contacto(Request $request) {
 
-        $datos = $request->request->all();
-        $logger = $this->get("logger");
-        $logger->info(print_r($request, true));
+        $datos = $request->request->all();        
         $lang = $request->request->get("lang");
         $asunto = $request->get("asunto");
         $consulta = $request->get("consulta");
@@ -449,7 +447,7 @@ class DefaultController extends BaseController
         
             
         $message->setSubject($subject)
-        ->setFrom('ajusa@ajusa.es')
+        ->setFrom('social@ajusa.es')
         ->setTo("millan.hermana@doubledot.es")
         ->setBody(                  
             $this->renderView(
@@ -703,13 +701,13 @@ class DefaultController extends BaseController
     public function tweets(Request $request)
     {
 
-       /*  $connection = new TwitterOAuth('jK2s2Kow0oNCZ0CAXYf2IyvXK', 'EuGvFjqf2Kb0ThqCijNB93Nf29iAoJfIqEJIds6O0FyHQ6acen', '1010836765803012099-CrKfWRDGubqBF1eu06gVwmwpkmISbY', '8ZXuKi1bxKZ0iZTojhzHV2f5dkS9ZAszvBhYNHj0Vd4Z5');
+        $connection = new TwitterOAuth('jK2s2Kow0oNCZ0CAXYf2IyvXK', 'EuGvFjqf2Kb0ThqCijNB93Nf29iAoJfIqEJIds6O0FyHQ6acen', '1010836765803012099-CrKfWRDGubqBF1eu06gVwmwpkmISbY', '8ZXuKi1bxKZ0iZTojhzHV2f5dkS9ZAszvBhYNHj0Vd4Z5');
         $content = $connection->get("account/verify_credentials");
         
         $tweets_result = $connection->get("search/tweets", ["q" => "@Ajusa_Spain", "count" => 3, "exclude_replies" => true]);
-        return new JsonResponse(array("tweets"=>$tweets_result,"code"=>200)); */
+        return new JsonResponse(array("tweets"=>$tweets_result,"code"=>200));
             
-        $method = 'GET';
+        /* /* $method = 'GET';
         
         // Twitter still uses Oauth1 (which is a pain)
         $oauth = array(
@@ -720,7 +718,7 @@ class DefaultController extends BaseController
             'oauth_token'=>'1010836765803012099-CrKfWRDGubqBF1eu06gVwmwpkmISbY',
             'oauth_version'=>'1.0',
         );                    
-        
+  
         $url = "https://api.twitter.com/1.1/search/tweets.json?q=@Ajusa_Spain";
         
         $oauth['oauth_signature'] = $this->generateSignature($oauth,$url,$method,'');                                
@@ -746,7 +744,7 @@ class DefaultController extends BaseController
         );                                                                                                                 
         
         echo $url;                                                 
-        $response = file_get_contents($url, false, stream_context_create($stream));
+        $response = file_get_contents($url, false, stream_context_create($stream)); */
 
         return new JsonResponse(array("mensaje"=>$response ,"code"=>200));
     }
