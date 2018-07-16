@@ -30,7 +30,7 @@ class SendMail
 	        ->setBody(                  
 	            $this->templating->render(                    
 	                $params["template"],
-	                array("email"=>$params["datos"],"logo"=>$logo,"title"=>"CAMBIAR")
+	                array("email"=>$params["to"],"logo"=>$logo,"title"=>"CAMBIAR")
 	            ),
 	            'text/html'
 	        );
