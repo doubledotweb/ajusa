@@ -796,6 +796,408 @@ class DefaultController extends BaseController
     /**
      * @Route("/tweets")
      */
+    public function pdfs(Request $request)
+    {
+        $json = [
+            [
+              "titulo" => "Acura",
+              "archivo" => "ACURA.PDF"
+            ],
+            [
+              "titulo" => "STERLING",
+              "archivo" => "ACURA.PDF"
+            ],
+            [
+              "titulo"=> "Alfa Romeo",
+              "archivo" => "ALFA_ROMEO.PDF"
+            ],
+            [
+              "titulo"=> "Asia Motor S",
+              "archivo" => "ASIA_MOTOR_S.PDF"
+            ],
+            [
+              "titulo"=> "Audi",
+              "archivo" => "AUDI.PDF"
+            ],
+            [
+              "titulo"=> "Austin",
+              "archivo" => "AUSTIN.PDF"
+            ],
+            [
+              "titulo"=> "Autobianchi",
+              "archivo" => "AUTOBIANCHI.PDF"
+            ],
+            [
+              "titulo"=> "Bedford",
+              "archivo" => "BEDFORD.PDF"
+            ],
+            [
+              "titulo"=> "BMW",
+              "archivo" => "BMW.PDF"
+            ],
+            [
+              "titulo"=> "Campeon",
+              "archivo" => "CAMPEON.PDF"
+            ],
+            [
+              "titulo"=> "Caterpillar",
+              "archivo" => "CATERPILLAR.PDF"
+            ],
+            [
+              "titulo"=> "Chery",
+              "archivo" => "CHERY.PDF"
+            ],
+            [
+              "titulo"=> "Chevrolet",
+              "archivo" => "CHEVROLET.PDF"
+            ],
+            [
+              "titulo"=> "OLDSMOBILE",
+              "archivo" => "CHEVROLET.PDF"
+            ],
+            [
+              "titulo"=> "Chrysler",
+              "archivo" => "CHRYSLER.PDF"
+            ],
+            [
+              "titulo"=> "Citroen",
+              "archivo" => "CITROEN.PDF"
+            ],
+            [
+              "titulo"=> "Cummins",
+              "archivo" => "CUMMINS.PDF"
+            ],
+            [
+              "titulo"=> "Dacia",
+              "archivo" => "DACIA.PDF"
+            ],
+            [
+              "titulo"=> "Daewoo",
+              "archivo" => "DAEWOO.PDF"
+            ],
+            [
+              "titulo"=> "Daf",
+              "archivo" => "DAF.PDF"
+            ],
+            [
+              "titulo"=> "Daihatsu",
+              "archivo" => "DAIHATSU.PDF"
+            ],
+            [
+              "titulo"=> "Deutz",
+              "archivo" => "DEUTZ.PDF"
+            ],
+            [
+              "titulo"=> "Diter MWM",
+              "archivo" => "DITER_(MWM).PDF"
+            ],
+            [
+              "titulo"=> "Dodge",
+              "archivo" => "DODGE.PDF"
+            ],
+            [
+              "titulo"=> "Eagle",
+              "archivo" => "EAGLE.PDF"
+            ],
+            [
+              "titulo"=> "Ebro",
+              "archivo" => "EBRO.PDF"
+            ],
+            [
+              "titulo"=> "Kubota",
+              "archivo" => "EBRO.PDF"
+            ],
+            [
+              "titulo"=> "Ebro Kubota",
+              "archivo" => "EBRO-KUBOTA.PDF"
+            ],
+            [
+              "titulo"=> "Fendt",
+              "archivo" => "FENDT.PDF"
+            ],
+            [
+              "titulo"=> "Fiat Tractor",
+              "archivo" => "FIAT_(TRACTOR).PDF"
+            ],
+            [
+              "titulo"=> "Fiat",
+              "archivo" => "FIAT.PDF"
+            ],
+            [
+              "titulo"=> "Ford",
+              "archivo" => "FORD.PDF"
+            ],
+            [
+              "titulo"=> "Ford Industrial",
+              "archivo" => "FORD_(INDUSTRIAL).PDF"
+            ],
+            [
+              "titulo"=> "Galloper",
+              "archivo" => "GALLOPER.PDF"
+            ],
+            [
+              "titulo"=> "GEO",
+              "archivo" => "GEO.PDF"
+            ],
+            [
+              "titulo"=> "GM-Chevrolet",
+              "archivo" => "GM-CHEVROLET.PDF"
+            ],
+            [
+              "titulo"=> "Hino",
+              "archivo" => "HINO.PDF"
+            ],
+            [
+              "titulo"=> "Holden",
+              "archivo" => "HOLDEN.PDF"
+            ],
+          
+            [
+              "titulo"=> "Honda",
+              "archivo" => "HONDA.PDF"
+            ],
+            [
+              "titulo"=> "Hyundai",
+              "archivo" => "HYUNDAI.PDF"
+            ],
+            [
+              "titulo"=> "Infiniti",
+              "archivo" => "INFINITI.PDF"
+            ],
+            [
+              "titulo"=> "Innocenti",
+              "archivo" => "INNOCENTI.PDF"
+            ],
+            [
+              "titulo"=> "Isuzu",
+              "archivo" => "ISUZU.PDF"
+            ],
+            [
+              "titulo"=> "Iveco",
+              "archivo" => "IVECO.PDF"
+            ],
+            [
+              "titulo"=> "Fiat Industrial",
+              "archivo" => "IVECO.PDF"
+            ],
+            [
+              "titulo"=> "Jeep",
+              "archivo" => "JEEP.PDF"
+            ],
+            [
+              "titulo"=> "John Deere",
+              "archivo" => "JOHN_DEERE.PDF"
+            ],
+            [
+              "titulo"=> "KIA",
+              "archivo" => "KIA.PDF"
+            ],
+            [
+              "titulo"=> "Lada",
+              "archivo" => "LADA.PDF"
+            ],
+            [
+              "titulo"=> "Lancia",
+              "archivo" => "LANCIA.PDF"
+            ],
+            [
+              "titulo"=> "Land Rover",
+              "archivo" => "LAND_ROVER.PDF"
+            ],
+            [
+              "titulo"=> "Lexus",
+              "archivo" => "LEXUS.PDF"
+            ],
+            [
+              "titulo"=> "Leyland",
+              "archivo" => "LEYLAND.PDF"
+            ],
+            [
+              "titulo"=> "Lombardini",
+              "archivo" => "LOMBARDINI.PDF"
+            ],
+            [
+              "titulo"=> "AIXAM – LIGIER",
+              "archivo" => "LOMBARDINI.PDF"
+            ],
+            [
+              "titulo"=> "Mahindra",
+              "archivo" => "MAHINDRA.PDF"
+            ],
+            [
+              "titulo"=> "MAN",
+              "archivo" => "MAN.PDF"
+            ],
+            [
+              "titulo"=> "Maruti",
+              "archivo" => "MARUTI.PDF"
+            ],
+            [
+              "titulo"=> "MAXION-PERKINS",
+              "archivo" => "MAXION-PERKINS.PDF"
+            ],
+            [
+              "titulo"=> "Mazda",
+              "archivo" => "MAZDA.PDF"
+            ],
+            [
+              "titulo"=> "Mercedes",
+              "archivo" => "MERCEDES.PDF"
+            ],
+            [
+              "titulo"=> "Mercedes Industrial",
+              "archivo" => "MERCEDES_INDUSTRIAL.PDF"
+            ],
+            [
+              "titulo"=> "Mini",
+              "archivo" => "MINI.PDF"
+            ],
+            [
+              "titulo"=> "Mitsubishi",
+              "archivo" => "MITSUBISHI.PDF"
+            ],
+            [
+              "titulo"=> "Nissan",
+              "archivo" => "NISSAN.PDF"
+            ],
+            [
+              "titulo"=> "Opel",
+              "archivo" => "OPEL.PDF"
+            ],
+            [
+              "titulo"=> "VAUXAHALL",
+              "archivo" => "OPEL.PDF"
+            ],
+            [
+              "titulo"=> "Pegaso",
+              "archivo" => "PEGASO.PDF"
+            ],
+            [
+              "titulo"=> "Perkins",
+              "archivo" => "PERKINS.PDF"
+            ],
+            [
+              "titulo"=> "Peugeot",
+              "archivo" => "PEUGEOT.PDF"
+            ],
+            [
+              "titulo"=> "Piaggio",
+              "archivo" => "PIAGGIO.PDF"
+            ],
+            [
+              "titulo"=> "Proton",
+              "archivo" => "PROTON.PDF"
+            ],
+            [
+              "titulo"=> "Renault",
+              "archivo" => "RENAULT.PDF"
+            ],
+            [
+              "titulo"=> "Rover Group",
+              "archivo" => "ROVER_GROUP.PDF"
+            ],
+            [
+              "titulo"=> "RVI",
+              "archivo" => "RVI.PDF"
+            ],
+            [
+              "titulo"=> "Saab",
+              "archivo" => "SAAB.PDF"
+            ],
+            [
+              "titulo"=> "Same",
+              "archivo" => "SAME.PDF"
+            ],
+            [
+              "titulo"=> "Saturn",
+              "archivo" => "SATURN.PDF"
+            ],
+            [
+              "titulo"=> "Sava",
+              "archivo" => "SAVA.PDF"
+            ],
+            [
+              "titulo"=> "Saviem",
+              "archivo" => "SAVIEM.PDF"
+            ],
+            [
+              "titulo"=> "Scania",
+              "archivo" => "SCANIA.PDF"
+            ],
+            [
+              "titulo"=> "Scion",
+              "archivo" => "SCION.PDF"
+            ],
+            [
+              "titulo"=> "Seat",
+              "archivo" => "SEAT.PDF"
+            ],
+            [
+              "titulo"=> "Skoda",
+              "archivo" => "SKODA.PDF"
+            ],
+            [
+              "titulo"=> "Smart",
+              "archivo" => "SMART.PDF"
+            ],[
+              "titulo"=> "Ssangyong",
+              "archivo" => "SSANGYONG.PDF"
+            ],
+            [
+              "titulo"=> "Subaru",
+              "archivo" => "SUBARU.PDF"
+            ],
+            [
+              "titulo"=> "Suzuki",
+              "archivo" => "SUZUKI.PDF"
+            ],
+            [
+              "titulo"=> "Talbot",
+              "archivo" => "TALBOT.PDF"
+            ],
+            [
+              "titulo"=> "Tata",
+              "archivo" => "TATA.PDF"
+            ],
+            [
+              "titulo"=> "Toyota",
+              "archivo" => "TOYOTA.PDF"
+            ],
+            [
+              "titulo"=> "Trabant",
+              "archivo" => "TRABANT.PDF"
+            ],
+            [
+              "titulo"=> "Triumph",
+              "archivo" => "TRIUMPH.PDF"
+            ],
+            [
+              "titulo"=> "Volkswagen",
+              "archivo" => "VOLKSWAGEN.PDF"
+            ],
+            [
+              "titulo"=> "Volvo",
+              "archivo" => "VOLVO.PDF"
+            ],
+            [
+              "titulo"=> "Volvo Industrial",
+              "archivo" => "VOLVO_INDUSTRIAL.PDF"
+            ],
+            [
+              "titulo"=> "WARTBURG",
+              "archivo" => "WARTBURG.PDF"
+            ],
+            [
+              "titulo"=> "ZASTAVA",
+              "archivo" => "ZASTAVA.PDF"
+            ]
+            ];
+          return new JsonResponse(array("pdfs"=>$json,"code"=>200));
+    }
+
+    /**
+     * @Route("/tweets")
+     */
     public function tweets(Request $request)
     {
 
