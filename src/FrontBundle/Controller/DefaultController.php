@@ -471,7 +471,7 @@ class DefaultController extends BaseController
 
     public function contacto(Request $request) {
 
-        $datos = $request->request->all();        
+      /*   $datos = $request->request->all();        
         $lang = $request->request->get("lang");
         $asunto = $request->get("asunto");
         $consulta = $request->get("consulta");
@@ -479,24 +479,11 @@ class DefaultController extends BaseController
         $firstpolitica = $request->get("firstpolitica");
         $nombre = $request->get("nombre");
         $telefono = $request->get("telefono");
-        $tipo_consulta = $request->get("tipo_consulta");
+        $tipo_consulta = $request->get("tipo_consulta"); */
 
         $subject    = $asunto;
         $message = \Swift_Message::newInstance();
-        
-            
-       /*  $message->setSubject($subject)
-        ->setFrom('web@corporacionhms.com')
-        ->setTo("millan.hermana@doubledot.es")
-        ->setBody(                  
-            $this->renderView(
-                'base.html.twig'
-                ,
-                array("email"=>$datos) 
-                
-            ),
-            'text/html'
-        ); */
+       
         try
     	{
     	
@@ -505,7 +492,7 @@ class DefaultController extends BaseController
             $params["subject"]   = "[Ajusa]: Se ha solicitado restablecido la contraseña";
             $params["to"]     = "millan.hermana@doubledot.es";
             $params["from"]     = "web@corporacionhms.com";
-            $params["template"] = "'base.html.twig";
+            $params["template"] = "base.html.twig";
             //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
             
             
@@ -523,7 +510,7 @@ class DefaultController extends BaseController
             
             return $failures;
         }; */
-        return new JsonResponse(array('asunto' => $asunto, 'consulta' => $consulta, 'email' => $email, 'code' => 200));
+     //   return new JsonResponse(array('asunto' => $asunto, 'consulta' => $consulta, 'email' => $email, 'code' => 200));
     }
 
     /**
