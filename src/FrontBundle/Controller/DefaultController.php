@@ -484,9 +484,7 @@ class DefaultController extends BaseController
         $subject    = $asunto; */
         $message = \Swift_Message::newInstance();
        
-        try
-    	{
-    	
+     
             $sendmail=$this->container->get("app.sendmail");
 
             $params["subject"]   = "[Ajusa]: Se ha solicitado restablecido la contraseña";
@@ -497,13 +495,13 @@ class DefaultController extends BaseController
             
             
             return $sendmail->send($params);
-    	}
-    	catch(\Exception $e)
+    
+    	/* catch(\Exception $e)
     	{    		
     		
             $this->addFlash("error",$this->mensaje_error($e));
     		return $this->json(array("mensaje"=>$e->getMessage()));
-        }
+        } */
         
 
         /* if (!$this->get('mailer')->send($message,$failures)) {
