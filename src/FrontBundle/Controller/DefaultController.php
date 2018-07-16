@@ -53,7 +53,7 @@ class DefaultController extends BaseController
         $params["destacados"]=array();
         $destacados=$this->findByField("DestcadosBundle:Destacado",array("visible"=>1,"idioma"=>$lang),array("creado"=>"desc"));
         
-        for($i=0;$i<count($destacados) and $i<4;$i++)
+        for($i=0;$i<count($destacados) and $i<2;$i++)
         {
             $aux["titulo"]=$destacados[$i]->getTitulo();
             $aux["tipo"]=$tipos[$destacados[$i]->getTipo()];
