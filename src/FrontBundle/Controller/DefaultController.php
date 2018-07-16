@@ -52,7 +52,7 @@ class DefaultController extends BaseController
         $params["destacados"]=array();
         $destacados=$this->findByField("DestcadosBundle:Destacado",array("visible"=>1,"idioma"=>$lang),array("creado"=>"desc"));
         
-        for($i=0;$i<count($destacados) and $i<2;$i++)
+        for($i=0;$i<count($destacados) and $i<4;$i++)
         {
             $aux["titulo"]=$destacados[$i]->getTitulo();
             $aux["tipo"]=$tipos[$destacados[$i]->getTipo()];
@@ -471,9 +471,7 @@ class DefaultController extends BaseController
 
     public function contacto(Request $request) {
 
-        $datos = $request->request->all();
-        $logger = $this->get("logger");
-        $logger->info(print_r($request, true));
+        $datos = $request->request->all();        
         $lang = $request->request->get("lang");
         $asunto = $request->get("asunto");
         $consulta = $request->get("consulta");
@@ -488,7 +486,7 @@ class DefaultController extends BaseController
         
             
         $message->setSubject($subject)
-        ->setFrom('ajusa@ajusa.es')
+        ->setFrom('web@corporacionhms.com')
         ->setTo("millan.hermana@doubledot.es")
         ->setBody(                  
             $this->renderView(
@@ -499,7 +497,10 @@ class DefaultController extends BaseController
             ),
             'text/html'
         );
-        $this->get('mailer')->send($message);
+        if (!$this->get('mailer')->send($message,$failures)) {
+            
+            return $failures;
+        };
         return new JsonResponse(array('asunto' => $asunto, 'consulta' => $consulta, 'email' => $email, 'code' => 200));
     }
 
