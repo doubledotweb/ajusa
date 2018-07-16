@@ -497,6 +497,7 @@ class DefaultController extends BaseController
             ),
             'text/html'
         );
+        return "un error al menos";
         if (!$this->get('mailer')->send($message,$failures)) {
             
             return $failures;
