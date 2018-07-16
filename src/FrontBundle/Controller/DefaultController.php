@@ -485,7 +485,7 @@ class DefaultController extends BaseController
         $message = \Swift_Message::newInstance();
         
             
-        $message->setSubject($subject)
+       /*  $message->setSubject($subject)
         ->setFrom('web@corporacionhms.com')
         ->setTo("millan.hermana@doubledot.es")
         ->setBody(                  
@@ -496,8 +496,29 @@ class DefaultController extends BaseController
                 
             ),
             'text/html'
-        );
-        return "un error al menos";
+        ); */
+        try
+    	{
+    		$this->editar_entity($user);
+            $sendmail=$this->container->get("app.sendmail");
+
+            $params["subject"]   = "[Ajusa]: Se ha solicitado restablecido la contraseña";
+            $params["to"]     = "millan.hermana@doubledot.es";
+            $params["from"]     = "web@corporacionhms.com";
+            $params["template"] = "'base.html.twig";
+            //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
+            $params["datos"]["pass"]     = $pass;
+            
+            return $sendmail->send($params);
+    	}
+    	catch(\Exception $e)
+    	{    		
+    		
+            $this->addFlash("error",$this->mensaje_error($e));
+    		return $this->json(array("mensaje"=>$e->getMessage()));
+        }
+        
+
         if (!$this->get('mailer')->send($message,$failures)) {
             
             return $failures;
