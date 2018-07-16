@@ -545,7 +545,7 @@ class DefaultController extends BaseController
             'text/html'
         );
         $response = $this->get('mailer')->send($message);
-        $logger->info(print_r($response, true));
+        
         return $response;
         //return new JsonResponse(array('asunto' => $asunto, 'consulta' => $consulta, 'email' => $email, 'code' => $response));
     }

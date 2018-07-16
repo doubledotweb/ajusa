@@ -63,8 +63,7 @@ class NoticiasController extends BaseController
         $noticia = $this->findById("NoticiasBundle:Noticia",$id);
        
         $em = $this->getDoctrine()->getManager();
-        foreach ($noticia->getComentarios() as $comentario) {            
-            $logger->info($comentario->getTexto());
+        foreach ($noticia->getComentarios() as $comentario) {                        
             $em->persist($comentario->setNoticia(null));
             $em->flush();            
         }
