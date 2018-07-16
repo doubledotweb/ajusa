@@ -507,7 +507,7 @@ class DefaultController extends BaseController
             $params["from"]     = "web@corporacionhms.com";
             $params["template"] = "'base.html.twig";
             //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
-            $params["datos"]["pass"]     = $pass;
+            
             
             return $sendmail->send($params);
     	}
@@ -519,10 +519,10 @@ class DefaultController extends BaseController
         }
         
 
-        if (!$this->get('mailer')->send($message,$failures)) {
+        /* if (!$this->get('mailer')->send($message,$failures)) {
             
             return $failures;
-        };
+        }; */
         return new JsonResponse(array('asunto' => $asunto, 'consulta' => $consulta, 'email' => $email, 'code' => 200));
     }
 
