@@ -794,7 +794,7 @@ class DefaultController extends BaseController
     }
 
     /**
-     * @Route("/tweets")
+     * @Route("/pdfs")
      */
     public function pdfs(Request $request)
     {
