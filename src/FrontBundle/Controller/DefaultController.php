@@ -451,8 +451,7 @@ class DefaultController extends BaseController
         ->setTo("millan.hermana@doubledot.es")
         ->setBody(                  
             $this->renderView(
-                'base.html.twig'
-                ,
+                'base.html.twig',
                 array("email"=>$email, "asunto"=>$asunto, "consulta" => $consulta) 
                 
             ),
