@@ -18,6 +18,8 @@ use NoticiasBundle\Form\NoticiaForm;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+use Psr\Log\LoggerInterface;
+
 class NoticiasController extends BaseController
 {
     /**
@@ -59,12 +61,20 @@ class NoticiasController extends BaseController
         $translator=$this->get("translator");
 
         $noticia = $this->findById("NoticiasBundle:Noticia",$id);
+       
+        $em = $this->getDoctrine()->getManager();
+        foreach ($noticia->getComentarios() as $comentario) {            
+            $logger->info($comentario->getTexto());
+            $em->persist($comentario->setNoticia(null));
+            $em->flush();            
+        }
+        
 
         if($noticia!=null)
         {
             try 
             {
-                $this->borrar_entity($noticia);
+               $this->borrar_entity($noticia);
 
             } catch (Exception $e)
             {

@@ -31,7 +31,6 @@ class DefaultController extends BaseController
             "actualidad"=>"Actualidad",
              "catalogo"=>"Catálogo" ,
             "ferias"=>"Ferias",
-            "historia" => "Historia",
             "energias-alternativas"=>"Energías alternativas",
             "videos"=>"Vídeos",
             "informes-tecnicos"=>"Informes técnicos",
@@ -57,7 +56,7 @@ class DefaultController extends BaseController
         {
             $aux["titulo"]=$destacados[$i]->getTitulo();
             $aux["tipo"]=$tipos[$destacados[$i]->getTipo()];
-            $aux["imagen"]="/bundles/destcados/img/".$destacados[$i]->getTipo()."_".$destacados[$i]->getImagen().".jpg";
+            $aux["imagen"]="/bundles/destacados/img/".$destacados[$i]->getTipo()."_".$destacados[$i]->getImagen().".jpg";
             $aux["resumen"]=$destacados[$i]->getResumen();
             $aux["enlace"]=$destacados[$i]->getEnlace();
 
@@ -149,7 +148,7 @@ class DefaultController extends BaseController
             {
                 $keywords_json[] = $key["titulo"];
             }
-            $tip['keywords'] = $keywords_json;
+            $tip['keyword'] = $keywords_json;
         }
 
 
@@ -313,9 +312,7 @@ class DefaultController extends BaseController
         {            
             foreach ($categoria->getNoticias() as $key => $noticia) 
             {
-                if ($noticia->getVisible()) {
-                    $response["noticias"][]=$this->get_comunes($noticia,$lang);
-                }                
+                $response["noticias"][]=$this->get_comunes($noticia,$lang);
             }
             return new JsonResponse($response);    
         }
@@ -426,13 +423,57 @@ class DefaultController extends BaseController
     }
 
     /**
+     * @Route("/hint/{slug}")
+     */
+    public function addhint(Request $request,$slug)
+    {   	
+
+        $lang=$request->request->get("lang");
+
+        if($lang=="")
+        {
+            $lang=$request->query->get("lang");
+
+            if($lang=="")
+                $lang="es";
+        }
+
+    	$response=array();
+    	$response["status_code"]=200;
+    	$response["noticia"]=array();
+    	
+
+    	$query='SELECT n
+    		FROM NoticiasBundle:Noticia n
+    		WHERE 	n.slug LIKE :slug and     		
+    				n.visible = 1
+    		ORDER BY n.fecha_publicacion DESC';
+
+    	$conditions=array(
+
+    		"slug"=>'%'.$slug.'%',    		
+    	);
+
+    	
+        $noticia=$this->query_builder($query,$conditions);
+        $noticia[0]->setHints($noticia[0]->getHints()+1);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($noticia[0]);
+        $em->flush();        
+    
+        return new JsonResponse(array("hints"=>$noticia[0]->getHints(),"code"=>200));
+    }
+
+    /**
      * @Route("/contacto")
      * @Method("POST")
      */
 
     public function contacto(Request $request) {
 
-        $datos = $request->request->all();        
+        $datos = $request->request->all();
+        $logger = $this->get("logger");
+        $logger->info(print_r($request, true));
         $lang = $request->request->get("lang");
         $asunto = $request->get("asunto");
         $consulta = $request->get("consulta");
@@ -447,18 +488,66 @@ class DefaultController extends BaseController
         
             
         $message->setSubject($subject)
-        ->setFrom('social@ajusa.es')
+        ->setFrom('ajusa@ajusa.es')
         ->setTo("millan.hermana@doubledot.es")
         ->setBody(                  
             $this->renderView(
-                'base.html.twig',
-                array("email"=>$email, "asunto"=>$asunto, "consulta" => $consulta) 
+                'base.html.twig'
+                ,
+                array("email"=>$datos) 
                 
             ),
             'text/html'
         );
         $this->get('mailer')->send($message);
         return new JsonResponse(array('asunto' => $asunto, 'consulta' => $consulta, 'email' => $email, 'code' => 200));
+    }
+
+    /**
+     * @Route("/addnewsletter")
+     * @Method("POST")
+     */
+
+    public function addnewsletter(Request $request) {
+
+        $datos = $request->request->all();
+        /*
+        Id Listas
+        ES -> Ajusa Web ES -> id: 1537892
+        EN -> Ajusa Web EN -> id: 1537891
+        */
+
+        $logger = $this->get("logger");
+        $logger->info(print_r($request, true));
+        $lang = $request->request->get("lang");
+        $asunto = $request->get("asunto");
+        $consulta = $request->get("consulta");
+        $email = $request->get("email");
+        $firstpolitica = $request->get("firstpolitica");
+        $nombre = $request->get("nombre");
+        $telefono = $request->get("telefono");
+        $tipo_consulta = $request->get("tipo_consulta");
+
+        $subject    = $datos["asunto"]; 
+        $message = \Swift_Message::newInstance();
+        
+            
+        $message->setSubject($subject)
+        ->setFrom('millanhermana@gmail.com')
+        ->setTo("millan.hermana@doubledot.es")
+        ->setBody(                  
+            $this->renderView(
+                'base.html.twig'
+                ,
+                array("email"=>$datos) 
+                
+            ),
+            'text/html'
+        );
+        $response = $this->get('mailer')->send($message);
+        $logger->info(print_r($response, true));
+        return $response;
+        //return new JsonResponse(array('asunto' => $asunto, 'consulta' => $consulta, 'email' => $email, 'code' => $response));
     }
  
     /**
@@ -706,7 +795,7 @@ class DefaultController extends BaseController
         $tweets_result = $connection->get("search/tweets", ["q" => "@Ajusa_Spain", "count" => 3, "exclude_replies" => true]);
         return new JsonResponse(array("tweets"=>$tweets_result,"code"=>200));
             
-        /* /* $method = 'GET';
+       /*  $method = 'GET';
         
         // Twitter still uses Oauth1 (which is a pain)
         $oauth = array(
@@ -717,7 +806,7 @@ class DefaultController extends BaseController
             'oauth_token'=>'1010836765803012099-CrKfWRDGubqBF1eu06gVwmwpkmISbY',
             'oauth_version'=>'1.0',
         );                    
-  
+        
         $url = "https://api.twitter.com/1.1/search/tweets.json?q=@Ajusa_Spain";
         
         $oauth['oauth_signature'] = $this->generateSignature($oauth,$url,$method,'');                                
@@ -743,9 +832,9 @@ class DefaultController extends BaseController
         );                                                                                                                 
         
         echo $url;                                                 
-        $response = file_get_contents($url, false, stream_context_create($stream)); */
+        $response = file_get_contents($url, false, stream_context_create($stream)); 
 
-        return new JsonResponse(array("mensaje"=>$response ,"code"=>200));
+        return new JsonResponse(array("mensaje"=>$response ,"code"=>200));*/
     }
 
     private function generateSignature($oauth,$fullurl,$http_method){        
