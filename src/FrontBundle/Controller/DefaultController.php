@@ -56,7 +56,7 @@ class DefaultController extends BaseController
         {
             $aux["titulo"]=$destacados[$i]->getTitulo();
             $aux["tipo"]=$tipos[$destacados[$i]->getTipo()];
-            $aux["imagen"]="/bundles/destacados/img/".$destacados[$i]->getTipo()."_".$destacados[$i]->getImagen().".jpg";
+            $aux["imagen"]="/bundles/destcados/img/".$destacados[$i]->getTipo()."_".$destacados[$i]->getImagen().".jpg";
             $aux["resumen"]=$destacados[$i]->getResumen();
             $aux["enlace"]=$destacados[$i]->getEnlace();
 
