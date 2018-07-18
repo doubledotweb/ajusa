@@ -20,7 +20,8 @@ class SendMail
 	public function send($params)
 	{
 		/* try 
-		{ */					
+		{ */				
+			
 	        $message = \Swift_Message::newInstance();
 	       // $logo=$message->embed(\Swift_Image::fromPath(__DIR__."/../../../web/img/logo.png"));
 	        

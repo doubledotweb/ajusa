@@ -587,7 +587,7 @@ class DefaultController extends BaseController
      
       $message = \Swift_Message::newInstance();
 
-      if ($request->get("doc_adjunto") != "") {
+      if ($request->files->get("doc_adjunto") != "") {
         $sendmail=$this->container->get("app.sendmail");
 
         $params["subject"]   = "[Ajusa]: ".$subject;
@@ -595,7 +595,7 @@ class DefaultController extends BaseController
         $params["from"]     = "web@corporacionhms.com";
         $params["template"] = "base.html.twig";
         $params["datos"] = $mensaje;
-        $params["files"] = $request->get("doc_adjunto");
+        $params["files"] = $request->files->get("doc_adjunto");
         //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
         $sendmail->send($params);
         //unlink("/home/www/back-dcoop/public/files/cv/" . $ficha_producto);
@@ -654,8 +654,7 @@ class DefaultController extends BaseController
         EN -> Ajusa Web EN -> id: 1537891
         */
 
-        $logger = $this->get("logger");
-        $logger->info(print_r($request, true));
+      
         $lang = $request->request->get("lang");
         $asunto = $request->get("asunto");
         $consulta = $request->get("consulta");
