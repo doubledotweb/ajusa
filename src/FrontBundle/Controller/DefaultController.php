@@ -541,6 +541,7 @@ class DefaultController extends BaseController
           $tipo_consulta = "";
       }
 
+
       $emailgracias = $email;
       $to = "social@ajusa.es";
       switch ($tipo_contacto) {
@@ -586,20 +587,17 @@ class DefaultController extends BaseController
      
       $message = \Swift_Message::newInstance();
 
-      if ($ficha_producto != "") {
-        Mail::send('mails.contacto_ajusa', ['tipo_contacto' => $tipo_contacto, 'tipo_catalogo' => $tipo_catalogo, 'asunto' => $asunto, 'mensaje' => $mensaje, 'email' => $email, 'nombre' => $nombre, 'telefono' => $telefono, 'referencia_producto' =>  $referencia_producto], function ($message) use ($to, $ruta, $ficha_producto)
-        {
-            $message->subject("Formulario de contacto enviado");
+      if ($request->get("doc_adjunto") != "") {
+        $sendmail=$this->container->get("app.sendmail");
 
-            $message->from('millanhermana@gmail.com', 'Formulario de contacto Ajusa');
-
-            $message->to([/*$to,*/'millanhermana@hotmail.com', 'israel.palomar@doubledot.es']);
-
-            $message->attach($ruta, array(
-                    'as' => $ficha_producto, 
-                    'mime' => 'application/pdf')
-                );
-        });
+        $params["subject"]   = "[Ajusa]: ".$subject;
+        $params["to"]     = "millan.hermana@doubledot.es"; //$to;
+        $params["from"]     = "web@corporacionhms.com";
+        $params["template"] = "base.html.twig";
+        $params["datos"] = $mensaje;
+        $params["files"] = $request->get("doc_adjunto");
+        //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
+        $sendmail->send($params);
         //unlink("/home/www/back-dcoop/public/files/cv/" . $ficha_producto);
     } else {
         $sendmail=$this->container->get("app.sendmail");
@@ -609,6 +607,7 @@ class DefaultController extends BaseController
         $params["from"]     = "web@corporacionhms.com";
         $params["template"] = "base.html.twig";
         $params["datos"] = $mensaje;
+        
         //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
         $sendmail->send($params);
     }

@@ -56,13 +56,7 @@ class SendMail
 	            
 			return $this->mailer->send($message);
 
-	        
-	/* 	} 
-		catch (Exception $e) 
-		{
-			return 0;
-		}		 */
 	}
 
 
-	}
+}
