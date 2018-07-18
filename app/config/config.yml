@@ -76,5 +76,5 @@ swiftmailer:
     password: Nop78064
     #spool: { type: memory }
     #auth_mode:         login
-    encryption: tls
+    encryption: STARTTLS
     port: 587
