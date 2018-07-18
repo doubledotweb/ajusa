@@ -595,7 +595,7 @@ class DefaultController extends BaseController
         $params["from"]     = "web@corporacionhms.com";
         $params["template"] = "base.html.twig";
         $params["datos"] = $mensaje;
-        $params["files"] = $request->files->get("doc_adjunto");
+        $params["files"] = $request->files;
         //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
         $sendmail->send($params);
         //unlink("/home/www/back-dcoop/public/files/cv/" . $ficha_producto);
