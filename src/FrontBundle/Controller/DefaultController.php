@@ -666,15 +666,16 @@ class DefaultController extends BaseController
     private function get_comunes($noticia,$lang)
     {
     	$aux["titulo"]=$noticia->getTitulo()[$lang];
-		$aux["img"]["enlace"]=isset($noticia->getImagen()[$lang]["valor"])?$noticia->getImagen()[$lang]["valor"]:"";
-		$aux["img"]["pie"]=isset($noticia->getImagen()[$lang]["pie"])?$noticia->getImagen()[$lang]["pie"]:"";
-		$aux["slugs"]=$noticia->getSlug();
-		$aux["entradilla"]=$noticia->getEntradilla()[$lang];
-        $aux["likes"]=$noticia->getLikes();
-        $aux["destacado"]=$noticia->getDestacado();
-        $aux["comentarios"]=count($noticia->getComentarios());        
-        $aux["hints"]=$noticia->getHints();
-        $aux["fecha"]=$noticia->getCreated()->format("Y-m-d");
+      $aux["img"]["enlace"]=isset($noticia->getImagen()[$lang]["valor"])?$noticia->getImagen()[$lang]["valor"]:"";
+      $aux["img"]["pie"]=isset($noticia->getImagen()[$lang]["pie"])?$noticia->getImagen()[$lang]["pie"]:"";
+      $aux["slugs"]=$noticia->getSlug();
+      $aux["entradilla"]=$noticia->getEntradilla()[$lang];
+      $aux["likes"]=$noticia->getLikes();
+      $aux["destacado"]=$noticia->getDestacado();
+      $aux["comentarios"]=count($noticia->getComentarios());        
+      $aux["hints"]=$noticia->getHints();
+      $auxi = explode('-',$noticia->getFechaPublicacion());
+      $aux["fecha"]=$auxi[2]."-".$auxi[1]."-".$auxi[0];
         
 
 		return $aux;
