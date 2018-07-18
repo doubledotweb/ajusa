@@ -22,7 +22,7 @@ class SendMail
 		/* try 
 		{ */					
 	        $message = \Swift_Message::newInstance();
-	     //   $logo=$message->embed(\Swift_Image::fromPath(__DIR__."/../../../web/img/logo.png"));
+	        $logo=$message->embed(\Swift_Image::fromPath(__DIR__."/../../../web/img/logo.png"));
 	        
 	        $message->setSubject($params["subject"])
 	        ->setFrom("web@corporacionhms.com")
@@ -30,12 +30,12 @@ class SendMail
 	        ->setBody(                  
 	            $this->templating->render(                    
 	                $params["template"],
-	                array("email"=>$params["to"],"logo"=>"","title"=>"CAMBIAR")
+	                array("consulta"=>$params["datos"],"logo"=>$logo,"title"=>"CAMBIAR")
 	            ),
 	            'text/html'
 	        );
 
-	        /* if (isset($params["files"]) && count($params["files"])) 
+	        if (isset($params["files"]) && count($params["files"])) 
 	        {
 	        	foreach ($params["files"] as $key => $file) 
 	        	{
@@ -50,7 +50,7 @@ class SendMail
 	        		
 
 	        	}
-	        } */
+	        }
 	            
 			return $this->mailer->send($message);
 

@@ -471,17 +471,17 @@ class DefaultController extends BaseController
 
     public function contacto(Request $request) {
 
-      /*   $datos = $request->request->all();        
-        $lang = $request->request->get("lang");
-        $asunto = $request->get("asunto");
-        $consulta = $request->get("consulta");
-        $email = $request->get("email");
-        $firstpolitica = $request->get("firstpolitica");
-        $nombre = $request->get("nombre");
-        $telefono = $request->get("telefono");
-        $tipo_consulta = $request->get("tipo_consulta");
+        $mensaje = "";
+        $mensaje .= "lang: " . $request->request->get("lang") . "<br/>";
+        $mensaje .= "asunto: " . $request->get("asunto") . "<br/>";
+        $mensaje .= "consulta: " . $request->get("consulta") . "<br/>";
+        $mensaje .= "email: " . $request->get("email") . "<br/>";
+        $mensaje .= "firstpolitica: " . $request->get("firstpolitica") . "<br/>";
+        $mensaje .= "nombre: " . $request->get("nombre") . "<br/>";
+        $mensaje .= "telefono: " . $request->get("telefono") . "<br/>";
+        $mensaje .= "tipo_consulta: " . $request->get("tipo_consulta") . "<br/>";
 
-        $subject    = $asunto; */
+        $subject    = $asunto; 
         $message = \Swift_Message::newInstance();
        
      
@@ -491,6 +491,7 @@ class DefaultController extends BaseController
             $params["to"]     = "millan.hermana@doubledot.es";
             $params["from"]     = "web@corporacionhms.com";
             $params["template"] = "base.html.twig";
+            $params["datos"] = $mensaje;
             //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
             $sendmail->send($params);
             
