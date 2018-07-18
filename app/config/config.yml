@@ -70,13 +70,13 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: sendmail
+    transport: smtp #sendmail
     host: smtp.office365.com
     username: web@corporacionhms.com
     password: Nop78064
     #spool: { type: memory }
     #auth_mode:         login
-    encryption: ssl
+    encryption: tls
     port: 587
     stream-options:
         ssl:

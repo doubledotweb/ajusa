@@ -492,9 +492,9 @@ class DefaultController extends BaseController
             $params["from"]     = "web@corporacionhms.com";
             $params["template"] = "base.html.twig";
             //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
+            $sendmail->send($params);
             
-            
-            return $sendmail->send($params);
+            return new JsonResponse(array('asunto' => $asunto, 'consulta' => $consulta, 'email' => $email, 'code' => 200));
     
     	/* catch(\Exception $e)
     	{    		
