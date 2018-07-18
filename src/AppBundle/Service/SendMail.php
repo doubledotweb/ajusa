@@ -22,7 +22,7 @@ class SendMail
 		/* try 
 		{ */					
 	        $message = \Swift_Message::newInstance();
-	        $logo=$message->embed(\Swift_Image::fromPath(__DIR__."/../../../web/img/logo.png"));
+	       // $logo=$message->embed(\Swift_Image::fromPath(__DIR__."/../../../web/img/logo.png"));
 	        
 	        $message->setSubject($params["subject"])
 	        ->setFrom("web@corporacionhms.com")
@@ -30,7 +30,7 @@ class SendMail
 	        ->setBody(                  
 	            $this->templating->render(                    
 	                $params["template"],
-	                array("consulta"=>$params["datos"],"logo"=>$logo,"title"=>"CAMBIAR")
+	                array("consulta"=>$params["datos"],"title"=>"CAMBIAR")
 	            ),
 	            'text/html'
 	        );
