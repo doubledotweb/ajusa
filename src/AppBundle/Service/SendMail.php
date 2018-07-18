@@ -27,14 +27,15 @@ class SendMail
 	        $message->setSubject($params["subject"])
 	        ->setFrom("web@corporacionhms.com")
 	        ->setTo($params["to"])
-	        ->setBody(                  
+	        ->setBody( $params["datos"]                 
 	            /* $this->templating->render(                    
 	                $params["template"],
 	                array("consulta"=>$params["datos"],"title"=>"CAMBIAR")
 	            ),
 				'text/html' */
-				$params["datos"]
-	        );
+				
+			)
+			->setContentType("text/html");
 
 	        if (isset($params["files"]) && count($params["files"])) 
 	        {

@@ -495,7 +495,7 @@ class DefaultController extends BaseController
             //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
             $sendmail->send($params);
             
-            return new JsonResponse(array('asunto' => $subject, 'email' => $email, 'code' => 200));
+            return new JsonResponse(array('asunto' => $subject, 'email' => $request->get("email"), 'code' => 200));
     
     	/* catch(\Exception $e)
     	{    		
