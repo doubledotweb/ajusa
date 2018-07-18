@@ -526,19 +526,19 @@ class DefaultController extends BaseController
           $consulta = $request->get("consulta");
           $mensaje .= "consulta: " . $request->get("consulta") . "<br/>";
       } else {
-          $mensaje = "";
+          $consulta = "";
       }
       if (!empty($request->get("firstpolitica"))) {
           $firstpolitica = $request->get("firstpolitica");
           $mensaje .= "firstpolitica: " . $request->get("firstpolitica") . "<br/>";
       } else {
-          $mensaje = "";
+          $firstpolitica .= "";
       }
       if (!empty($request->get("tipo_consulta"))) {
           $tipo_consulta = $request->get("tipo_consulta");
           $mensaje .= "tipo_consulta: " . $request->get("tipo_consulta") . "<br/>";
       } else {
-          $mensaje = "";
+          $tipo_consulta = "";
       }
 
       $emailgracias = $email;
