@@ -471,45 +471,173 @@ class DefaultController extends BaseController
 
     public function contacto(Request $request) {
 
-        $mensaje = "";
-        $mensaje .= "lang: " . $request->request->get("lang") . "<br/>";
-        $mensaje .= "asunto: " . $request->get("asunto") . "<br/>";
-        $mensaje .= "consulta: " . $request->get("consulta") . "<br/>";
-        $mensaje .= "email: " . $request->get("email") . "<br/>";
-        $mensaje .= "firstpolitica: " . $request->get("firstpolitica") . "<br/>";
-        $mensaje .= "nombre: " . $request->get("nombre") . "<br/>";
-        $mensaje .= "telefono: " . $request->get("telefono") . "<br/>";
-        $mensaje .= "tipo_consulta: " . $request->get("tipo_consulta") . "<br/>";
+      $ruta = ""; $ficha_producto = "";
+      $mensaje = "";
 
-        $subject    = $request->get("asunto"); 
-        $message = \Swift_Message::newInstance();
-       
+      if (!empty($request->request->get("lang"))) {
+          $lang = $request->request->get("lang");
+          $mensaje .= "lang: " . $request->request->get("lang") . "<br/>";
+      } else {
+          $lang = "";
+      }
+      if (!empty($request->get("asunto"))) {
+          $asunto = $request->get("asunto");
+          $mensaje .= "asunto: " . $request->get("asunto") . "<br/>";
+      } else {
+          $asunto = "";
+      }
+      if (!empty($request->get("tipo_contacto"))) {
+          $tipo_contacto = $request->get("tipo_contacto");
+          $mensaje .= "tipo_contacto: " . $request->get("tipo_contacto") . "<br/>";
+      } else {
+          $tipo_contacto = "";
+      }      
+      if (!empty($request->get("nombre_apellidos"))) {
+          $nombre = $request->get("nombre_apellidos");
+          $mensaje .= "nombre_apellidos: " . $request->get("nombre_apellidos") . "<br/>";
+      } else {
+          $nombre = "";
+      }
+      if (!empty($request->get("telefono"))) {
+          $telefono = $request->get("telefono");
+          $mensaje .= "telefono: " . $request->get("telefono") . "<br/>";
+      } else {
+          $telefono = "";
+      }
+      if (!empty($request->get("email"))) {
+          $email = $request->get("email");
+          $mensaje .= "email: " . $request->get("email") . "<br/>";
+      } else {
+          $email = "";
+      }
+      if (!empty($request->get("tipo_catalogo"))) {
+          $tipo_catalogo = $request->get("tipo_catalogo");
+          $mensaje .= "tipo_catalogo: " . $request->get("tipo_catalogo") . "<br/>";
+      } else {
+          $tipo_catalogo = "";
+      }
+      if (!empty($request->get("referencia_producto"))) {
+          $referencia_producto = $request->get("referencia_producto");
+          $mensaje .= "referencia_producto: " . $request->get("referencia_producto") . "<br/>";
+      } else {
+          $referencia_producto = "";
+      }
+      if (!empty($request->get("consulta"))) {
+          $mensaje = $request->get("consulta");
+          $mensaje .= "consulta: " . $request->get("consulta") . "<br/>";
+      } else {
+          $mensaje = "";
+      }
+      if (!empty($request->get("firstpolitica"))) {
+          $mensaje = $request->get("firstpolitica");
+          $mensaje .= "firstpolitica: " . $request->get("firstpolitica") . "<br/>";
+      } else {
+          $mensaje = "";
+      }
+      if (!empty($request->get("tipo_consulta"))) {
+          $mensaje = $request->get("tipo_consulta");
+          $mensaje .= "tipo_consulta: " . $request->get("tipo_consulta") . "<br/>";
+      } else {
+          $mensaje = "";
+      }
+
+      $emailgracias = $email;
+      $to = "social@ajusa.es";
+      switch ($tipo_contacto) {
+              case "general":
+                  $to = "social@ajusa.es";
+                  $subject = "contacto general"; 
+                  break;
+              case "contacto":
+                  $to = "social@ajusa.es";
+                  $subject = "contacto general"; 
+                  break;
+              case "sucursales":
+                  $to = "social@ajusa.es";
+                  $subject = "contacto sucursal"; 
+                  break;
+              case "comercial":
+                  $to = "sales@ajusa.es";
+                  $subject = "contacto comercial"; 
+                  break;
+              case "formacion":
+                  $to = "customerservice2@ajusa.es";
+                  $subject = "contacto formacion"; 
+                  break;
+              case "asistencia_tecnica":
+                  $to = "customerservice2@ajusa.es";
+                  $subject = "contacto Asistencia tecnia"; 
+                  break;
+              case "catalogo":
+                  $to = "social@ajusa.es";
+                  $subject = "contacto catalogo"; 
+                  break;
+              case "trabaja":
+                  $to = "ajusa@ajusa.es";
+                  $subject = "contacto trabaja"; 
+                  break;
+              default:
+                  $to = "social@ajusa.es";
+                  break;
+      }
+      
+
      
-            $sendmail=$this->container->get("app.sendmail");
+      $message = \Swift_Message::newInstance();
 
-            $params["subject"]   = "[Ajusa]: Se ha solicitado restablecido la contraseña";
-            $params["to"]     = "millan.hermana@doubledot.es";
-            $params["from"]     = "web@corporacionhms.com";
-            $params["template"] = "base.html.twig";
-            $params["datos"] = $mensaje;
-            //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
-            $sendmail->send($params);
-            
-            return new JsonResponse(array('asunto' => $subject, 'email' => $request->get("email"), 'code' => 200));
-    
-    	/* catch(\Exception $e)
-    	{    		
-    		
-            $this->addFlash("error",$this->mensaje_error($e));
-    		return $this->json(array("mensaje"=>$e->getMessage()));
-        } */
+      if ($ficha_producto != "") {
+        Mail::send('mails.contacto_ajusa', ['tipo_contacto' => $tipo_contacto, 'tipo_catalogo' => $tipo_catalogo, 'asunto' => $asunto, 'mensaje' => $mensaje, 'email' => $email, 'nombre' => $nombre, 'telefono' => $telefono, 'referencia_producto' =>  $referencia_producto], function ($message) use ($to, $ruta, $ficha_producto)
+        {
+            $message->subject("Formulario de contacto enviado");
+
+            $message->from('millanhermana@gmail.com', 'Formulario de contacto Ajusa');
+
+            $message->to([/*$to,*/'millanhermana@hotmail.com', 'israel.palomar@doubledot.es']);
+
+            $message->attach($ruta, array(
+                    'as' => $ficha_producto, 
+                    'mime' => 'application/pdf')
+                );
+        });
+        //unlink("/home/www/back-dcoop/public/files/cv/" . $ficha_producto);
+    } else {
+        $sendmail=$this->container->get("app.sendmail");
+
+        $params["subject"]   = "[Ajusa]: ".$subject;
+        $params["to"]     = "millan.hermana@doubledot.es"; //$to;
+        $params["from"]     = "web@corporacionhms.com";
+        $params["template"] = "base.html.twig";
+        $params["datos"] = $mensaje;
+        //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
+        $sendmail->send($params);
+    }
         
+        
+    
 
-        /* if (!$this->get('mailer')->send($message,$failures)) {
+    $mensajegracias = "Muchas gracias por ponerte en contacto con nosotros, te responderemos lo antes posible.";
+    if (!empty($emailgracias)) {
+      $sendmail=$this->container->get("app.sendmail");
+
+      $params["subject"]   = "[Ajusa]: Gracis por ponerte en contacto";
+      $params["to"]     = "millan.hermana@doubledot.es"; //$to;
+      $params["from"]     = "web@corporacionhms.com";
+      $params["template"] = "base.html.twig";
+      $params["datos"] = $mensajegracias;
+      //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
+      $sendmail->send($params);
+    }
+          
+    return new JsonResponse(1);
+
+        
             
-            return $failures;
-        }; */
-     //   return new JsonResponse(array('asunto' => $asunto, 'consulta' => $consulta, 'email' => $email, 'code' => 200));
+/*         if ( $request->file('doc_adjunto') != null) {
+            $ficha_producto = str_replace(' ', '%20', $request->file('doc_adjunto')->getClientOriginalName());
+            $request->file('doc_adjunto')->move(public_path('files/cv'), $ficha_producto);
+            
+        }
+ */
     }
 
     /**
