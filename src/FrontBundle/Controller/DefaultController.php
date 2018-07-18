@@ -674,8 +674,7 @@ class DefaultController extends BaseController
       $aux["destacado"]=$noticia->getDestacado();
       $aux["comentarios"]=count($noticia->getComentarios());        
       $aux["hints"]=$noticia->getHints();
-      $auxi = explode('-',$noticia->getFechaPublicacion());
-      $aux["fecha"]=$auxi[2]."-".$auxi[1]."-".$auxi[0];
+      $aux["fecha"]=$noticia->getCreated()->format("Y-m-d");
         
 
 		return $aux;
