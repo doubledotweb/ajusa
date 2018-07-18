@@ -523,19 +523,19 @@ class DefaultController extends BaseController
           $referencia_producto = "";
       }
       if (!empty($request->get("consulta"))) {
-          $mensaje = $request->get("consulta");
+          $consulta = $request->get("consulta");
           $mensaje .= "consulta: " . $request->get("consulta") . "<br/>";
       } else {
           $mensaje = "";
       }
       if (!empty($request->get("firstpolitica"))) {
-          $mensaje = $request->get("firstpolitica");
+          $firstpolitica = $request->get("firstpolitica");
           $mensaje .= "firstpolitica: " . $request->get("firstpolitica") . "<br/>";
       } else {
           $mensaje = "";
       }
       if (!empty($request->get("tipo_consulta"))) {
-          $mensaje = $request->get("tipo_consulta");
+          $tipo_consulta = $request->get("tipo_consulta");
           $mensaje .= "tipo_consulta: " . $request->get("tipo_consulta") . "<br/>";
       } else {
           $mensaje = "";
@@ -578,6 +578,7 @@ class DefaultController extends BaseController
                   break;
               default:
                   $to = "social@ajusa.es";
+                  $subject = "contacto general"; 
                   break;
       }
       
