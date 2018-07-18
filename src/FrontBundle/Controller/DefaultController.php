@@ -481,7 +481,7 @@ class DefaultController extends BaseController
         $mensaje .= "telefono: " . $request->get("telefono") . "<br/>";
         $mensaje .= "tipo_consulta: " . $request->get("tipo_consulta") . "<br/>";
 
-        $subject    = $asunto; 
+        $subject    = $request->get("asunto"); 
         $message = \Swift_Message::newInstance();
        
      
