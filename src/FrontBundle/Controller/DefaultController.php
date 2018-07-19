@@ -474,6 +474,9 @@ class DefaultController extends BaseController
       $ruta = ""; $ficha_producto = "";
       $mensaje = "";
 
+     
+
+
       if (!empty($request->request->get("lang"))) {
           $lang = $request->request->get("lang");
           $mensaje .= "lang: " . $request->request->get("lang") . "<br/>";
@@ -532,7 +535,7 @@ class DefaultController extends BaseController
           $firstpolitica = $request->get("firstpolitica");
           $mensaje .= "firstpolitica: " . $request->get("firstpolitica") . "<br/>";
       } else {
-          $firstpolitica .= "";
+          $firstpolitica = "";
       }
       if (!empty($request->get("tipo_consulta"))) {
           $tipo_consulta = $request->get("tipo_consulta");
