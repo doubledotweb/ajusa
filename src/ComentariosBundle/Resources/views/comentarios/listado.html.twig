@@ -36,7 +36,7 @@
 						<td class="nombre">{{comentario.nombre}}</td>
 						<td class="estado"><i class="material-icons" title="{{comentario.permitido?"Activado":"Bloqueado"}}">{{comentario.permitido?"done":"cancel"}}</i></td>
 						<td class="opcion">
-							<a class="js-estado" href="{{path("validar_comentario")}}"><i class="material-icons estado" title="{{comentario.permitido?"Activar":"Bloquear"}}">{{comentario.permitido?"cancel":"done"}}</i></a>
+							<a class="js-estado" href="{{path("validar_comentario")}}"><i class="material-icons estado" title="{{comentario.permitido?"Bloquear":"Activar"}}">{{comentario.permitido?"cancel":"done"}}</i></a>
 							<a class="ver" href="{{path("ver_comentario",{"id":comentario.id})}}"><span><i class="material-icons" title="Ver">remove_red_eye</i></span></a>
 							<a class="borrar" href="{{path("eliminar_comentario")}}"><span><i class="material-icons" title="Borrar">delete</i></span></a>
 						</td>
