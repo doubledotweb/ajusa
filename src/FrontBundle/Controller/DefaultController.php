@@ -561,15 +561,15 @@ class DefaultController extends BaseController
                   $subject = "contacto sucursal"; 
                   break;
               case "comercial":
-                  $to = "sales@ajusa.es";
+                  $to = "social@ajusa.es";
                   $subject = "contacto comercial"; 
                   break;
               case "formacion":
-                  $to = "customerservice2@ajusa.es";
+                  $to = "customerservice@ajusa.es";
                   $subject = "contacto formacion"; 
                   break;
               case "asistencia_tecnica":
-                  $to = "customerservice2@ajusa.es";
+                  $to = "customerservice@ajusa.es";
                   $subject = "contacto Asistencia tecnia"; 
                   break;
               case "catalogo":
@@ -577,7 +577,7 @@ class DefaultController extends BaseController
                   $subject = "contacto catalogo"; 
                   break;
               case "trabaja":
-                  $to = "ajusa@ajusa.es";
+                  $to = "jcifuentes@corporacionhms.com";
                   $subject = "contacto trabaja"; 
                   break;
               default:

@@ -35,7 +35,7 @@
 					{% for destacado in destacados %}
 
 					<tr class="destacado" id="{{destacado.id}}">
-						<td class="fecha">{{destacado.getCreado()|date("d/m/Y H:i:s")}}</td>
+						<td class="fecha"><span style="display:none">{{destacado.getCreado()|date("Y/m/d")}}</span>{{destacado.getCreado()|date("d/m/Y H:i:s")}}</td>
 						<td class="nombre">{{destacado.titulo}}</td>
 						<th class="visible">{{lang[destacado.idioma]}}</th>
 						<td class="tipo">{{categorias[destacado.tipo]}}</td>						

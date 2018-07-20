@@ -52,7 +52,7 @@
 								{% endif %}
 							{% endfor %}
 						</td>
-						<td class="publicacion">{{noticia.getFechaPublicacion()|date("d/m/Y")}}</td>						
+						<td class="publicacion"><span style="display:none">{{noticia.getFechaPublicacion()|date("Y/m/d")}}</span>{{noticia.getFechaPublicacion()|date("d/m/Y")}}</td>						
 						<td class="visible"><span><i class="material-icons" {{noticia.visible?"Activado":"Desactivado"}} title="{{noticia.visible?"Ocultar":"Mostrar"}}">{{noticia.visible?"done":"block"}}</i></span></td>
 						<th class="categoria">{{noticia.categoria?noticia.categoria.nombre["es"]:""}}</th>
 						<th class="titulo">{{noticia.titulo.es}}</th>

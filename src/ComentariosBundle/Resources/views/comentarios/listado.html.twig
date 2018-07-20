@@ -32,7 +32,7 @@
 					{% for comentario in comentarios %}
 
 					<tr class="comentario" id="{{comentario.id}}">
-						<td class="fecha">{{comentario.getCreado()|date("d/m/Y H:i:s")}}</td>
+						<td class="fecha"><span style="display:none">{{comentario.getCreado()|date("Y/m/d")}}</span>{{comentario.getCreado()|date("d/m/Y H:i:s")}}</td>
 						<td class="nombre">{{comentario.nombre}}</td>
 						<td class="estado"><i class="material-icons" title="{{comentario.permitido?"Activado":"Bloqueado"}}">{{comentario.permitido?"done":"cancel"}}</i></td>
 						<td class="opcion">
