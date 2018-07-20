@@ -910,7 +910,7 @@ class DefaultController extends BaseController
 
         foreach ($noticia->getComentarios()->getValues() as $key => $comentario) 
         {   
-            if($comentario->getIdioma()==$lang)
+            if($comentario->getIdioma()==$lang&&$comentario->getPermitido())
             {
                 $aux["nombre"]=$comentario->getNombre();
                 $aux["fecha"]=$comentario->getCreado()->format("U");
