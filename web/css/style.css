@@ -861,7 +861,7 @@ body.no__scroll{
 }
 
 .menu > div:nth-child(2n) .titulo{
-	background: #f5f5f5;
+	background: #efeaea;
 }
 
 .menu > div:hover > .titulo{
@@ -3724,7 +3724,7 @@ footer .todo-children.activo a:last-of-type{
 footer .todo-children a:last-of-type{
 	transition: .3s;
 	transition-delay: .7s;
-	background: #F5F5F5;
+	background: #efeaea;
 	position: relative;
 	transform: translateY(-36px);
 }
@@ -3781,7 +3781,7 @@ footer .todo-children a:last-of-type{
 }
 
 .otros-idiomas a:last-of-type{
-	background: #F5F5F5;
+	background: #efeaea;
 	position: relative;
 }
 
@@ -7575,7 +7575,7 @@ footer .todo-children a:last-of-type{
 
 
 .wrapper__empleados{
-	background: #f5f5f5;
+	background: #efeaea;
 }
 
 .wrapper__empleados .contenedor-boton{
@@ -7599,7 +7599,7 @@ footer .todo-children a:last-of-type{
 
 .contenedor-gen-productos .familia-yogures-liquidos,
 .contenedor-gen-productos .familia-zumos{
-	background: #f5f5f5;
+	background: #efeaea;
 }
 
 .contenedor-gen-productos .familia-postres{
@@ -10479,7 +10479,7 @@ footer .todo-children a:last-of-type{
 	}
 
 	.menu > div .titulo:hover:nth-child(2n){
-		background: #f5f5f5;
+		background: #efeaea;
 	}
 
 	.menu-lo-que-somos.activo .titulo{
