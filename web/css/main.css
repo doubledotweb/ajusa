@@ -211,7 +211,7 @@ body{
 }
 
 .menu-principal li:nth-child(2n-1){
-	background: #f5f5f5;
+	background: #efeaea;
 }
 
 .menu-principal a{
@@ -369,7 +369,7 @@ table.dataTable th{
 }
 
 table.dataTable thead th:nth-child(2n){
-	background-color: #f5f5f5;
+	background-color: #efeaea;
 }
 
 .table-js{
