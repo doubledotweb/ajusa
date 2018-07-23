@@ -796,14 +796,21 @@ class DefaultController extends BaseController
     }
     private function get_comunes($noticia,$lang)
     {
-    	$aux["titulo"]=$noticia->getTitulo()[$lang];
+      $aux["titulo"]=$noticia->getTitulo()[$lang];
       $aux["img"]["enlace"]=isset($noticia->getImagen()[$lang]["valor"])?$noticia->getImagen()[$lang]["valor"]:"";
       $aux["img"]["pie"]=isset($noticia->getImagen()[$lang]["pie"])?$noticia->getImagen()[$lang]["pie"]:"";
       $aux["slugs"]=$noticia->getSlug();
       $aux["entradilla"]=$noticia->getEntradilla()[$lang];
       $aux["likes"]=$noticia->getLikes();
       $aux["destacado"]=$noticia->getDestacado();
-      $aux["comentarios"]=count($noticia->getComentarios());        
+      $comentarios = $noticia->getComentarios();
+      $aux_comentarios = 0;
+      foreach ($comentarios as $com) {
+          if ($com->getPermitido) {
+              $aux_comentarios++;
+          }
+      }
+      $aux["comentarios"]=$aux_comentarios;
       $aux["hints"]=$noticia->getHints();
       $aux["fecha"]=$noticia->getFechaPublicacion()->format("Y-m-d");
         
@@ -1329,53 +1336,12 @@ class DefaultController extends BaseController
      */
     public function tweets(Request $request)
     {
-
         $connection = new TwitterOAuth('jK2s2Kow0oNCZ0CAXYf2IyvXK', 'EuGvFjqf2Kb0ThqCijNB93Nf29iAoJfIqEJIds6O0FyHQ6acen', '1010836765803012099-CrKfWRDGubqBF1eu06gVwmwpkmISbY', '8ZXuKi1bxKZ0iZTojhzHV2f5dkS9ZAszvBhYNHj0Vd4Z5');
         $content = $connection->get("account/verify_credentials");
         
-        $tweets_result = $connection->get("search/tweets", ["q" => "@Ajusa_Spain", "count" => 3, "exclude_replies" => true]);
+        $tweets_result = $connection->get("statuses/user_timeline", ["q" => "@Ajusa_Spain", "count" => 7, "exclude_replies" => true]);
         return new JsonResponse(array("tweets"=>$tweets_result,"code"=>200));
-            
-       /*  $method = 'GET';
-        
-        // Twitter still uses Oauth1 (which is a pain)
-        $oauth = array(
-            'oauth_consumer_key'=>'jK2s2Kow0oNCZ0CAXYf2IyvXK',
-            //'oauth_nonce'=>random(32),
-            'oauth_signature_method'=>'HMAC-SHA1',
-            'oauth_timestamp'=>time(),
-            'oauth_token'=>'1010836765803012099-CrKfWRDGubqBF1eu06gVwmwpkmISbY',
-            'oauth_version'=>'1.0',
-        );                    
-        
-        $url = "https://api.twitter.com/1.1/search/tweets.json?q=@Ajusa_Spain";
-        
-        $oauth['oauth_signature'] = $this->generateSignature($oauth,$url,$method,'');                                
-        
-        ksort($oauth);
-        
-        foreach ($oauth as $k=>$v){
-            $auths[] = $k.'="'.$v.'"';
-        }
-        
-        $stream = array('http' =>
-            array(
-                'method' => $method,
-                // ignore_errors should be true
-                'ignore_errors'=>true, // http://php.net/manual/en/context.http.php - otherwise browser returns error not error content
-                'follow_location'=>false,
-                'max_redirects'=>0,
-                'header'=> array(
-                'Authorization: OAuth '.implode(', ',$auths),
-                'Connection: close'
-                )                                             
-            )
-        );                                                                                                                 
-        
-        echo $url;                                                 
-        $response = file_get_contents($url, false, stream_context_create($stream)); 
-
-        return new JsonResponse(array("mensaje"=>$response ,"code"=>200));*/
+       
     }
 
     private function generateSignature($oauth,$fullurl,$http_method){        
