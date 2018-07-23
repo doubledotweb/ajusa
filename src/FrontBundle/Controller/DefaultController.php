@@ -1360,17 +1360,16 @@ class DefaultController extends BaseController
         }
     }
 
-    /* public function addUserMailjet() 
+    /**
+     * @Route("/pdfs")
+     */
+    public function addUser() 
     {
-        "POST", "Email" => $Cemail ); 
-        $result = $mj->contact($params); 
-        echo serialize ($result); 
-        if ($mj->_response_code == 201) 
-            echo "success - created contact"; 
-        else echo "error - ".$mj->_response_code; 
-        return $result; }  ?>
-    } */
-    function createContact($Cemail)
+        $this->createContact("millanhermana@hotmail.com");
+    }
+
+
+    private function createContact($Cemail)
     {
         $mj = new Mailjet();
         $params = array(
