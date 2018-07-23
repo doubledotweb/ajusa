@@ -37,7 +37,7 @@
 					{% for admin in administradores %}
 
 					<tr class="user" id="{{admin.id}}">
-						<td class="fecha">{{admin.created|date("d/m/Y H:i:s")}}</td>
+						<td class="fecha"><span style="display:none">{{admin.created|date("Y/m/d")}}</span>{{admin.created|date("d/m/Y H:i:s")}}</td>
 						<td class="nombre">{{admin.nombre}}</td>
 						<td class="apellido">{{admin.apellido}}</td>
 						<td class="email">{{admin.username}}</td>
