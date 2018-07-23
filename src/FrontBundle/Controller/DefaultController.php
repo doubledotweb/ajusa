@@ -15,7 +15,9 @@ use AppBundle\Controller\BaseController;
 use ComentariosBundle\Entity\Comentario;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
-use Mailjet\MailjetBundle\MailjetBundle;
+use Mailjet\MailjetBundle\Resources;
+use Mailjet\MailjetBundle\Event\ContactEvent;
+use Mailjet\MailjetBundle\Model\Contact;
 
 use Psr\Log\LoggerInterface;
 
@@ -532,9 +534,9 @@ class DefaultController extends BaseController
       } else {
           $consulta = "";
       }
-      if (!empty($request->get("firstpolitica"))) {
-          $firstpolitica = $request->get("firstpolitica");
-          $mensaje .= "firstpolitica: " . $request->get("firstpolitica") . "<br/>";
+      if (!empty($request->get("politica"))) {
+          $firstpolitica = $request->get("politica");
+          $mensaje .= "politica: " . $request->get("politica") . "<br/>";
       } else {
           $firstpolitica = "";
       }
@@ -544,8 +546,10 @@ class DefaultController extends BaseController
       } else {
           $tipo_consulta = "";
       }
-
-
+      if (!empty($request->get("newsletter") && $request->get("newsletter") == "on")) {
+        $this->createContact($email, $nombre, $lang);
+      }
+      
       $emailgracias = $email;
       $to = "social@ajusa.es";
       switch ($tipo_contacto) {
@@ -1360,30 +1364,39 @@ class DefaultController extends BaseController
         }
     }
 
-    /**
-     * @Route("/pdfs")
+     /**
+     * @Route("/addUser")
+     * @Method("POST")
      */
-    public function addUser() 
+    public function addUser(Request $request) 
     {
-        $this->createContact("millanhermana@hotmail.com");
+        //
+        $lang = $request->get('lang');
+        $email = $request->get('email');
+        if (!empty($email))
+        {
+            $this->createContact("millanhermana@hotmail.com", "", $lang);
+        }
+
+        return new JsonResponse(array("code"=>200, "email" => $email, "lang" => $lang));
     }
 
 
-    private function createContact($Cemail)
+    private function createContact($Cemail, $nombre = "", $lang = "es")
     {
-        $mj = new Mailjet();
-        $params = array(
-            "method" => "POST",
-            "Email" => $Cemail
+        if ("es" == $lang) {
+            $listId = "1537891";
+        } else {
+            $listId = "1537892";
+        }
+        if (empty($nombre)) {
+            $nombre = $Cemail;
+        }
+        $contact = new Contact($Cemail, $nombre, []);
+    
+        $this->container->get('event_dispatcher')->dispatch(
+            ContactEvent::EVENT_SUBSCRIBE,
+            new ContactEvent($listId, $contact)
         );
-
-        $result = $mj->contact($params);
-
-        if ($mj->_response_code == 201)
-        echo "success - created contact ".$Cemail;
-        else
-        echo "error - ".$mj->_response_code;
-
-        return new JsonResponse(array("result"=>$result,"code"=>200));
     }
 }
