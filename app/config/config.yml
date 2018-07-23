@@ -82,3 +82,6 @@ swiftmailer:
         ssl:
             allow_self_signed : true
             verify_peer: false
+mailjet:
+    api_key:    "380d6f5b0d053c33532d8db11c02b57d"
+    secret_key: "d1c4df7953913f12f95af3c157ddccae"

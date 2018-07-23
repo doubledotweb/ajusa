@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new CategoriasBundle\CategoriasBundle(),
             new FrontBundle\FrontBundle(),
             new ComentariosBundle\ComentariosBundle(),
+            new Mailjet\MailjetBundle\MailjetBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

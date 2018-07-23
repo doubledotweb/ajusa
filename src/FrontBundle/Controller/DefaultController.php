@@ -15,6 +15,7 @@ use AppBundle\Controller\BaseController;
 use ComentariosBundle\Entity\Comentario;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use Mailjet\MailjetBundle\MailjetBundle;
 
 use Psr\Log\LoggerInterface;
 
@@ -1357,5 +1358,33 @@ class DefaultController extends BaseController
                 $oauth[$bits[0]] = rawurlencode($bits[1]);
             }    
         }
+    }
+
+    /* public function addUserMailjet() 
+    {
+        "POST", "Email" => $Cemail ); 
+        $result = $mj->contact($params); 
+        echo serialize ($result); 
+        if ($mj->_response_code == 201) 
+            echo "success - created contact"; 
+        else echo "error - ".$mj->_response_code; 
+        return $result; }  ?>
+    } */
+    function createContact($Cemail)
+    {
+        $mj = new Mailjet();
+        $params = array(
+            "method" => "POST",
+            "Email" => $Cemail
+        );
+
+        $result = $mj->contact($params);
+
+        if ($mj->_response_code == 201)
+        echo "success - created contact ".$Cemail;
+        else
+        echo "error - ".$mj->_response_code;
+
+        return new JsonResponse(array("result"=>$result,"code"=>200));
     }
 }
