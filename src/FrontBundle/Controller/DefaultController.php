@@ -806,7 +806,7 @@ class DefaultController extends BaseController
       $comentarios = $noticia->getComentarios();
       $aux_comentarios = 0;
       foreach ($comentarios as $com) {
-          if ($com->getPermitido) {
+          if ($com->getPermitido()) {
               $aux_comentarios++;
           }
       }
