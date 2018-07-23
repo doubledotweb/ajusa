@@ -72,8 +72,8 @@ doctrine:
 swiftmailer:
     transport: smtp #sendmail
     host: smtp.office365.com
-    username: web@corporacionhms.com
-    password: Nop78064
+    username: mailer@corporacionhms.com
+    password: Quyu5999
     #spool: { type: memory }
     #auth_mode:         login
     encryption: tls
