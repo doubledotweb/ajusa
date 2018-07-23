@@ -1375,7 +1375,7 @@ class DefaultController extends BaseController
         $email = $request->get('email');
         if (!empty($email))
         {
-            $this->createContact("millanhermana@hotmail.com", "", $lang);
+            $this->createContact($email, "", $lang);
         }
 
         return new JsonResponse(array("code"=>200, "email" => $email, "lang" => $lang));
@@ -1384,14 +1384,20 @@ class DefaultController extends BaseController
 
     private function createContact($Cemail, $nombre = "", $lang = "es")
     {
-        if ("es" == $lang) {
+        $logger = $this->get("logger");
+        $logger->info($lang);
+        if (empty($nombre)) {
+            $nombre = $Cemail;
+        }
+        if ("es" == $lang) {            
             $listId = "1537891";
-        } else {
+        } else {            
             $listId = "1537892";
         }
         if (empty($nombre)) {
             $nombre = $Cemail;
         }
+        $logger->info($Cemail . " " . $nombre);
         $contact = new Contact($Cemail, $nombre, []);
     
         $this->container->get('event_dispatcher')->dispatch(
