@@ -600,7 +600,7 @@ class DefaultController extends BaseController
 
         $params["subject"]   = "[Ajusa]: ".$subject;
         $params["to"]     = "millan.hermana@doubledot.es"; //$to;
-        $params["from"]     = "web@corporacionhms.com";
+        $params["from"]     = "mailer@corporacionhms.com";
         $params["template"] = "base.html.twig";
         $params["datos"] = $mensaje;
         $params["files"] = $request->files;
@@ -612,7 +612,7 @@ class DefaultController extends BaseController
 
         $params["subject"]   = "[Ajusa]: ".$subject;
         $params["to"]     = "millan.hermana@doubledot.es"; //$to;
-        $params["from"]     = "web@corporacionhms.com";
+        $params["from"]     = "mailer@corporacionhms.com";
         $params["template"] = "base.html.twig";
         $params["datos"] = $mensaje;
         
@@ -629,7 +629,7 @@ class DefaultController extends BaseController
 
       $params["subject"]   = "[Ajusa]: Gracis por ponerte en contacto";
       $params["to"]     = "millan.hermana@doubledot.es"; //$to;
-      $params["from"]     = "web@corporacionhms.com";
+      $params["from"]     = "mailer@corporacionhms.com";
       $params["template"] = "base.html.twig";
       $params["datos"] = $mensajegracias;
       //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
@@ -677,7 +677,7 @@ class DefaultController extends BaseController
         
             
         $message->setSubject($subject)
-        ->setFrom('millanhermana@gmail.com')
+        ->setFrom('mailer@corporacionhms.com')
         ->setTo("millan.hermana@doubledot.es")
         ->setBody(                  
             $this->renderView(
