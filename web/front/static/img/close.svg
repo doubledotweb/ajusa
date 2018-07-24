@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Cerrar fotos</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Visual" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2_productos/2_3_productos_ajusa_1280-IMÁGENES" transform="translate(-225.000000, -755.000000)">
+            <g id="Cerrar-fotos" transform="translate(217.000000, 747.000000)">
+                <polygon id="Shape" points="0 0 40 0 40 40 0 40"></polygon>
+                <g id="Group" stroke-width="1" fill-rule="evenodd" transform="translate(20.000000, 20.000000) rotate(-315.000000) translate(-20.000000, -20.000000) translate(5.000000, 5.000000)" fill="#054279">
+                    <polygon id="Path" transform="translate(15.000000, 15.000000) rotate(90.000000) translate(-15.000000, -15.000000) " points="0 16 30 16 30 14 0 14"></polygon>
+                    <polygon id="Path" points="0 16 30 16 30 14 0 14"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

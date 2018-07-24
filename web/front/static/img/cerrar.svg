@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Header-MENU" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1204.000000, -43.000000)">
+        <g id="Group" transform="translate(1204.000000, 43.000000)" fill="#FFFFFF">
+            <polygon id="Path" transform="translate(11.313708, 11.313708) rotate(45.000000) translate(-11.313708, -11.313708) " points="-3.6862915 12.3137085 26.3137085 12.3137085 26.3137085 10.3137085 -3.6862915 10.3137085"></polygon>
+            <polygon id="Path" transform="translate(11.313708, 11.313708) rotate(-45.000000) translate(-11.313708, -11.313708) " points="-3.6862915 12.3137085 26.3137085 12.3137085 26.3137085 10.3137085 -3.6862915 10.3137085"></polygon>
+        </g>
+    </g>
+</svg>

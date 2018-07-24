@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="19px" viewBox="0 0 12 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>flecha</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g id="flecha" transform="translate(5.500000, 9.000000) rotate(-270.000000) translate(-5.500000, -9.000000) translate(-9.500000, -6.500000)" stroke="#054279">
+            <g id="Group-Copy" transform="translate(15.500000, 15.500000) rotate(-270.000000) translate(-15.500000, -15.500000) translate(10.000000, 6.000000)">
+                <g id="Group-2">
+                    <path d="M4.90515268,0.166124018 L0.238160491,5.15049902" id="Line-2-Copy"></path>
+                    <path d="M10.2775729,5.15049902 L5.61058071,0.166124018" id="Line-2-Copy-2"></path>
+                </g>
+                <path d="M5.5,1.5 L5.5,18.5" id="Line-2"></path>
+            </g>
+        </g>
+    </g>
+</svg>
