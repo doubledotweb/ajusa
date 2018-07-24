@@ -32,7 +32,7 @@ class DefaultController extends BaseController
 
         $tipos=array(
             "actualidad"=>"Actualidad",
-             "catalogo"=>"Catálogo" ,
+            "catalogo"=>"Catálogo" ,
             "ferias"=>"Ferias",
             "energias-alternativas"=>"Energías alternativas",
             "videos"=>"Vídeos",
