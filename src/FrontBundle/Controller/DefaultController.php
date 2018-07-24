@@ -751,7 +751,7 @@ class DefaultController extends BaseController
                     $new_comentario->setTexto($comentario["texto"]);
                     $new_comentario->setEmail($comentario["email"]);
 
-                    if (!empty($request->get("newsletter") && $request->get("newsletter") == "on")) {
+                    if (!empty($request->get("newsletter") && $request->get("newsletter"))) {
                         $this->createContact($email, $nombre, $lang);
                     }
                     
