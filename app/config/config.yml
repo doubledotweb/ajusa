@@ -74,8 +74,8 @@ swiftmailer:
     host: smtp.office365.com
     username: mailer@ajusa.es #mailer@corporacionhms.com
     password: Mal54671 #Quyu5999
-    spool: { type: memory }
-    auth_mode:         login
+    #spool: { type: memory }
+    #auth_mode:         login
     encryption: tls
     port: 587
     stream-options:
