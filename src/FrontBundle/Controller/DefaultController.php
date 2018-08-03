@@ -596,7 +596,7 @@ class DefaultController extends BaseController
       $message = \Swift_Message::newInstance();
 
       $message->setSubject( "[Ajusa]: ".$subject)
-      ->setFrom("mailer@ajusa.es")
+      ->setFrom("mailer@corporacionhms.com")
       ->setTo("millan.hermana@doubledot.es")
       ->setBody(                  
           $this->renderView(
