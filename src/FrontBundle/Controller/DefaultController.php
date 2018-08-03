@@ -595,7 +595,20 @@ class DefaultController extends BaseController
      
       $message = \Swift_Message::newInstance();
 
-      if ($request->files->get("doc_adjunto") != "") {
+      $message->setSubject( "[Ajusa]: ".$subject)
+      ->setFrom("mailer@ajusa.es")
+      ->setTo("millan.hermana@doubledot.es")
+      ->setBody(                  
+          $this->renderView(
+              // app/Resources/views/Emails/registration.html.twig
+              "base.html.twig",
+              array("datos"=>$mensaje)
+          ),
+          'text/html'
+      );
+      return $this->get('mailer')->send($message);
+
+     /*  if ($request->files->get("doc_adjunto") != "") {
         $sendmail=$this->container->get("app.sendmail");
 
         $params["subject"]   = "[Ajusa]: ".$subject;
@@ -607,7 +620,7 @@ class DefaultController extends BaseController
         //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
         $sendmail->send($params);
         //unlink("/home/www/back-dcoop/public/files/cv/" . $ficha_producto);
-    }/*  else {
+    }/  else {
         $sendmail=$this->container->get("app.sendmail");
 
         $params["subject"]   = "[Ajusa]: ".$subject;
