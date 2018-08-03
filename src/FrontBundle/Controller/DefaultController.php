@@ -607,7 +607,7 @@ class DefaultController extends BaseController
         //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
         $sendmail->send($params);
         //unlink("/home/www/back-dcoop/public/files/cv/" . $ficha_producto);
-    } else {
+    }/*  else {
         $sendmail=$this->container->get("app.sendmail");
 
         $params["subject"]   = "[Ajusa]: ".$subject;
@@ -634,7 +634,7 @@ class DefaultController extends BaseController
       $params["datos"] = $mensajegracias;
       //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
       $sendmail->send($params);
-    }
+    } */
           
     return new JsonResponse(1);
 
@@ -647,6 +647,187 @@ class DefaultController extends BaseController
         }
  */
     }
+
+    /**
+     * @Route("/contactoth")
+     * @Method("POST")
+     */
+
+    public function contactoth(Request $request) {
+
+        $ruta = ""; $ficha_producto = "";
+        $mensaje = "";
+  
+       
+  
+  
+        if (!empty($request->request->get("lang"))) {
+            $lang = $request->request->get("lang");
+            $mensaje .= "lang: " . $request->request->get("lang") . "<br/>";
+        } else {
+            $lang = "";
+        }
+        if (!empty($request->get("asunto"))) {
+            $asunto = $request->get("asunto");
+            $mensaje .= "asunto: " . $request->get("asunto") . "<br/>";
+        } else {
+            $asunto = "";
+        }
+        if (!empty($request->get("tipo_contacto"))) {
+            $tipo_contacto = $request->get("tipo_contacto");
+            $mensaje .= "tipo_contacto: " . $request->get("tipo_contacto") . "<br/>";
+        } else {
+            $tipo_contacto = "";
+        }      
+        if (!empty($request->get("nombre_apellidos"))) {
+            $nombre = $request->get("nombre_apellidos");
+            $mensaje .= "nombre_apellidos: " . $request->get("nombre_apellidos") . "<br/>";
+        } else {
+            $nombre = "";
+        }
+        if (!empty($request->get("telefono"))) {
+            $telefono = $request->get("telefono");
+            $mensaje .= "telefono: " . $request->get("telefono") . "<br/>";
+        } else {
+            $telefono = "";
+        }
+        if (!empty($request->get("email"))) {
+            $email = $request->get("email");
+            $mensaje .= "email: " . $request->get("email") . "<br/>";
+        } else {
+            $email = "";
+        }
+        if (!empty($request->get("tipo_catalogo"))) {
+            $tipo_catalogo = $request->get("tipo_catalogo");
+            $mensaje .= "tipo_catalogo: " . $request->get("tipo_catalogo") . "<br/>";
+        } else {
+            $tipo_catalogo = "";
+        }
+        if (!empty($request->get("referencia_producto"))) {
+            $referencia_producto = $request->get("referencia_producto");
+            $mensaje .= "referencia_producto: " . $request->get("referencia_producto") . "<br/>";
+        } else {
+            $referencia_producto = "";
+        }
+        if (!empty($request->get("consulta"))) {
+            $consulta = $request->get("consulta");
+            $mensaje .= "consulta: " . $request->get("consulta") . "<br/>";
+        } else {
+            $consulta = "";
+        }
+        if (!empty($request->get("politica"))) {
+            $firstpolitica = $request->get("politica");
+            $mensaje .= "politica: " . $request->get("politica") . "<br/>";
+        } else {
+            $firstpolitica = "";
+        }
+        if (!empty($request->get("tipo_consulta"))) {
+            $tipo_consulta = $request->get("tipo_consulta");
+            $mensaje .= "tipo_consulta: " . $request->get("tipo_consulta") . "<br/>";
+        } else {
+            $tipo_consulta = "";
+        }
+        if (!empty($request->get("newsletter") && $request->get("newsletter") == "on")) {
+          $this->createContact($email, $nombre, $lang);
+        }
+        
+        $emailgracias = $email;
+        $to = "social@ajusa.es";
+        switch ($tipo_contacto) {
+                case "general":
+                    $to = "social@ajusa.es";
+                    $subject = "contacto general"; 
+                    break;
+                case "contacto":
+                    $to = "social@ajusa.es";
+                    $subject = "contacto general"; 
+                    break;
+                case "sucursales":
+                    $to = "social@ajusa.es";
+                    $subject = "contacto sucursal"; 
+                    break;
+                case "comercial":
+                    $to = "social@ajusa.es";
+                    $subject = "contacto comercial"; 
+                    break;
+                case "formacion":
+                    $to = "customerservice@ajusa.es";
+                    $subject = "contacto formacion"; 
+                    break;
+                case "asistencia_tecnica":
+                    $to = "customerservice@ajusa.es";
+                    $subject = "contacto Asistencia tecnia"; 
+                    break;
+                case "catalogo":
+                    $to = "social@ajusa.es";
+                    $subject = "contacto catalogo"; 
+                    break;
+                case "trabaja":
+                    $to = "jcifuentes@corporacionhms.com";
+                    $subject = "contacto trabaja"; 
+                    break;
+                default:
+                    $to = "social@ajusa.es";
+                    $subject = "contacto general"; 
+                    break;
+        }
+        
+  
+       
+        $message = \Swift_Message::newInstance();
+  
+        if ($request->files->get("doc_adjunto") != "") {
+          $sendmail=$this->container->get("app.sendmail");
+  
+          $params["subject"]   = "[Ajusa]: ".$subject;
+          $params["to"]     = "millan.hermana@doubledot.es"; //$to;
+          $params["from"]     = "mailer@ajusa.es";
+          $params["template"] = "base.html.twig";
+          $params["datos"] = $mensaje;
+          $params["files"] = $request->files;
+          //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
+          $sendmail->send($params);
+          //unlink("/home/www/back-dcoop/public/files/cv/" . $ficha_producto);
+      } else {
+          $sendmail=$this->container->get("app.sendmail");
+  
+          $params["subject"]   = "[Ajusa]: ".$subject;
+          $params["to"]     = "millan.hermana@doubledot.es"; //$to;
+          $params["from"]     = "mailer@corporacionhms.com";
+          $params["template"] = "base.html.twig";
+          $params["datos"] = $mensaje;
+          
+          //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
+          $sendmail->send($params);
+      }
+          
+          
+      
+  
+      $mensajegracias = "Muchas gracias por ponerte en contacto con nosotros, te responderemos lo antes posible.";
+      if (!empty($emailgracias)) {
+        $sendmail=$this->container->get("app.sendmail");
+  
+        $params["subject"]   = "[Ajusa]: Gracis por ponerte en contacto";
+        $params["to"]     = "millan.hermana@doubledot.es"; //$to;
+        $params["from"]     = "mailer@corporacionhms.com";
+        $params["template"] = "base.html.twig";
+        $params["datos"] = $mensajegracias;
+        //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
+        $sendmail->send($params);
+      }
+            
+      return new JsonResponse(1);
+  
+          
+              
+  /*         if ( $request->file('doc_adjunto') != null) {
+              $ficha_producto = str_replace(' ', '%20', $request->file('doc_adjunto')->getClientOriginalName());
+              $request->file('doc_adjunto')->move(public_path('files/cv'), $ficha_producto);
+              
+          }
+   */
+      }
 
     /**
      * @Route("/addnewsletter")
