@@ -604,7 +604,7 @@ class DefaultController extends BaseController
               "emails/base.html.twig",
               array(
                   "title" => $subject,
-                  "logo" => $logo,
+                  "logo" => "",
                   "mensaje"=> $mensaje,
                   "politica" => "on")
           ),
