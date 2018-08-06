@@ -649,7 +649,7 @@ class DefaultController extends BaseController
       $sendmail->send($params);
     } 
           
-    return new JsonResponse(1);
+    return new JsonResponse(['1']);
 
         
             
