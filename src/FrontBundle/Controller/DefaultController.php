@@ -493,62 +493,62 @@ class DefaultController extends BaseController
           $asunto = "";
       } */
       if (!empty($request->get("tipo_contacto"))) {
-        $tipo_contacto = $request->get("tipo_contacto");
-        $mensaje .= "<tr><td>tipo_contacto: " . $request->get("tipo_contacto") . "</td></tr>";
-    } else {
-        $tipo_contacto = "";
-    }      
-    if (!empty($request->get("nombre_apellidos"))) {
-        $nombre = $request->get("nombre_apellidos");
-        $mensaje .= "<tr><td>nombre_apellidos: " . $request->get("nombre_apellidos") . "</td></tr>";
-    } else {
-        $nombre = "";
-    }
-    if (!empty($request->get("telefono"))) {
-        $telefono = $request->get("telefono");
-        $mensaje .= "<tr><td>telefono: " . $request->get("telefono") . "</td></tr>";
-    } else {
-        $telefono = "";
-    }
-    if (!empty($request->get("email"))) {
-        $email = $request->get("email");
-        $mensaje .= "<tr><td>email: " . $request->get("email") . "</td></tr>";
-    } else {
-        $email = "";
-    }
-    if (!empty($request->get("tipo_catalogo"))) {
-        $tipo_catalogo = $request->get("tipo_catalogo");
-        $mensaje .= "<tr><td>tipo_catalogo: " . $request->get("tipo_catalogo") . "</td></tr>";
-    } else {
-        $tipo_catalogo = "";
-    }
-    if (!empty($request->get("referencia_producto"))) {
-        $referencia_producto = $request->get("referencia_producto");
-        $mensaje .= "<tr><td>referencia_producto: " . $request->get("referencia_producto") . "</td></tr>";
-    } else {
-        $referencia_producto = "";
-    }
-    if (!empty($request->get("consulta"))) {
-        $consulta = $request->get("consulta");
-        $mensaje .= "<tr><td>consulta: " . $request->get("consulta") . "</td></tr>";
-    } else {
-        $consulta = "";
-    }
-    if (!empty($request->get("politica"))) {
-        $firstpolitica = $request->get("politica");
-        $mensaje .= "<tr><td>politica: " . $request->get("politica") . "</td></tr>";
-    } else {
-        $firstpolitica = "";
-    }
-    if (!empty($request->get("tipo_consulta"))) {
-        $tipo_consulta = $request->get("tipo_consulta");
-        $mensaje .= "<tr><td>tipo_consulta: " . $request->get("tipo_consulta") . "</td></tr>";
-    } else {
-        $tipo_consulta = "";
-    }
-    if (!empty($request->get("newsletter") && $request->get("newsletter") == "on")) {
-      $this->createContact($email, $nombre, $lang);
-    }
+          $tipo_contacto = $request->get("tipo_contacto");
+          $mensaje .= "<p>tipo_contacto: " . $request->get("tipo_contacto") . "</p>";
+      } else {
+          $tipo_contacto = "";
+      }      
+      if (!empty($request->get("nombre_apellidos"))) {
+          $nombre = $request->get("nombre_apellidos");
+          $mensaje .= "<p>nombre_apellidos: " . $request->get("nombre_apellidos") . "</p>";
+      } else {
+          $nombre = "";
+      }
+      if (!empty($request->get("telefono"))) {
+          $telefono = $request->get("telefono");
+          $mensaje .= "<p>telefono: " . $request->get("telefono") . "</p>";
+      } else {
+          $telefono = "";
+      }
+      if (!empty($request->get("email"))) {
+          $email = $request->get("email");
+          $mensaje .= "<p>email: " . $request->get("email") . "</p>";
+      } else {
+          $email = "";
+      }
+      if (!empty($request->get("tipo_catalogo"))) {
+          $tipo_catalogo = $request->get("tipo_catalogo");
+          $mensaje .= "<p>tipo_catalogo: " . $request->get("tipo_catalogo") . "</p>";
+      } else {
+          $tipo_catalogo = "";
+      }
+      if (!empty($request->get("referencia_producto"))) {
+          $referencia_producto = $request->get("referencia_producto");
+          $mensaje .= "<p>referencia_producto: " . $request->get("referencia_producto") . "</p>";
+      } else {
+          $referencia_producto = "";
+      }
+      if (!empty($request->get("consulta"))) {
+          $consulta = $request->get("consulta");
+          $mensaje .= "<p>consulta: " . $request->get("consulta") . "</p>";
+      } else {
+          $consulta = "";
+      }
+      if (!empty($request->get("politica"))) {
+          $firstpolitica = $request->get("politica");
+          $mensaje .= "<p>politica: " . $request->get("politica") . "</p>";
+      } else {
+          $firstpolitica = "";
+      }
+      if (!empty($request->get("tipo_consulta"))) {
+          $tipo_consulta = $request->get("tipo_consulta");
+          $mensaje .= "<p>tipo_consulta: " . $request->get("tipo_consulta") . "</p>";
+      } else {
+          $tipo_consulta = "";
+      }
+      if (!empty($request->get("newsletter") && $request->get("newsletter") == "on")) {
+        $this->createContact($email, $nombre, $lang);
+      }
       
       $emailgracias = $email;
       $to = "social@ajusa.es";
