@@ -72,8 +72,8 @@ doctrine:
 swiftmailer:
     transport: smtp 
     host: smtp.office365.com
-    username: mailer@corporacionhms.com 
-    password: Quyu5999 #Jox99379    
+    username: mailer@ajusa.es
+    password: Jox99379
     encryption: tls
     port: 587
     stream-options:

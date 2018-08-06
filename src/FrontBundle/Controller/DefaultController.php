@@ -578,7 +578,7 @@ class DefaultController extends BaseController
                   $subject = "contacto Asistencia tecnia"; 
                   break;
               case "catalogo":
-                  $to = "social@ajusa.es";
+                  $to = "agarciag@corporacionhms.com";
                   $subject = "contacto catalogo"; 
                   break;
               case "trabaja":
@@ -596,7 +596,7 @@ class DefaultController extends BaseController
       $message = \Swift_Message::newInstance();
 
       $message->setSubject( "[Ajusa]: ".$subject)
-      ->setFrom("mailer@corporacionhms.com")
+      ->setFrom("mailer@ajusa.es")
       ->setTo("millan.hermana@doubledot.es")
       ->setBody(                  
           $this->renderView(
@@ -608,7 +608,7 @@ class DefaultController extends BaseController
       );
       return $this->get('mailer')->send($message);
 
-     /*  if ($request->files->get("doc_adjunto") != "") {
+      if ($request->files->get("doc_adjunto") != "") {
         $sendmail=$this->container->get("app.sendmail");
 
         $params["subject"]   = "[Ajusa]: ".$subject;
@@ -620,7 +620,7 @@ class DefaultController extends BaseController
         //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
         $sendmail->send($params);
         //unlink("/home/www/back-dcoop/public/files/cv/" . $ficha_producto);
-    }/  else {
+    }  else {
         $sendmail=$this->container->get("app.sendmail");
 
         $params["subject"]   = "[Ajusa]: ".$subject;
@@ -647,7 +647,7 @@ class DefaultController extends BaseController
       $params["datos"] = $mensajegracias;
       //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
       $sendmail->send($params);
-    } */
+    } 
           
     return new JsonResponse(1);
 
