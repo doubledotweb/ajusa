@@ -600,8 +600,8 @@ class DefaultController extends BaseController
       ->setTo("millan.hermana@doubledot.es")
       ->setBody(                  
           $this->renderView(
-              // app/Resources/views/Emails/registration.html.twig
-              "base.html.twig",
+            "app/Resources/views/emails/base.html.twig",
+              //"base.html.twig",
               array("datos"=>$mensaje)
           ),
           'text/html'
