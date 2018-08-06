@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>{{title}}</title>
+	</head>
+	<body>
+		<div align="center">
+			<table cellspacing="0" cellpadding="0" border="0" bgcolor="#fff" width="800" style="font-family: 'Tahoma';font-size: 14px;">
+				<tbody>
+
+					<tr height="20px">
+						<td></td>
+					</tr>
+
+					<tr>
+					<td align="center">
+						<a target="_blank" href=""><img src="{{logo}}" style="border:0;display:block"></a>
+					</td>
+				</tr>			
+				<tr height="30px">
+					<td></td>
+				</tr>
+	"ALGOOOOOOOOOOOO"
+
+				{% block body %}
+				"ALGOOOOOOOOOOOO"
+				{{mensaje}} {{consulta}} {{datos}}
+				{% endblock %}
+				<tr>
+			      <td>
+			        <font>
+			        	{% if email.politica is defined and email.politica=="on" %}
+							Se ha aceptado la política de privacidad el {{"now"|date("d/m/Y")}} a las {{"now"|date("H:i")}}
+			        	{% endif %}
+			        </font>
+			      </td>
+			    </tr>
+			    <tr height="10px">
+			      <td></td>
+			    </tr>
+
+				</tbody>
+			</table>
+
+		</div>
+
+	</body>
+</html>
+{#{% block body %}{% endblock %}#}
