@@ -482,7 +482,7 @@ class DefaultController extends BaseController
 
       if (!empty($request->request->get("lang"))) {
           $lang = $request->request->get("lang");
-          $mensaje .= "lang: " . $request->request->get("lang") . "<br/>";
+          $mensaje .= "lang: " . $request->request->get("lang") ;
       } else {
           $lang = "";
       }
@@ -493,62 +493,62 @@ class DefaultController extends BaseController
           $asunto = "";
       } */
       if (!empty($request->get("tipo_contacto"))) {
-          $tipo_contacto = $request->get("tipo_contacto");
-          $mensaje .= "tipo_contacto: " . $request->get("tipo_contacto") . "<br/>";
-      } else {
-          $tipo_contacto = "";
-      }      
-      if (!empty($request->get("nombre_apellidos"))) {
-          $nombre = $request->get("nombre_apellidos");
-          $mensaje .= "nombre_apellidos: " . $request->get("nombre_apellidos") . "<br/>";
-      } else {
-          $nombre = "";
-      }
-      if (!empty($request->get("telefono"))) {
-          $telefono = $request->get("telefono");
-          $mensaje .= "telefono: " . $request->get("telefono") . "<br/>";
-      } else {
-          $telefono = "";
-      }
-      if (!empty($request->get("email"))) {
-          $email = $request->get("email");
-          $mensaje .= "email: " . $request->get("email") . "<br/>";
-      } else {
-          $email = "";
-      }
-      if (!empty($request->get("tipo_catalogo"))) {
-          $tipo_catalogo = $request->get("tipo_catalogo");
-          $mensaje .= "tipo_catalogo: " . $request->get("tipo_catalogo") . "<br/>";
-      } else {
-          $tipo_catalogo = "";
-      }
-      if (!empty($request->get("referencia_producto"))) {
-          $referencia_producto = $request->get("referencia_producto");
-          $mensaje .= "referencia_producto: " . $request->get("referencia_producto") . "<br/>";
-      } else {
-          $referencia_producto = "";
-      }
-      if (!empty($request->get("consulta"))) {
-          $consulta = $request->get("consulta");
-          $mensaje .= "consulta: " . $request->get("consulta") . "<br/>";
-      } else {
-          $consulta = "";
-      }
-      if (!empty($request->get("politica"))) {
-          $firstpolitica = $request->get("politica");
-          $mensaje .= "politica: " . $request->get("politica") . "<br/>";
-      } else {
-          $firstpolitica = "";
-      }
-      if (!empty($request->get("tipo_consulta"))) {
-          $tipo_consulta = $request->get("tipo_consulta");
-          $mensaje .= "tipo_consulta: " . $request->get("tipo_consulta") . "<br/>";
-      } else {
-          $tipo_consulta = "";
-      }
-      if (!empty($request->get("newsletter") && $request->get("newsletter") == "on")) {
-        $this->createContact($email, $nombre, $lang);
-      }
+        $tipo_contacto = $request->get("tipo_contacto");
+        $mensaje .= "<tr><td>tipo_contacto: " . $request->get("tipo_contacto") . "</td></tr>";
+    } else {
+        $tipo_contacto = "";
+    }      
+    if (!empty($request->get("nombre_apellidos"))) {
+        $nombre = $request->get("nombre_apellidos");
+        $mensaje .= "<tr><td>nombre_apellidos: " . $request->get("nombre_apellidos") . "</td></tr>";
+    } else {
+        $nombre = "";
+    }
+    if (!empty($request->get("telefono"))) {
+        $telefono = $request->get("telefono");
+        $mensaje .= "<tr><td>telefono: " . $request->get("telefono") . "</td></tr>";
+    } else {
+        $telefono = "";
+    }
+    if (!empty($request->get("email"))) {
+        $email = $request->get("email");
+        $mensaje .= "<tr><td>email: " . $request->get("email") . "</td></tr>";
+    } else {
+        $email = "";
+    }
+    if (!empty($request->get("tipo_catalogo"))) {
+        $tipo_catalogo = $request->get("tipo_catalogo");
+        $mensaje .= "<tr><td>tipo_catalogo: " . $request->get("tipo_catalogo") . "</td></tr>";
+    } else {
+        $tipo_catalogo = "";
+    }
+    if (!empty($request->get("referencia_producto"))) {
+        $referencia_producto = $request->get("referencia_producto");
+        $mensaje .= "<tr><td>referencia_producto: " . $request->get("referencia_producto") . "</td></tr>";
+    } else {
+        $referencia_producto = "";
+    }
+    if (!empty($request->get("consulta"))) {
+        $consulta = $request->get("consulta");
+        $mensaje .= "<tr><td>consulta: " . $request->get("consulta") . "</td></tr>";
+    } else {
+        $consulta = "";
+    }
+    if (!empty($request->get("politica"))) {
+        $firstpolitica = $request->get("politica");
+        $mensaje .= "<tr><td>politica: " . $request->get("politica") . "</td></tr>";
+    } else {
+        $firstpolitica = "";
+    }
+    if (!empty($request->get("tipo_consulta"))) {
+        $tipo_consulta = $request->get("tipo_consulta");
+        $mensaje .= "<tr><td>tipo_consulta: " . $request->get("tipo_consulta") . "</td></tr>";
+    } else {
+        $tipo_consulta = "";
+    }
+    if (!empty($request->get("newsletter") && $request->get("newsletter") == "on")) {
+      $this->createContact($email, $nombre, $lang);
+    }
       
       $emailgracias = $email;
       $to = "social@ajusa.es";
@@ -605,7 +605,7 @@ class DefaultController extends BaseController
               "emails/base.html.twig",
               array(
                   "title" => $subject,
-                  "logo" => "http://ajusa.doubledot.es/static/img/logo.svg",
+                  "logo" => "",
                   "mensaje"=> $mensaje,
                   "politica" => "on")
           ),
