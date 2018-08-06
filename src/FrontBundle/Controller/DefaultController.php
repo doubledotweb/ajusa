@@ -486,12 +486,12 @@ class DefaultController extends BaseController
       } else {
           $lang = "";
       }
-      if (!empty($request->get("asunto"))) {
+     /*  if (!empty($request->get("asunto"))) {
           $asunto = $request->get("asunto");
           $mensaje .= "asunto: " . $request->get("asunto") . "<br/>";
       } else {
           $asunto = "";
-      }
+      } */
       if (!empty($request->get("tipo_contacto"))) {
           $tipo_contacto = $request->get("tipo_contacto");
           $mensaje .= "tipo_contacto: " . $request->get("tipo_contacto") . "<br/>";
@@ -598,13 +598,14 @@ class DefaultController extends BaseController
       $message->setSubject( "[Ajusa]: ".$subject)
       ->setFrom("mailer@ajusa.es")
       ->setTo("millan.hermana@doubledot.es")
+      ->setContentType("text/html")
       ->setBody(                  
           $this->renderView(
               // app/Resources/views/Emails/registration.html.twig
               "emails/base.html.twig",
               array(
                   "title" => $subject,
-                  "logo" => "",
+                  "logo" => "http://ajusa.doubledot.es/static/img/logo.svg",
                   "mensaje"=> $mensaje,
                   "politica" => "on")
           ),
