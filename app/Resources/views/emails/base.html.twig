@@ -20,16 +20,14 @@
 				<tr height="30px">
 					<td></td>
 				</tr>
-	"ALGOOOOOOOOOOOO"
-
 				{% block body %}
-				"ALGOOOOOOOOOOOO"
-				{{mensaje}} {{consulta}} {{datos}}
+				
+				{{mensaje}}
 				{% endblock %}
 				<tr>
 			      <td>
 			        <font>
-			        	{% if email.politica is defined and email.politica=="on" %}
+			        	{% if politica is defined and politica=="on" %}
 							Se ha aceptado la política de privacidad el {{"now"|date("d/m/Y")}} a las {{"now"|date("H:i")}}
 			        	{% endif %}
 			        </font>

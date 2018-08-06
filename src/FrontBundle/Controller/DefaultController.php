@@ -601,8 +601,12 @@ class DefaultController extends BaseController
       ->setBody(                  
           $this->renderView(
               // app/Resources/views/Emails/registration.html.twig
-              "base.html.twig",
-              array("datos"=>$mensaje)
+              "emails/base.html.twig",
+              array(
+                  "title" => $subject,
+                  "logo" => $logo,
+                  "mensaje"=> $mensaje,
+                  "politica" => "on")
           ),
           'text/html'
       );
