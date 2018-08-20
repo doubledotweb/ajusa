@@ -40,6 +40,16 @@ class DefaultController extends BaseController
             "webinarios"=>"Webinarios",
             "otros"=>"Otros",
         );
+        $tipos_en=array(
+            "actualidad"=>"Breaking news",
+            "catalogo"=>"Catalogue" ,
+            "ferias"=>"Fairs",
+            "energias-alternativas"=>"Alternative energies",
+            "videos"=>"Videos",
+            "informes-tecnicos"=>"Technical area",
+            "webinarios"=>"Webinars",
+            "otros"=>"Others",
+        );
         $lang=$request->request->get("lang");
 
         if($lang=="")
@@ -58,7 +68,11 @@ class DefaultController extends BaseController
         for($i=0;$i<count($destacados) and $i<4;$i++)
         {
             $aux["titulo"]=$destacados[$i]->getTitulo();
-            $aux["tipo"]=$tipos[$destacados[$i]->getTipo()];
+            if ($lang == "en") {
+                $aux["tipo"]=$tipos_en[$destacados[$i]->getTipo()];    
+            } else {
+                $aux["tipo"]=$tipos[$destacados[$i]->getTipo()];
+            }
             $aux["imagen"]="/bundles/destcados/img/".$destacados[$i]->getTipo()."_".$destacados[$i]->getImagen().".jpg";
             $aux["resumen"]=$destacados[$i]->getResumen();
             $aux["enlace"]=$destacados[$i]->getEnlace();
@@ -604,54 +618,40 @@ class DefaultController extends BaseController
               // app/Resources/views/Emails/registration.html.twig
               "emails/base.html.twig",
               array(
-                  "title" => $subject,
+                  "title" => $to,
                   "logo" => "",
                   "mensaje"=> $mensaje,
                   "politica" => "on")
           ),
           'text/html'
       );
-      return $this->get('mailer')->send($message);
+      $this->get('mailer')->send($message);
 
-      if ($request->files->get("doc_adjunto") != "") {
-        $sendmail=$this->container->get("app.sendmail");
-
-        $params["subject"]   = "[Ajusa]: ".$subject;
-        $params["to"]     = "millan.hermana@doubledot.es"; //$to;
-        $params["from"]     = "mailer@ajusa.es";
-        $params["template"] = "base.html.twig";
-        $params["datos"] = $mensaje;
-        $params["files"] = $request->files;
-        //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
-        $sendmail->send($params);
-        //unlink("/home/www/back-dcoop/public/files/cv/" . $ficha_producto);
-    }  else {
-        $sendmail=$this->container->get("app.sendmail");
-
-        $params["subject"]   = "[Ajusa]: ".$subject;
-        $params["to"]     = "millan.hermana@doubledot.es"; //$to;
-        $params["from"]     = "mailer@corporacionhms.com";
-        $params["template"] = "base.html.twig";
-        $params["datos"] = $mensaje;
-        
-        //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
-        $sendmail->send($params);
-    }
+      //if ($request->files->get("doc_adjunto") != "") {
+      
         
         
     
 
     $mensajegracias = "Muchas gracias por ponerte en contacto con nosotros, te responderemos lo antes posible.";
     if (!empty($emailgracias)) {
-      $sendmail=$this->container->get("app.sendmail");
-
-      $params["subject"]   = "[Ajusa]: Gracis por ponerte en contacto";
-      $params["to"]     = "millan.hermana@doubledot.es"; //$to;
-      $params["from"]     = "mailer@corporacionhms.com";
-      $params["template"] = "base.html.twig";
-      $params["datos"] = $mensajegracias;
-      //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
-      $sendmail->send($params);
+        $message->setSubject( "[Ajusa]: ".$subject)
+        ->setFrom("mailer@ajusa.es")
+        ->setTo( $email)
+        ->setContentType("text/html")
+        ->setBody(                  
+            $this->renderView(
+                // app/Resources/views/Emails/registration.html.twig
+                "emails/base.html.twig",
+                array(
+                    "title" => $subject,
+                    "logo" => "",
+                    "mensaje"=> $mensajegracias,
+                    "politica" => "")
+            ),
+            'text/html'
+        );
+        $this->get('mailer')->send($message);
     } 
           
     return new JsonResponse(['1']);
