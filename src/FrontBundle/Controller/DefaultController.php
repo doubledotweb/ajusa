@@ -348,15 +348,10 @@ class DefaultController extends BaseController
     public function noticia(Request $request,$slug)
     {   	
 
-    	$lang=$request->request->get("lang");
+        $lang=$request->query->get("lang");
 
         if($lang=="")
-        {
-            $lang=$request->query->get("lang");
-
-            if($lang=="")
-                $lang="es";
-        }
+            $lang="es";     
 
     	$response=array();
     	$response["status_code"]=200;
@@ -1547,7 +1542,7 @@ class DefaultController extends BaseController
         $connection = new TwitterOAuth('jK2s2Kow0oNCZ0CAXYf2IyvXK', 'EuGvFjqf2Kb0ThqCijNB93Nf29iAoJfIqEJIds6O0FyHQ6acen', '1010836765803012099-CrKfWRDGubqBF1eu06gVwmwpkmISbY', '8ZXuKi1bxKZ0iZTojhzHV2f5dkS9ZAszvBhYNHj0Vd4Z5');
         $content = $connection->get("account/verify_credentials");
         
-        $tweets_result = $connection->get("statuses/user_timeline", ["q" => "@Ajusa_Spain", "count" => 7, "exclude_replies" => true]);
+        $tweets_result = $connection->get("statuses/user_timeline", ["user_id" => "788925601", "count" => 7, "exclude_replies" => true]);
         return new JsonResponse(array("tweets"=>$tweets_result,"code"=>200));
        
     }
