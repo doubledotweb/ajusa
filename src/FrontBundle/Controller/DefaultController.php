@@ -89,15 +89,11 @@ class DefaultController extends BaseController
      */
     public function zona_tecnica(Request $request)
     {
-        $lang=$request->request->get("lang");
+        $lang=$request->query->get("lang");
 
         if($lang=="")
-        {
-            $lang=$request->query->get("lang");
-
-            if($lang=="")
-                $lang="es";
-        }
+            $lang="es";
+        
 
         $select_categoria='
             SELECT titulo'.($lang=="en"?"_en":"").'"titulo", slug 
@@ -146,12 +142,20 @@ class DefaultController extends BaseController
         }
 
         $conditions=array("lang"=>$lang);
-
-        $select_tips='
+        if ($lang == "en") {
+            $select_tips='
+            SELECT a.titulo as tip_titulo, a.id as tip_id, a.archivo as archivo, b.titulo_en as categoria
+            FROM tips as a, categorias as b, tips_categorias as d
+            WHERE b.id = d.categoria_id AND d.tip_id = a.id AND a.idioma = :lang
+            ORDER BY a.creado DESC';
+        } else {
+            $select_tips='
             SELECT a.titulo as tip_titulo, a.id as tip_id, a.archivo as archivo, b.titulo as categoria
             FROM tips as a, categorias as b, tips_categorias as d
             WHERE b.id = d.categoria_id AND d.tip_id = a.id AND a.idioma = :lang
             ORDER BY a.creado DESC';
+        }
+        
 
         $tips = $this->query($select_tips,$conditions);
         
