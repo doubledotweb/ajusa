@@ -511,9 +511,9 @@ class DefaultController extends BaseController
       } else {
           $tipo_contacto = "";
       }      
-      if (!empty($request->get("nombre_apellidos"))) {
-          $nombre = $request->get("nombre_apellidos");
-          $mensaje .= "<p>nombre_apellidos: " . $request->get("nombre_apellidos") . "</p>";
+      if (!empty($request->get("nombre"))) {
+          $nombre = $request->get("nombre");
+          $mensaje .= "<p>nombre_apellidos: " . $request->get("nombre") . "</p>";
       } else {
           $nombre = "";
       }
@@ -541,9 +541,9 @@ class DefaultController extends BaseController
       } else {
           $referencia_producto = "";
       }
-      if (!empty($request->get("consulta"))) {
-          $consulta = $request->get("consulta");
-          $mensaje .= "<p>consulta: " . $request->get("consulta") . "</p>";
+      if (!empty($request->get("mensaje"))) {
+          $consulta = $request->get("mensaje");
+          $mensaje .= "<p>consulta: " . $request->get("mensaje") . "</p>";
       } else {
           $consulta = "";
       }
