@@ -610,7 +610,7 @@ class DefaultController extends BaseController
 
       $message->setSubject( "[Ajusa]: ".$subject)
       ->setFrom("mailer@ajusa.es")
-      ->setTo($to)
+      ->setTo('millan.hermana@doubledot.es')
       ->setContentType("text/html")
       ->setBody(                  
           $this->renderView(
@@ -624,8 +624,14 @@ class DefaultController extends BaseController
           ),
           'text/html'
       );
+      if ( $request->file('doc_adjunto') != null) {
+        $ficha_producto = str_replace(' ', '%20', $request->file('doc_adjunto')->getClientOriginalName());
+        $request->file('doc_adjunto')->move(public_path('files/cv'), $ficha_producto);
+        $message->attach(Swift_Attachment::fromPath(public_path('files/cv').$ficha_producto));
+      }
+      
       $this->get('mailer')->send($message);
-
+      
       //if ($request->files->get("doc_adjunto") != "") {
       
         
@@ -657,11 +663,7 @@ class DefaultController extends BaseController
 
         
             
-/*         if ( $request->file('doc_adjunto') != null) {
-            $ficha_producto = str_replace(' ', '%20', $request->file('doc_adjunto')->getClientOriginalName());
-            $request->file('doc_adjunto')->move(public_path('files/cv'), $ficha_producto);
-            
-        }
+/*        
  */
     }
 
