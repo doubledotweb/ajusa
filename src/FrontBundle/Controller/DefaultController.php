@@ -624,9 +624,9 @@ class DefaultController extends BaseController
           ),
           'text/html'
       );
-      if ( $request->file('doc_adjunto') != null) {
-        $ficha_producto = str_replace(' ', '%20', $request->file('doc_adjunto')->getClientOriginalName());
-        $request->file('doc_adjunto')->move(public_path('files/cv'), $ficha_producto);
+      if ( $request->files->get('doc_adjunto') != null) {
+        $ficha_producto = str_replace(' ', '%20', $request->files->get('doc_adjunto')->getClientOriginalName());
+        $request->files->get('doc_adjunto')->move(public_path('files/cv'), $ficha_producto);
         $message->attach(Swift_Attachment::fromPath(public_path('files/cv').$ficha_producto));
       }
       
