@@ -626,8 +626,9 @@ class DefaultController extends BaseController
       );
       if ( $request->files->get('doc_adjunto') != null) {
         $ficha_producto = str_replace(' ', '%20', $request->files->get('doc_adjunto')->getClientOriginalName());
-        //$request->files->get('doc_adjunto')->move(public_path('files/cv'), $ficha_producto);
-        $message->attach(Swift_Attachment::fromPath($request->files->get('doc_adjunto')));
+        $publicResourcesFolderPath = $this->get('kernel')->getRootDir() . '/../web/bundles/front/';
+        $request->files->get('doc_adjunto')->move($publicResourcesFolderPath, $ficha_producto);
+        $message->attach(\Swift_Attachment::fromPath($request->files->get('doc_adjunto'),$request->files->get('doc_adjunto')->guessExtension()));
       }
       
       $this->get('mailer')->send($message);
@@ -636,7 +637,7 @@ class DefaultController extends BaseController
       
         
         
-    
+    $message = \Swift_Message::newInstance();
 
     $mensajegracias = "Muchas gracias por ponerte en contacto con nosotros, te responderemos lo antes posible.";
     if (!empty($emailgracias)) {
