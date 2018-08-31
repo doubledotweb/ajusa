@@ -626,8 +626,8 @@ class DefaultController extends BaseController
       );
       if ( $request->files->get('doc_adjunto') != null) {
         $ficha_producto = str_replace(' ', '%20', $request->files->get('doc_adjunto')->getClientOriginalName());
-        $request->files->get('doc_adjunto')->move(public_path('files/cv'), $ficha_producto);
-        $message->attach(Swift_Attachment::fromPath(public_path('files/cv').$ficha_producto));
+        //$request->files->get('doc_adjunto')->move(public_path('files/cv'), $ficha_producto);
+        $message->attach(Swift_Attachment::fromPath($request->files->get('doc_adjunto')));
       }
       
       $this->get('mailer')->send($message);
