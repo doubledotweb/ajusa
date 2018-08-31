@@ -529,6 +529,24 @@ class DefaultController extends BaseController
       } else {
           $email = "";
       }
+      if (!empty($request->get("empresa"))) {
+          $empresa = $request->get("empresa");
+          $mensaje .= "<p>empresa: " . $request->get("empresa") . "</p>";
+      } else {
+        $empresa = "";
+      }
+      if (!empty($request->get("direccion"))) {
+        $direccion = $request->get("direccion");
+        $mensaje .= "<p>direccion: " . $request->get("direccion") . "</p>";
+      } else {
+        $direccion = "";
+      }
+      if (!empty($request->get("telefono"))) {
+        $telefono = $request->get("telefono");
+        $mensaje .= "<p>telefono: " . $request->get("telefono") . "</p>";
+      } else {
+        $telefono = "";
+      }
       if (!empty($request->get("tipo_catalogo"))) {
           $tipo_catalogo = $request->get("tipo_catalogo");
           $mensaje .= "<p>tipo_catalogo: " . $request->get("tipo_catalogo") . "</p>";
@@ -610,7 +628,7 @@ class DefaultController extends BaseController
 
       $message->setSubject( "[Ajusa]: ".$subject)
       ->setFrom("mailer@ajusa.es")
-      ->setTo('millan.hermana@doubledot.es')
+      ->setTo($to)
       ->setContentType("text/html")
       ->setBody(                  
           $this->renderView(
@@ -626,9 +644,9 @@ class DefaultController extends BaseController
       );
       if ( $request->files->get('doc_adjunto') != null) {
         $ficha_producto = str_replace(' ', '%20', $request->files->get('doc_adjunto')->getClientOriginalName());
-        $publicResourcesFolderPath = $this->get('kernel')->getRootDir() . '/../web/bundles/front/';
+        $publicResourcesFolderPath = '/var/www/gestor_ajusa/web/bundles/front/attach/';
         $request->files->get('doc_adjunto')->move($publicResourcesFolderPath, $ficha_producto);
-        $message->attach(\Swift_Attachment::fromPath($request->files->get('doc_adjunto'),$request->files->get('doc_adjunto')->guessExtension()));
+        $message->attach(\Swift_Attachment::fromPath($publicResourcesFolderPath.'/'.$ficha_producto));
       }
       
       $this->get('mailer')->send($message);
