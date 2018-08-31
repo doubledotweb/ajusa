@@ -610,7 +610,7 @@ class DefaultController extends BaseController
 
       $message->setSubject( "[Ajusa]: ".$subject)
       ->setFrom("mailer@ajusa.es")
-      ->setTo("millan.hermana@doubledot.es")
+      ->setTo($to)
       ->setContentType("text/html")
       ->setBody(                  
           $this->renderView(
