@@ -815,28 +815,33 @@ class DefaultController extends BaseController
         $message = \Swift_Message::newInstance();
   
         if ($request->files->get("doc_adjunto") != "") {
-          $sendmail=$this->container->get("app.sendmail");
-  
-          $params["subject"]   = "[Ajusa]: ".$subject;
-          $params["to"]     = "millan.hermana@doubledot.es"; //$to;
-          $params["from"]     = "mailer@ajusa.es";
-          $params["template"] = "base.html.twig";
-          $params["datos"] = $mensaje;
-          $params["files"] = $request->files;
-          //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
-          $sendmail->send($params);
-          //unlink("/home/www/back-dcoop/public/files/cv/" . $ficha_producto);
-      } else {
-          $sendmail=$this->container->get("app.sendmail");
-  
-          $params["subject"]   = "[Ajusa]: ".$subject;
-          $params["to"]     = "millan.hermana@doubledot.es"; //$to;
-          $params["from"]     = "mailer@ajusa.es";
-          $params["template"] = "base.html.twig";
-          $params["datos"] = $mensaje;
+          //$sendmail=$this->container->get("app.sendmail");
+          $message->setSubject( "[Ajusa]: ".$subject)
+          ->setFrom("mailer@ajusa.es")
+          ->setTo( "millan.hermana@doubledot.es")
+          ->setContentType("text/html")
+          ->setBody(                  
+              $this->renderView(
+                  // app/Resources/views/Emails/registration.html.twig
+                  "emails/base.html.twig",
+                  array(
+                      "title" => $subject,
+                      "logo" => "",
+                      "mensaje"=> $mensaje,
+                      "politica" => "")
+              ),
+              'text/html'
+          );
+          if ( $request->files->get('doc_adjunto') != null) {
+            $ficha_producto = str_replace(' ', '%20', $request->files->get('doc_adjunto')->getClientOriginalName());
+            $publicResourcesFolderPath = '/var/www/gestor_ajusa/web/bundles/front/attach/';
+            $request->files->get('doc_adjunto')->move($publicResourcesFolderPath, $ficha_producto);
+            $message->attach(\Swift_Attachment::fromPath($publicResourcesFolderPath.'/'.$ficha_producto));
+          }
           
-          //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
-          $sendmail->send($params);
+          $this->get('mailer')->send($message);
+          
+          //unlink("/home/www/back-dcoop/public/files/cv/" . $ficha_producto);
       }
           
           
@@ -844,6 +849,7 @@ class DefaultController extends BaseController
   
       $mensajegracias = "Muchas gracias por ponerte en contacto con nosotros, te responderemos lo antes posible.";
       if (!empty($emailgracias)) {
+
         $sendmail=$this->container->get("app.sendmail");
   
         $params["subject"]   = "[Ajusa]: Gracis por ponerte en contacto";
