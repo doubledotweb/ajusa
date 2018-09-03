@@ -1,0 +1,3 @@
+User-Agent: *
+Disallow: 
+Sitemap: https://ajusa.es/sitemap.xml
