@@ -711,23 +711,23 @@ class DefaultController extends BaseController
         } else {
             $asunto = "";
         }
-        if (!empty($request->get("tipo_contacto"))) {
-            $tipo_contacto = $request->get("tipo_contacto");
-            $mensaje .= "tipo_contacto: " . $request->get("tipo_contacto") . "<br/>";
+        if (!empty($request->get("tipo"))) {
+            $tipo_contacto = $request->get("tipo");
+            $mensaje .= "tipo: " . $request->get("tipo") . "<br/>";
         } else {
             $tipo_contacto = "";
         }      
-        if (!empty($request->get("nombre_apellidos"))) {
-            $nombre = $request->get("nombre_apellidos");
-            $mensaje .= "nombre_apellidos: " . $request->get("nombre_apellidos") . "<br/>";
+        if (!empty($request->get("nombre"))) {
+            $nombre = $request->get("nombre");
+            $mensaje .= "nombre: " . $request->get("nombre") . "<br/>";
         } else {
             $nombre = "";
         }
-        if (!empty($request->get("telefono"))) {
-            $telefono = $request->get("telefono");
-            $mensaje .= "telefono: " . $request->get("telefono") . "<br/>";
+        if (!empty($request->get("apellidos"))) {
+            $apellidos = $request->get("apellidos");
+            $mensaje .= "apellidos: " . $request->get("apellidos") . "<br/>";
         } else {
-            $telefono = "";
+            $apellidos = "";
         }
         if (!empty($request->get("email"))) {
             $email = $request->get("email");
@@ -735,24 +735,38 @@ class DefaultController extends BaseController
         } else {
             $email = "";
         }
-        if (!empty($request->get("tipo_catalogo"))) {
-            $tipo_catalogo = $request->get("tipo_catalogo");
-            $mensaje .= "tipo_catalogo: " . $request->get("tipo_catalogo") . "<br/>";
+        if (!empty($request->get("telefono"))) {
+            $telefono = $request->get("telefono");
+            $mensaje .= "telefono: " . $request->get("telefono") . "<br/>";
         } else {
-            $tipo_catalogo = "";
+            $telefono = "";
         }
-        if (!empty($request->get("referencia_producto"))) {
-            $referencia_producto = $request->get("referencia_producto");
-            $mensaje .= "referencia_producto: " . $request->get("referencia_producto") . "<br/>";
+        if (!empty($request->get("dia"))) {
+            $fecha = $request->get("dia");
+            $mensaje .= "fecha: " . $request->get("dia") . "/" . $request->get("mes") . "/" . $request->get("anyo") . "/";
         } else {
-            $referencia_producto = "";
+            $email = "";
+        }        
+        if (!empty($request->get("empresa"))) {
+            $empresa = $request->get("empresa");
+            $mensaje .= "empresa: " . $request->get("empresa") . "<br/>";
+        } else {
+            $empresa = "";
         }
-        if (!empty($request->get("consulta"))) {
-            $consulta = $request->get("consulta");
-            $mensaje .= "consulta: " . $request->get("consulta") . "<br/>";
+        if (!empty($request->get("activo"))) {
+            $trabaja = $request->get("activo");
+            $mensaje .= "Trabaja: " . $request->get("activo") . "<br/>";
+        } else {
+            $trabaja = "";
+        }
+        if (!empty($request->get("mensaje"))) {
+            $consulta = $request->get("mensaje");
+            $mensaje .= "Trabaja: " . $request->get("mensaje") . "<br/>";
         } else {
             $consulta = "";
         }
+        
+        
         if (!empty($request->get("politica"))) {
             $firstpolitica = $request->get("politica");
             $mensaje .= "politica: " . $request->get("politica") . "<br/>";
@@ -772,38 +786,14 @@ class DefaultController extends BaseController
         $emailgracias = $email;
         $to = "social@ajusa.es";
         switch ($tipo_contacto) {
-                case "general":
-                    $to = "social@ajusa.es";
+                case "trabaja":
+                    $to = "jcifuentes@corporacionhms.com";
                     $subject = "contacto general"; 
                     break;
                 case "contacto":
                     $to = "social@ajusa.es";
                     $subject = "contacto general"; 
-                    break;
-                case "sucursales":
-                    $to = "social@ajusa.es";
-                    $subject = "contacto sucursal"; 
-                    break;
-                case "comercial":
-                    $to = "social@ajusa.es";
-                    $subject = "contacto comercial"; 
-                    break;
-                case "formacion":
-                    $to = "customerservice@ajusa.es";
-                    $subject = "contacto formacion"; 
-                    break;
-                case "asistencia_tecnica":
-                    $to = "customerservice@ajusa.es";
-                    $subject = "contacto Asistencia tecnia"; 
-                    break;
-                case "catalogo":
-                    $to = "social@ajusa.es";
-                    $subject = "contacto catalogo"; 
-                    break;
-                case "trabaja":
-                    $to = "jcifuentes@corporacionhms.com";
-                    $subject = "contacto trabaja"; 
-                    break;
+                    break;                
                 default:
                     $to = "social@ajusa.es";
                     $subject = "contacto general"; 
@@ -818,7 +808,7 @@ class DefaultController extends BaseController
           //$sendmail=$this->container->get("app.sendmail");
         $message->setSubject( "[Ajusa]: ".$subject)
           ->setFrom("mailer@ajusa.es")
-          ->setTo( "millan.hermana@doubledot.es")
+          ->setTo( "angela.rojas@doubledot.es")
           ->setContentType("text/html")
           ->setBody(                  
               $this->renderView(
