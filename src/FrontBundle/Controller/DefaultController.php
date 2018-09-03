@@ -814,9 +814,9 @@ class DefaultController extends BaseController
        
         $message = \Swift_Message::newInstance();
   
-        if ($request->files->get("doc_adjunto") != "") {
+        
           //$sendmail=$this->container->get("app.sendmail");
-          $message->setSubject( "[Ajusa]: ".$subject)
+        $message->setSubject( "[Ajusa]: ".$subject)
           ->setFrom("mailer@ajusa.es")
           ->setTo( "millan.hermana@doubledot.es")
           ->setContentType("text/html")
@@ -832,22 +832,22 @@ class DefaultController extends BaseController
               ),
               'text/html'
           );
-          if ( $request->files->get('doc_adjunto') != null) {
+        if ( $request->files->get('doc_adjunto') != null) {
             $ficha_producto = str_replace(' ', '%20', $request->files->get('doc_adjunto')->getClientOriginalName());
             $publicResourcesFolderPath = '/var/www/gestor_ajusa/web/bundles/front/attach/';
             $request->files->get('doc_adjunto')->move($publicResourcesFolderPath, $ficha_producto);
             $message->attach(\Swift_Attachment::fromPath($publicResourcesFolderPath.'/'.$ficha_producto));
-          }
+        }
           
-          $this->get('mailer')->send($message);
+        $this->get('mailer')->send($message);
           
           //unlink("/home/www/back-dcoop/public/files/cv/" . $ficha_producto);
-      }
+      
           
           
       
   
-      $mensajegracias = "Muchas gracias por ponerte en contacto con nosotros, te responderemos lo antes posible.";
+     /*  $mensajegracias = "Muchas gracias por ponerte en contacto con nosotros, te responderemos lo antes posible.";
       if (!empty($emailgracias)) {
 
         $sendmail=$this->container->get("app.sendmail");
@@ -859,7 +859,7 @@ class DefaultController extends BaseController
         $params["datos"] = $mensajegracias;
         //$params["perfil"]   = "http://".$_SERVER["HTTP_HOST"]."/perfil";
         $sendmail->send($params);
-      }
+      } */
             
       return new JsonResponse(1);
   
