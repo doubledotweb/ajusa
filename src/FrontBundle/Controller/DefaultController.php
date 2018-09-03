@@ -831,7 +831,7 @@ class DefaultController extends BaseController
   
           $params["subject"]   = "[Ajusa]: ".$subject;
           $params["to"]     = "millan.hermana@doubledot.es"; //$to;
-          $params["from"]     = "mailer@corporacionhms.com";
+          $params["from"]     = "mailer@ajusa.com";
           $params["template"] = "base.html.twig";
           $params["datos"] = $mensaje;
           
