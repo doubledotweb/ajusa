@@ -752,13 +752,7 @@ class DefaultController extends BaseController
             $mensaje .= "Empresa: " . $request->get("empresa") . "<br/>";
         } else {
             $empresa = "";
-        }
-        if (!empty($request->get("activo"))) {
-            $trabaja = $request->get("activo");
-            $mensaje .= "Trabaja: " . $request->get("activo") . "<br/>";
-        } else {
-            $trabaja = "";
-        }
+        }        
         if (!empty($request->get("area_interes"))) {
             $area_interes = $request->get("area_interes");
             $mensaje .= "Área de interés: " . $request->get("area_interes") . "<br/>";
@@ -791,7 +785,13 @@ class DefaultController extends BaseController
         }
         if (!empty($request->get("otros-procesos"))) {
             $otros = $request->get("otros-procesos");
-            $mensaje .= "Esta interesado en otros procesos? " . $request->get("otros-procesos") . "<br/>";
+            if ($request->get("otros-processos") == "on")
+            {
+                $mensaje .= "Esta interesado en otros procesos? Si <br/>";
+            } else {
+                $mensaje .= "Esta interesado en otros procesos? No <br/>";
+            }
+            
         } else {
             $otros = "";
         }
@@ -868,7 +868,7 @@ class DefaultController extends BaseController
         $sendmail->send($params);
       } */
             
-      return new JsonResponse($mensaje);
+      return new JsonResponse(1);
 
       }
 
