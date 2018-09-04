@@ -707,49 +707,49 @@ class DefaultController extends BaseController
         }
         if (!empty($request->get("asunto"))) {
             $asunto = $request->get("asunto");
-            $mensaje .= "asunto: " . $request->get("asunto") . "<br/>";
+            $mensaje .= "Asunto: " . $request->get("asunto") . "<br/>";
         } else {
             $asunto = "";
         }
         if (!empty($request->get("tipo"))) {
             $tipo_contacto = $request->get("tipo");
-            $mensaje .= "tipo: " . $request->get("tipo") . "<br/>";
+            $mensaje .= "Tipo de contacto: " . $request->get("tipo") . "<br/>";
         } else {
             $tipo_contacto = "";
         }      
         if (!empty($request->get("nombre"))) {
             $nombre = $request->get("nombre");
-            $mensaje .= "nombre: " . $request->get("nombre") . "<br/>";
+            $mensaje .= "Nombre: " . $request->get("nombre") . "<br/>";
         } else {
             $nombre = "";
         }
         if (!empty($request->get("apellidos"))) {
             $apellidos = $request->get("apellidos");
-            $mensaje .= "apellidos: " . $request->get("apellidos") . "<br/>";
+            $mensaje .= "Apellidos: " . $request->get("apellidos") . "<br/>";
         } else {
             $apellidos = "";
         }
         if (!empty($request->get("email"))) {
             $email = $request->get("email");
-            $mensaje .= "email: " . $request->get("email") . "<br/>";
+            $mensaje .= "Email: " . $request->get("email") . "<br/>";
         } else {
             $email = "";
         }
         if (!empty($request->get("telefono"))) {
             $telefono = $request->get("telefono");
-            $mensaje .= "telefono: " . $request->get("telefono") . "<br/>";
+            $mensaje .= "Teléfono: " . $request->get("telefono") . "<br/>";
         } else {
             $telefono = "";
         }
         if (!empty($request->get("dia"))) {
             $fecha = $request->get("dia");
-            $mensaje .= "fecha: " . $request->get("dia") . "/" . $request->get("mes") . "/" . $request->get("anyo") . "<br/>";
+            $mensaje .= "Fecha: " . $request->get("dia") . "/" . $request->get("mes") . "/" . $request->get("anyo") . "<br/>";
         } else {
             $email = "";
         }        
         if (!empty($request->get("empresa"))) {
             $empresa = $request->get("empresa");
-            $mensaje .= "empresa: " . $request->get("empresa") . "<br/>";
+            $mensaje .= "Empresa: " . $request->get("empresa") . "<br/>";
         } else {
             $empresa = "";
         }
@@ -759,26 +759,43 @@ class DefaultController extends BaseController
         } else {
             $trabaja = "";
         }
+        if (!empty($request->get("area_interes"))) {
+            $area_interes = $request->get("area_interes");
+            $mensaje .= "Área de interés: " . $request->get("area_interes") . "<br/>";
+        } else {
+            $area_interes = "";
+        }
         if (!empty($request->get("mensaje"))) {
             $consulta = $request->get("mensaje");
             $mensaje .= "Mensaje: " . $request->get("mensaje") . "<br/>";
         } else {
             $consulta = "";
         }
-        
-        
         if (!empty($request->get("politica"))) {
             $firstpolitica = $request->get("politica");
-            $mensaje .= "politica: " . $request->get("politica") . "<br/>";
+            $mensaje .= "Politica: " . $request->get("politica") . "<br/>";
         } else {
             $firstpolitica = "";
         }
         if (!empty($request->get("tipo_consulta"))) {
             $tipo_consulta = $request->get("tipo_consulta");
-            $mensaje .= "tipo_consulta: " . $request->get("tipo_consulta") . "<br/>";
+            $mensaje .= "Tipo de Consulta: " . $request->get("tipo_consulta") . "<br/>";
         } else {
             $tipo_consulta = "";
         }
+        if (!empty($request->get("activo"))) {
+            $activo = $request->get("activo");
+            $mensaje .= "Trabaja actualmente: " . $request->get("activo") . "<br/>";
+        } else {
+            $activo = "";
+        }
+        if (!empty($request->get("otros-procesos"))) {
+            $otros = $request->get("otros-procesos");
+            $mensaje .= "Esta interesado en otros procesos? " . $request->get("otros-procesos") . "<br/>";
+        } else {
+            $otros = "";
+        }
+        
         if (!empty($request->get("newsletter") && $request->get("newsletter") == "on")) {
           $this->createContact($email, $nombre, $lang);
         }
@@ -788,7 +805,7 @@ class DefaultController extends BaseController
         switch ($tipo_contacto) {
                 case "trabaja":
                     $to = "jcifuentes@corporacionhms.com";
-                    $subject = "contacto general"; 
+                    $subject = "Curriculum enviado"; 
                     break;
                 case "contacto":
                     $to = "social@ajusa.es";
@@ -808,7 +825,7 @@ class DefaultController extends BaseController
           //$sendmail=$this->container->get("app.sendmail");
         $message->setSubject( "[Ajusa]: ".$subject)
           ->setFrom("mailer@ajusa.es")
-          ->setTo( "millan.hermana@doubledot.es")
+          ->setTo( ["millan.hermana@doubledot.es", "israel.palomar@doubledot.es"] )
           ->setContentType("text/html")
           ->setBody(                  
               $this->renderView(
@@ -851,16 +868,8 @@ class DefaultController extends BaseController
         $sendmail->send($params);
       } */
             
-      return new JsonResponse(1);
-  
-          
-              
-  /*         if ( $request->file('doc_adjunto') != null) {
-              $ficha_producto = str_replace(' ', '%20', $request->file('doc_adjunto')->getClientOriginalName());
-              $request->file('doc_adjunto')->move(public_path('files/cv'), $ficha_producto);
-              
-          }
-   */
+      return new JsonResponse($mensaje);
+
       }
 
     /**
