@@ -825,7 +825,7 @@ class DefaultController extends BaseController
           //$sendmail=$this->container->get("app.sendmail");
         $message->setSubject( "[Ajusa]: ".$subject)
           ->setFrom("mailer@ajusa.es")
-          ->setTo( ["millan.hermana@doubledot.es", "israel.palomar@doubledot.es"] )
+          ->setTo( ["millan.hermana@doubledot.es", $to] )
           ->setContentType("text/html")
           ->setBody(                  
               $this->renderView(
