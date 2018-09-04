@@ -743,7 +743,7 @@ class DefaultController extends BaseController
         }
         if (!empty($request->get("dia"))) {
             $fecha = $request->get("dia");
-            $mensaje .= "fecha: " . $request->get("dia") . "/" . $request->get("mes") . "/" . $request->get("anyo") . "/";
+            $mensaje .= "fecha: " . $request->get("dia") . "/" . $request->get("mes") . "/" . $request->get("anyo") . "<br/>";
         } else {
             $email = "";
         }        
@@ -761,7 +761,7 @@ class DefaultController extends BaseController
         }
         if (!empty($request->get("mensaje"))) {
             $consulta = $request->get("mensaje");
-            $mensaje .= "Trabaja: " . $request->get("mensaje") . "<br/>";
+            $mensaje .= "Mensaje: " . $request->get("mensaje") . "<br/>";
         } else {
             $consulta = "";
         }
