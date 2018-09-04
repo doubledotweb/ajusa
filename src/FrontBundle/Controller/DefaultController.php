@@ -785,7 +785,7 @@ class DefaultController extends BaseController
         }
         if (!empty($request->get("otros-procesos"))) {
             $otros = $request->get("otros-procesos");
-            if ($request->get("otros-processos") == "on")
+            if ($request->get("otros-procesos") == "on")
             {
                 $mensaje .= "Esta interesado en otros procesos? Si <br/>";
             } else {
