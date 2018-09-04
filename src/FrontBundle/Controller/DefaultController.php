@@ -601,11 +601,11 @@ class DefaultController extends BaseController
                   $subject = "contacto comercial"; 
                   break;
               case "formacion":
-                  $to = "customerservice@ajusa.es";
+                  $to = ["customerservice@ajusa.es","customerservice2@ajusa.es"];
                   $subject = "contacto formacion"; 
                   break;
               case "asistencia_tecnica":
-                  $to = "customerservice@ajusa.es";
+                  $to = ["customerservice@ajusa.es","customerservice2@ajusa.es"];
                   $subject = "contacto Asistencia tecnia"; 
                   break;
               case "catalogo":
