@@ -1169,13 +1169,9 @@ class DefaultController extends BaseController
     {
         $json = [
             [
-              "titulo" => "Acura",
+              "titulo" => "ACURA – STERLING",
               "archivo" => "ACURA.PDF"
-            ],
-            [
-              "titulo" => "STERLING",
-              "archivo" => "ACURA.PDF"
-            ],
+            ],           
             [
               "titulo"=> "Alfa Romeo",
               "archivo" => "ALFA_ROMEO.PDF"
@@ -1201,7 +1197,7 @@ class DefaultController extends BaseController
               "archivo" => "BEDFORD.PDF"
             ],
             [
-              "titulo"=> "BMW",
+              "titulo"=> "Bmw",
               "archivo" => "BMW.PDF"
             ],
             [
@@ -1217,13 +1213,9 @@ class DefaultController extends BaseController
               "archivo" => "CHERY.PDF"
             ],
             [
-              "titulo"=> "Chevrolet",
+              "titulo"=> "Chevrolet – OLDSMOBILE ",
               "archivo" => "CHEVROLET.PDF"
-            ],
-            [
-              "titulo"=> "OLDSMOBILE",
-              "archivo" => "CHEVROLET.PDF"
-            ],
+            ],            
             [
               "titulo"=> "Chrysler",
               "archivo" => "CHRYSLER.PDF"
@@ -1271,13 +1263,9 @@ class DefaultController extends BaseController
             [
               "titulo"=> "Ebro",
               "archivo" => "EBRO.PDF"
-            ],
+            ],            
             [
-              "titulo"=> "Kubota",
-              "archivo" => "EBRO.PDF"
-            ],
-            [
-              "titulo"=> "Ebro Kubota",
+              "titulo"=> "Ebro-Kubota",
               "archivo" => "EBRO-KUBOTA.PDF"
             ],
             [
@@ -1342,13 +1330,9 @@ class DefaultController extends BaseController
               "archivo" => "ISUZU.PDF"
             ],
             [
-              "titulo"=> "Iveco",
+              "titulo"=> "Iveco-Fiat Industrial",
               "archivo" => "IVECO.PDF"
-            ],
-            [
-              "titulo"=> "Fiat Industrial",
-              "archivo" => "IVECO.PDF"
-            ],
+            ],            
             [
               "titulo"=> "Jeep",
               "archivo" => "JEEP.PDF"
@@ -1386,7 +1370,7 @@ class DefaultController extends BaseController
               "archivo" => "LOMBARDINI.PDF"
             ],
             [
-              "titulo"=> "AIXAM – LIGIER",
+              "titulo"=> "LOMBARDINI – AIXAM – LIGIER",
               "archivo" => "LOMBARDINI.PDF"
             ],
             [
@@ -1430,13 +1414,9 @@ class DefaultController extends BaseController
               "archivo" => "NISSAN.PDF"
             ],
             [
-              "titulo"=> "Opel",
+              "titulo"=> "Opel -VAUXAHALL",
               "archivo" => "OPEL.PDF"
-            ],
-            [
-              "titulo"=> "VAUXAHALL",
-              "archivo" => "OPEL.PDF"
-            ],
+            ],            
             [
               "titulo"=> "Pegaso",
               "archivo" => "PEGASO.PDF"
@@ -1560,7 +1540,7 @@ class DefaultController extends BaseController
               "titulo"=> "ZASTAVA",
               "archivo" => "ZASTAVA.PDF"
             ]
-            ];
+            ]; 
           return new JsonResponse(array("pdfs"=>$json,"code"=>200));
     }
 
