@@ -1364,11 +1364,7 @@ class DefaultController extends BaseController
             [
               "titulo"=> "Leyland",
               "archivo" => "LEYLAND.PDF"
-            ],
-            [
-              "titulo"=> "Lombardini",
-              "archivo" => "LOMBARDINI.PDF"
-            ],
+            ],            
             [
               "titulo"=> "LOMBARDINI – AIXAM – LIGIER",
               "archivo" => "LOMBARDINI.PDF"
