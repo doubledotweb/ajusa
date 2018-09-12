@@ -1416,7 +1416,7 @@ class DefaultController extends BaseController
               "archivo" => "NISSAN.PDF"
             ],
             [
-              "titulo"=> "Opel -VAUXAHALL",
+              "titulo"=> "OPEL -VAUXHALL",
               "archivo" => "OPEL.PDF"
             ],            
             [
