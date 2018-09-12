@@ -541,6 +541,12 @@ class DefaultController extends BaseController
       } else {
         $direccion = "";
       }
+      if (!empty($request->get("pais"))) {
+        $pais = $request->get("pais");
+        $mensaje .= "<p>pais: " . $request->get("pais") . "</p>";
+      } else {
+        $pais = "";
+      }
       if (!empty($request->get("telefono"))) {
         $telefono = $request->get("telefono");
         $mensaje .= "<p>telefono: " . $request->get("telefono") . "</p>";
