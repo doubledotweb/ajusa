@@ -517,12 +517,7 @@ class DefaultController extends BaseController
       } else {
           $nombre = "";
       }
-      if (!empty($request->get("telefono"))) {
-          $telefono = $request->get("telefono");
-          $mensaje .= "<p>telefono: " . $request->get("telefono") . "</p>";
-      } else {
-          $telefono = "";
-      }
+      
       if (!empty($request->get("email"))) {
           $email = $request->get("email");
           $mensaje .= "<p>email: " . $request->get("email") . "</p>";
@@ -533,7 +528,13 @@ class DefaultController extends BaseController
           $empresa = $request->get("empresa");
           $mensaje .= "<p>empresa: " . $request->get("empresa") . "</p>";
       } else {
-        $empresa = "";
+          $empresa = "";
+      }
+      if (!empty($request->get("sector"))) {
+          $sector = $request->get("sector");
+          $mensaje .= "<p>sector: " . $request->get("sector") . "</p>";
+      } else {
+          $sector = "";
       }
       if (!empty($request->get("direccion"))) {
         $direccion = $request->get("direccion");
