@@ -4,40 +4,83 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
 <url>
-  <loc>http://www.metodoemme.es/</loc>
-  <lastmod>2015-11-11T15:49:52+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>1.00</priority>
+  <loc>https://ajusa.es/</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
 </url>
+
 <url>
-  <loc>http://www.metodoemme.es/que-es-el-metodo-emme</loc>
-  <lastmod>2015-11-11T15:49:52+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
+  <loc>https://ajusa.es/productos</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
 </url>
+
 <url>
-  <loc>http://www.metodoemme.es/test-de-salud-mediterranea-metodo-emme</loc>
-  <lastmod>2015-11-11T15:49:52+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
+  <loc>https://ajusa.es/catalogo</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
 </url>
+
 <url>
-  <loc>http://www.metodoemme.es/preguntas-frecuentes-metodo-emme</loc>
-  <lastmod>2015-11-11T15:49:52+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
+  <loc>https://ajusa.es/area-tecnica</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
 </url>
+
 <url>
-  <loc>http://www.metodoemme.es/contacto-metodo-emme</loc>
-  <lastmod>2015-11-11T15:49:52+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
+  <loc>https://ajusa.es/ajusa</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
 </url>
+
 <url>
-  <loc>http://www.metodoemme.es/centros-metodo-emme</loc>
-  <lastmod>2015-11-11T15:49:52+00:00</lastmod>
-  <changefreq>always</changefreq>
-  <priority>0.80</priority>
+  <loc>https://ajusa.es/historia</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
 </url>
+
+<url>
+  <loc>https://ajusa.es/actualidad</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
+</url>
+
+<url>
+  <loc>https://ajusa.es/sala-de-prensa</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
+</url>
+
+<url>
+  <loc>https://ajusa.es/contacto</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
+</url>
+
+<url>
+  <loc>https://ajusa.es/trabaja-con-nosotros</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
+</url>
+
+<url>
+  <loc>https://ajusa.es/blog</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
+</url>
+
+<url>
+  <loc>https://ajusa.es/politica-de-privacidad</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
+</url>
+
+<url>
+  <loc>https://ajusa.es/politica-de-cookies</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
+</url>
+
+
+<url>
+  <loc>https://ajusa.es/aviso-legal</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
+</url>
+
+<url>
+  <loc>https://ajusa.es/tus-datos-seguros</loc>
+  <lastmod>2018-09-03T08:49:00+00:00</lastmod>
+</url>
+
 </urlset>
