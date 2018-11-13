@@ -453,10 +453,20 @@ function posicion_modulos(e)
 		{
 			case "subir":
 				elemento.insertBefore($(".noticia-fields.active .elemento-of-noticia").get(new_pos));
+				for(name in CKEDITOR.instances)
+				{
+					CKEDITOR.instances[name].destroy();
+				}				
+				CKEDITOR.replaceAll();
 			break;
 
 			case "bajar":
 				elemento.insertAfter($(".noticia-fields.active .elemento-of-noticia").get(new_pos));
+				for(name in CKEDITOR.instances)
+				{
+					CKEDITOR.instances[name].destroy();
+				}				
+				CKEDITOR.replaceAll();
 			break;
 		}
 		
