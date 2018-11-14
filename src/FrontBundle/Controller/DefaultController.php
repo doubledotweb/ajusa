@@ -146,13 +146,13 @@ class DefaultController extends BaseController
             $select_tips='
             SELECT a.titulo as tip_titulo, a.id as tip_id, a.archivo as archivo, b.titulo_en as categoria
             FROM tips as a, categorias as b, tips_categorias as d
-            WHERE b.id = d.categoria_id AND d.tip_id = a.id AND a.idioma = :lang
+            WHERE b.id = d.categoria_id AND d.tip_id = a.id AND a.idioma = :lang AND a.visible = 1
             ORDER BY a.creado DESC';
         } else {
             $select_tips='
             SELECT a.titulo as tip_titulo, a.id as tip_id, a.archivo as archivo, b.titulo as categoria
             FROM tips as a, categorias as b, tips_categorias as d
-            WHERE b.id = d.categoria_id AND d.tip_id = a.id AND a.idioma = :lang
+            WHERE b.id = d.categoria_id AND d.tip_id = a.id AND a.idioma = :lang AND a.visible = 1
             ORDER BY a.creado DESC';
         }
         
