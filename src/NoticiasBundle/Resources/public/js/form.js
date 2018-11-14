@@ -452,21 +452,25 @@ function posicion_modulos(e)
 		switch($(this).attr("data-action"))
 		{
 			case "subir":
-				elemento.insertBefore($(".noticia-fields.active .elemento-of-noticia").get(new_pos));
+				elemento.insertBefore($(".noticia-fields .elemento-of-noticia").get(new_pos));
 				for(name in CKEDITOR.instances)
 				{
 					CKEDITOR.instances[name].destroy();
 				}				
-				CKEDITOR.replaceAll();
+				$("#js-contenido-cuerpo textarea").each(function() {					
+					CKEDITOR.replace( $(this).attr("id") )
+				});
 			break;
 
 			case "bajar":
-				elemento.insertAfter($(".noticia-fields.active .elemento-of-noticia").get(new_pos));
+				elemento.insertAfter($(".noticia-fields .elemento-of-noticia").get(new_pos));
 				for(name in CKEDITOR.instances)
 				{
 					CKEDITOR.instances[name].destroy();
 				}				
-				CKEDITOR.replaceAll();
+				$("#js-contenido-cuerpo textarea").each(function() {					
+					CKEDITOR.replace( $(this).attr("id") )
+				});
 			break;
 		}
 		

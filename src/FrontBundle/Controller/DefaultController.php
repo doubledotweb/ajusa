@@ -116,7 +116,7 @@ class DefaultController extends BaseController
         $select_novedades='
             SELECT titulo,archivo 
             FROM tips 
-            WHERE idioma = :lang
+            WHERE idioma = :lang AND visible = 1
             ORDER BY creado DESC
             LIMIT 3';
 
