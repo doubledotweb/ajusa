@@ -1116,8 +1116,12 @@ class DefaultController extends BaseController
 
     				case 'imagen':
     				case "video":
-	    				$aux["tipo"]=$modulo["tipo"];
-	    				$aux["enlace"]=$modulo["valor"];
+                        $aux["tipo"]=$modulo["tipo"];
+                        if (strpos($modulo["valor"],"&t=")) {
+                            $aux["enlace"]= str_replace("&t=", "?start=", $modulo["valor"]);
+                        } else {
+                            $aux["enlace"]=$modulo["valor"];
+                        }
 	    				$aux["pie"]=$modulo["pie"];
     				break;
 
