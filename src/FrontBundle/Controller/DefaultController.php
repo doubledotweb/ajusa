@@ -374,8 +374,17 @@ class DefaultController extends BaseController
     	);
 
     	
-    	$noticia=$this->query_builder($query,$conditions);
-
+        $noticia=$this->query_builder($query,$conditions);
+        //$logger=$this->container->get("logger");
+        //$logger->info(var_dump($lang));   
+        
+        if ($slug == $noticia[0]->getSlug()["es"])
+        {
+            $lang = "es";
+        } else {
+            $lang = "en";
+        }
+        
     	if(count($noticia))
     	{
     		$aux=$this->get_comunes($noticia[0],$lang);
