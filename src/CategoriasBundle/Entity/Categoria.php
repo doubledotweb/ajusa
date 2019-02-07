@@ -8,7 +8,7 @@ use AppBundle\Entity\Archivo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Categorias_noticias") 
+ * @ORM\Table(name="categorias_noticias") 
  * @ORM\HasLifecycleCallbacks()
  */
 class Categoria extends Archivo
