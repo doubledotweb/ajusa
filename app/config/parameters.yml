@@ -1,0 +1,13 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: localhost
+    database_port: null
+    database_name: ajusa
+    database_user: ajusa
+    database_password: 'i7RZBlVwjrksh8I1'
+    mailer_transport: smtp
+    mailer_host: '%env(MAIL_HOST)%'
+    mailer_user: '%env(MAIL_USER)%'
+    mailer_password: '%env(MAIL_PASS)%'
+    mailer_port: '%env(MAIL_PORT)%'
+    secret: ThisTokenIsNotSoSecretChangeIt
