@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Newsletter pdfs{% endblock %}
+
+
+{% block section %}
+
+<section class="menu-brother">
+
+	
+	<div class="container-table">
+		<div class="contenedor-titulo row-between">	
+			<h1>{{"Newsletter"|trans}}</h1>
+			<a class="btn waves-effect" href="{{path("anadir_fichero")}}">{{"Añadir nuevo"|trans}}</a>
+		</div>
+		<div class="contenedor-tabla">
+
+			{% for newsletter in newsletters %}
+
+                <tr class="categoria">
+                    <td class="nombre">{{newsletter.nombre}}</td>                    
+                </tr>
+
+            {% endfor %}
+
+		</div>
+
+
+
+
+	</div>
+
+</section>
+
+{% endblock %}
+
+
+{% block popup %}
+
+	<div id="popup" class="modal">
+		<div class="modal-content">
+			<div id="box">
+				<div id="message"></div>
+				<div id="box_options"></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

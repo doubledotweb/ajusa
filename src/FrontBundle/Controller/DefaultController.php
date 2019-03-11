@@ -377,13 +377,17 @@ class DefaultController extends BaseController
         $noticia=$this->query_builder($query,$conditions);
         //$logger=$this->container->get("logger");
         //$logger->info(var_dump($lang));   
-        
-        if ($slug == $noticia[0]->getSlug()["es"])
-        {
-            $lang = "es";
+        if ($noticia[0] != null) {
+          if ($slug == $noticia[0]->getSlug()["es"])
+          {
+              $lang = "es";
+          } else {
+              $lang = "en";
+          }  
         } else {
-            $lang = "en";
+          $lang = "es";
         }
+        
         
     	if(count($noticia))
     	{
@@ -676,7 +680,7 @@ class DefaultController extends BaseController
       //if ($request->files->get("doc_adjunto") != "") {
       
         
-        
+  /*       
     $message = \Swift_Message::newInstance();
 
     $mensajegracias = "Muchas gracias por ponerte en contacto con nosotros, te responderemos lo antes posible.";
@@ -698,7 +702,7 @@ class DefaultController extends BaseController
             'text/html'
         );
         $this->get('mailer')->send($message);
-    } 
+    }  */
           
     return new JsonResponse(['1']);
 
@@ -847,7 +851,7 @@ class DefaultController extends BaseController
           //$sendmail=$this->container->get("app.sendmail");
         $message->setSubject( "[Ajusa]: ".$subject)
           ->setFrom("mailer@ajusa.es")
-          ->setTo( ["millan.hermana@doubledot.es", $to] )
+          ->setTo( [$to] )
           ->setContentType("text/html")
           ->setBody(                  
               $this->renderView(

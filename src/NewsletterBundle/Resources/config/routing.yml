@@ -1,0 +1,4 @@
+newsletter_homepage:
+    resource: "@NewsletterBundle/Controller/"
+    type:     annotation
+    prefix:   /manager/newsletter/

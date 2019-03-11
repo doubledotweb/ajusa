@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{asset("/bundles/noticias/css/noticias.css")}}">
+<link rel="stylesheet" type="text/css" href="{{asset("/js/datepicker/datedropper.min.css")}}">
+<link rel="stylesheet" type="text/css" href="{{asset("/js/datepicker/my-style.css")}}">
+{% endblock %}
+
+{% block title %}
+{% if form.children.titulo.vars.value.es=="" %}
+{{"Nueva Noticia"|trans}}
+{% else %}
+{{"Editar Noticia"|trans}}
+{% endif %}
+{% endblock %}
+
+
+{% block section %}
+
+<section class="menu-brother">
+	<div class="container">
+		{% if form.children.titulo.vars.value.es=="" %}
+		<h1>{{"Nueva Newsletter"|trans}}</h1>
+		{% else %}
+		<h1>{{"Editar Newsletter"|trans}}</h1>
+		{% endif %}
+
+		<form method="post" enctype="multipart/form-data" name="{{form.vars.full_name}}">
+
+			<div class="newsletter-fields" id="newsletter" style="">
+
+
+				<div class="file-field input-field image-field">
+
+					<div id="nombre" class="js-imagen-input" style="{{nombre}}">
+
+					
+
+						<div class="btn">
+							<span>{{form.children.nombre.vars.label}}</span>
+							<input 
+							type="file" 
+							id="{{form.children.nombre.children.vars.id}}"
+							name="{{form.children.nombre.children.vars.full_name}}"							
+							>
+							<input name="newsletter_form[nombre]">
+						</div>
+
+					</div>
+
+					
+				</div>
+
+			
+			
+
+
+
+
+
+
+			</div>
+
+	
+
+			<div id="botones" class="contenedor-botones row-start">
+
+				<div>
+					<button
+					class="btn waver-effect"
+					type="submit" 
+					name="{{form.children.submit.vars.full_name}}"
+					>{{form.children.submit.vars.label}}</button>
+				</div>
+
+				{% if form.children.delete is defined %}
+				<div>
+					<button class="btn waver-effect red darken-4" href="" id="js-delete">{{form.children.delete.vars.label}}</button>
+				</div>
+				<div style="display:none;">
+					<button
+					type="submit" 
+					name="{{form.children.delete.vars.full_name}}"							
+					>{{form.children.delete.vars.label}}</button>
+				</div>
+				{% endif %}
+
+				<div>
+					<a
+					class="btn waver-effect grey"
+					href="{{path("listado_noticias")}}"						
+					>Cancelar</a>
+				</div>
+
+			</div>	
+
+			<div>
+				<input 
+				type="hidden" 
+				name="{{form.children._token.vars.full_name}}"
+				value="{{form.children._token.vars.value}}">
+			</div>
+
+		</form>
+	</div>
+
+	
+</section>
+
+
+
+
+
+{% endblock %}
+

@@ -13,6 +13,10 @@ use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Components\Finder\Finder;
+
 use AdminBundle\Entity\Admin;
 
 use AdminBundle\Forms\UserForm;
@@ -40,7 +44,7 @@ class DefaultController extends BaseController
     public function indexAction()
     {
 
-    	$params["administradores"]=$this->findByField("AdminBundle:Admin",array());
+    	$params["administradores"]=$this->findBy("AdminBundle:Admin",array());
 
         return $this->render('AdminBundle:Default:index.html.twig',$params);
     }
@@ -383,6 +387,33 @@ class DefaultController extends BaseController
         return $this->render('AdminBundle:Default:renovar.html.twig',$params);
     }
 
+
+  /*
+    
+    public function ficherosAction()
+    {
+        $fileSystem = new Filesystem();
+        //$finder = new \Finder();
+        //$iterator = $finder->files()->in('C:\xampp\htdocs\ajusa-git\web\front\static\pdf\104NewApplications.pdf');
+        $params["administradores"]=$this->findByField("AdminBundle:Admin",array());
+        $params["exists"] = "";
+        $params["exists"] =$fileSystem->exists('C:\xampp\htdocs\ajusa-git\web\front\static\pdf\104NewApplications.pdf');
+        return $this->render('AdminBundle:Default:upload.html.twig',$params);
+    }
+
+    
+    public function subirPdfAction(Request $request)
+    {
+        $logger=$this->get("logger");
+        $logger->info("se recibe algo");
+
+    	$params["administradores"]=$this->findByField("AdminBundle:Admin",array());
+
+
+
+        return $this->render('AdminBundle:Default:upload.html.twig',$params);
+    }
+    */
 
 
 }   

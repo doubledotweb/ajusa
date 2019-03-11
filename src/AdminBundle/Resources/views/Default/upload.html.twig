@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuarios{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{asset("/bundles/admin/css/admin.css")}}">
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript" src="{{asset("/bundles/admin/js/list.js")}}"></script>
+{% endblock %}
+
+{% block section %}
+
+<section class="menu-brother">
+
+	
+	<div class="container-table">
+		<div class="contenedor-titulo row-between">	
+			<h1>Pdfs Actuales</h1>
+			<a class="btn waves-effect" href="{{path("anadir_pdf")}}">Añadir nuevo</a>
+		</div>
+		<div class="contenedor-tabla">
+			Existe?
+				{{exists}}
+			<form action="/manager/anadir_pdf" method="post">
+				<input name="fichero" type="file" />
+				<input type="submit" value="Guardar" />
+			</form>
+		</div>
+	</div>
+
+</section>
+
+{% endblock %}
+
+
+{% block popup %}
+
+	<div id="popup" class="modal">
+		<div class="modal-content">
+			<div id="box">
+				<div id="message"></div>
+				<div id="box_options"></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -2,7 +2,3 @@ services:
 #    noticias.example:
 #        class: NoticiasBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
-
-    NoticiasBundle\Form\NoticiaForm:
-        arguments: ['@doctrine.orm.entity_manager',"@security.token_storage"]
-        tags: [form.type]

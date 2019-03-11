@@ -1,0 +1,141 @@
+Header set test1 "test12"
+<IfModule mod_headers.c>
+   Header set test2 "test2"
+#   RequestHeader set X-Prerender-Token "mb2VQnGP1eO4IPpRgMkK"   
+   RequestHeader set X-Prerender-Token "FS42snBHcq1jeEXgaJUJ"
+
+
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+   Header set test4 "test4"
+  <IfModule mod_proxy_http.c>
+     Header set test5 "test5"
+     RewriteCond %{HTTP_USER_AGENT} googlebot|facebookexternalhit|twitterbot|linkedinbot|quora\ link\ preview|outbrain|slackbot|W3C_Validator|WhatsApp|pinterest [NC,OR]
+     RewriteCond %{QUERY_STRING} _escaped_fragment_
+
+     # Only proxy the request to Prerender if it's a request for HTML
+     # RewriteRule ^(?!.*?(\.js|\.css|\.xml|\.less|\.png|\.jpg|\.jpeg|\.gif|\.pdf|\.doc|\.txt|\.ico|\.rss|\.zip|\.mp3|\.rar|\.exe|\.wmv|\.doc|\.avi|\.ppt|\.mpg|\.mpeg|\.tif|\.wav|\.mov|\.psd|\.ai|\.xls|\.mp4|\.m4a|\.swf|\.dat|\.dmg|\.iso|\.flv|\.m4v|\.torrent|\.ttf|\.woff$\.woff))(.*) http://service.prerender.io/http://ajusa.es/$2 [P,L]
+     RewriteRule ^(?!.*?(\.js|\.css|\.xml|\.less|\.png|\.jpg|\.jpeg|\.gif|\.pdf|\.doc|\.txt|\.ico|\.rss|\.zip|\.mp3|\.rar|\.exe|\.wmv|\.doc|\.avi|\.ppt|\.mpg|\.mpeg|\.tif|\.wav|\.mov|\.psd|\.ai|\.xls|\.mp4|\.m4a|\.swf|\.dat|\.dmg|\.iso|\.flv|\.m4v|\.torrent|\.ttf|\.woff))(.*) http://service.prerender.io/https://ajusa.es/$2 [P,L]
+  </IfModule>
+  Header set test6 "test6"
+
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+# Disable ETags
+<IfModule mod_headers.c>
+    Header unset ETag
+    Header set Connection keep-alive
+</IfModule>
+FileETag None
+ 
+############## CACHING ############
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault A2592000
+   
+  <FilesMatch "\.(txt|xml|js)$">
+  ExpiresDefault A2592000
+  </FilesMatch>
+   
+  <FilesMatch "\.(css)$">
+  ExpiresDefault A2592000
+  </FilesMatch>
+   
+  <FilesMatch "\.(flv|ico|pdf|avi|mov|ppt|doc|mp3|wmv|wav|mp4|m4v|ogg|webm|aac)$">
+  ExpiresDefault A2592000
+  </FilesMatch>
+   
+  <FilesMatch "\.(jpg|jpeg|png|gif|swf|webp)$">
+  ExpiresDefault A2592000
+  </FilesMatch>
+</IfModule>
+ 
+<IfModule mod_headers.c>
+  <FilesMatch "\.(txt|xml|js)$">
+   Header set Cache-Control "max-age=2592000"
+  </FilesMatch>
+ 
+  <FilesMatch "\.(css)$">
+   Header set Cache-Control "max-age=2592000"
+  </FilesMatch>
+ 
+  <FilesMatch "\.(flv|ico|pdf|avi|mov|ppt|doc|mp3|wmv|wav|mp4|m4v|ogg|webm|aac)$">
+   Header set Cache-Control "max-age=2592000"
+  </FilesMatch>
+ 
+  <FilesMatch "\.(jpg|jpeg|png|gif|swf|webp)$">
+   Header set Cache-Control "max-age=2592000"
+  </FilesMatch>
+</IfModule>
+ 
+# COMPRESION GZIP #
+<IfModule mod_deflate.c>
+    <IfModule mod_setenvif.c>
+        <IfModule mod_headers.c>
+            SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+            RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+        </IfModule>
+    </IfModule>
+    <IfModule mod_filter.c>
+        AddOutputFilterByType DEFLATE "application/atom+xml" \
+                                      "application/javascript" \
+                                      "application/json" \
+                                      "application/ld+json" \
+                                      "application/manifest+json" \
+                                      "application/rdf+xml" \
+                                      "application/rss+xml" \
+                                      "application/schema+json" \
+                                      "application/vnd.geo+json" \
+                                      "application/vnd.ms-fontobject" \
+                                      "application/x-font-ttf" \
+                                      "application/x-javascript" \
+                                      "application/x-web-app-manifest+json" \
+                                      "application/xhtml+xml" \
+                                      "application/xml" \
+                                      "font/eot" \
+                                      "font/opentype" \
+                                      "image/bmp" \
+                                      "image/svg+xml" \
+                                      "image/vnd.microsoft.icon" \
+                                      "image/x-icon" \
+                                      "text/cache-manifest" \
+                                      "text/css" \
+                                      "text/html" \
+                                      "text/javascript" \
+                                      "text/plain" \
+                                      "text/vcard" \
+                                      "text/vnd.rim.location.xloc" \
+                                      "text/vtt" \
+                                      "text/x-component" \
+                                      "text/x-cross-domain-policy" \
+                                      "text/xml"
+ 
+    </IfModule>
+    <IfModule mod_mime.c>
+        AddEncoding gzip              svgz
+    </IfModule>
+ 
+</IfModule>
+
+#<IfModule mod_headers.c>
+ #   #RequestHeader set X-Prerender-Token "YOUR_TOKEN"
+ #   RequestHeader set X-Prerender-Token "mb2VQnGP1eO4IPpRgMkK"
+#</IfModule>
+
+#<IfModule mod_rewrite.c>
+#    RewriteEngine On
+
+#    <IfModule mod_proxy_http.c>
+#        RewriteCond %{HTTP_USER_AGENT} googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest|slackbot|vkShare|W3C_Validator [NC,OR]
+#        RewriteCond %{QUERY_STRING} _escaped_fragment_
+        
+        # Only proxy the request to Prerender if it's a request for HTML
+#        RewriteRule ^(?!.*?(\.js|\.css|\.xml|\.less|\.png|\.jpg|\.jpeg|\.gif|\.pdf|\.doc|\.txt|\.ico|\.rss|\.zip|\.mp3|\.rar|\.exe|\.wmv|\.doc|\.avi|\.ppt|\.mpg|\.mpeg|\.tif|\.wav|\.mov|\.psd|\.ai|\.xls|\.mp4|\.m4a|\.swf|\.dat|\.dmg|\.iso|\.flv|\.m4v|\.torrent|\.ttf|\.woff))(.*) http://service.prerender.io/https://ajusa.es/$2 [P,L]
+#    </IfModule>
+#</IfModule>

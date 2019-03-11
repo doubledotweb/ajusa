@@ -10,7 +10,6 @@ imports:
     - { resource: "@CategoriasBundle/Resources/config/services.yml" }
     - { resource: "@FrontBundle/Resources/config/services.yml" }
     - { resource: "@ComentariosBundle/Resources/config/services.yml" }
-    - { resource: "@NewsletterBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -71,16 +70,11 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: smtp 
-    host: smtp.office365.com
-    username: mailer@ajusa.es
-    password: Jox99379
+    transport: 'sendmail'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    spool: { type: memory }
+    auth_mode: login
     encryption: tls
-    port: 587
-    stream-options:
-        ssl:
-            allow_self_signed : true
-            verify_peer: false
-mailjet:
-    api_key:    "380d6f5b0d053c33532d8db11c02b57d"
-    secret_key: "d1c4df7953913f12f95af3c157ddccae"
+    port: '%mailer_port%'
