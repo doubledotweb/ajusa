@@ -3,7 +3,6 @@
 
 {% block stylesheets %}
 <link rel="stylesheet" type="text/css" href="{{asset("/bundles/noticias/css/noticias.css")}}">
-<link rel="stylesheet" type="text/css" href="{{asset("/js/datepicker/datedropper.min.css")}}">
 <link rel="stylesheet" type="text/css" href="{{asset("/js/datepicker/my-style.css")}}">
 {% endblock %}
 
@@ -439,6 +438,7 @@
 
 {% block javascripts %} 
 <script type="text/javascript" src="{{asset("/bundles/noticias/js/form.js")}}"></script>
-<script type="text/javascript" src="{{asset("/js/datepicker/datedropper.min.js")}}"></script>
+<script src="https://cdn.datedropper.com/get/drvnhuapbvrhqvls5ecb56f1utg10t78"></script>
 <script src="{{asset("/js/ckeditor/ckeditor.js")}}"></script>
+<script>$(".datepicker").dateDropper({lang: "es", largeDefault: true, large: true, modal: true, format: 'd/m/Y'});</script>
 {% endblock %}
