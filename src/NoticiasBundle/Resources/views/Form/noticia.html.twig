@@ -205,7 +205,11 @@
 				#}
 				<h2>Contenido del Post</h2>
 
-				<div id="js-contenido-cuerpo">	
+				{% if lang=="es" %}
+				<div id="js-contenido-cuerpo" class="js-contenido-cuerpo">
+				{% else %}
+				<div id="js-contenido-cuerpo" class="js-contenido-cuerpo-en">
+				{% endif %}		
 				{% set flag = false %}		
 					{% if cuerpo is defined and cuerpo[lang] is defined  %}
 
