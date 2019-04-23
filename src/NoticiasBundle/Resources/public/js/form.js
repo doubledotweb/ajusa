@@ -445,30 +445,37 @@ function posicion_modulos(e)
 	new_pos=($(this).attr("data-action")=="subir")?current_pos-1:current_pos+1;
 
 	
-	
-	if(new_pos>=0 && new_pos<=$(this).parents("#js-contenido-cuerpo").find(".elemento-of-noticia").length)
+	if ($("#js-tabulador-en").hasClass("active")) {
+		var contenedor = $(".js-contenido-cuerpo-en");
+	} else {
+		var contenedor = $(".js-contenido-cuerpo");
+	}
+	if(new_pos>=0 && new_pos<=contenedor.find(".elemento-of-noticia").length)
 	{
 
 		switch($(this).attr("data-action"))
 		{
 			case "subir":
-				elemento.insertBefore($(".noticia-fields .elemento-of-noticia").get(new_pos));
+				elemento.insertBefore($(".noticia-fields.active .elemento-of-noticia").get(new_pos));
 				for(name in CKEDITOR.instances)
 				{
 					CKEDITOR.instances[name].destroy();
 				}				
-				$("#js-contenido-cuerpo textarea").each(function() {					
+				//$("#js-contenido-cuerpo textarea").each(function() {
+				contenedor.find("textarea").each(function() {
+				
 					CKEDITOR.replace( $(this).attr("id") )
 				});
 			break;
 
 			case "bajar":
-				elemento.insertAfter($(".noticia-fields .elemento-of-noticia").get(new_pos));
+				elemento.insertAfter($(".noticia-fields.active .elemento-of-noticia").get(new_pos));
 				for(name in CKEDITOR.instances)
 				{
 					CKEDITOR.instances[name].destroy();
 				}				
-				$("#js-contenido-cuerpo textarea").each(function() {					
+				//$("#js-contenido-cuerpo textarea").each(function() {
+				contenedor.find("textarea").each(function() {
 					CKEDITOR.replace( $(this).attr("id") )
 				});
 			break;
