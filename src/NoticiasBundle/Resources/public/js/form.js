@@ -204,7 +204,7 @@ $(document).ready(function()
 	$("body").on("click",".fa-arrow-up",posicion_modulos);
 	$("body").on("click",".fa-arrow-down",posicion_modulos);
 
-	$("#js-contenido-cuerpo").on("click",".js-borrar-item",function(e)
+	$(".js-contenido-cuerpo, .js-contenido-cuerpo-en").on("click",".js-borrar-item",function(e)
 	{
 		e.preventDefault();
 		$(this).parents(".elemento-of-noticia").remove();
