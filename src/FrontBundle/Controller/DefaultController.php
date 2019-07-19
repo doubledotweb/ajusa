@@ -377,17 +377,13 @@ class DefaultController extends BaseController
         $noticia=$this->query_builder($query,$conditions);
         //$logger=$this->container->get("logger");
         //$logger->info(var_dump($lang));   
-        if ($noticia[0] != null) {
-          if ($slug == $noticia[0]->getSlug()["es"])
-          {
-              $lang = "es";
-          } else {
-              $lang = "en";
-          }  
-        } else {
-          $lang = "es";
-        }
         
+        if ($slug == $noticia[0]->getSlug()["es"])
+        {
+            $lang = "es";
+        } else {
+            $lang = "en";
+        }
         
     	if(count($noticia))
     	{
@@ -604,7 +600,11 @@ class DefaultController extends BaseController
           $tipo_consulta = "";
       }
       if (!empty($request->get("newsletter") && $request->get("newsletter") == "on")) {
-        $this->createContact($email, $nombre, $lang);
+        if (in_array($tipo_contacto, ["aldonza","aldonza-experiencia"])) {
+          $this->createContactAldonza($email, $nombre, $lang);
+        } else {
+          $this->createContact($email, $nombre, $lang);
+        }
       }
       
       $emailgracias = $email;
@@ -642,32 +642,60 @@ class DefaultController extends BaseController
                   $to = "jcifuentes@corporacionhms.com";
                   $subject = "contacto trabaja"; 
                   break;
+              case "aldonza":
+                  $to = ["info@aldonzagourmet.com", "angela.rojas@doubledot.es"];
+                  $subject = "aldonza"; 
+                  break;
+              case "aldonza-experiencia":
+                  $to = ["comunicacion@aldonzagourmet.com", "angela.rojas@doubledot.es"];
+                  $subject = "aldonza experiencia"; 
+                  break;
               default:
                   $to = "social@ajusa.es";
                   $subject = "contacto general"; 
                   break;
       }
-      
-
      
       $message = \Swift_Message::newInstance();
+      if ($subject == "aldonza" || $subject == "aldonza experiencia") {
+        $message->setSubject( "[Aldonza]: ".$subject)
+        ->setFrom("mailer@ajusa.es")
+        //->setFrom("ajusa@doubledot.es")      
+        ->setTo($to)
+        ->setContentType("text/html")
+        ->setBody(                  
+            $this->renderView(
+                // app/Resources/views/Emails/registration.html.twig
+                "emails/base.html.twig",
+                array(
+                    "title" => $to,
+                    "logo" => "",
+                    "mensaje"=> $mensaje,
+                    "politica" => "on")
+            ),
+            'text/html'
+        );
 
-      $message->setSubject( "[Ajusa]: ".$subject)
-      ->setFrom("mailer@ajusa.es")
-      ->setTo($to)
-      ->setContentType("text/html")
-      ->setBody(                  
-          $this->renderView(
-              // app/Resources/views/Emails/registration.html.twig
-              "emails/base.html.twig",
-              array(
-                  "title" => $to,
-                  "logo" => "",
-                  "mensaje"=> $mensaje,
-                  "politica" => "on")
-          ),
-          'text/html'
-      );
+      } else {
+        $message->setSubject( "[Ajusa]: ".$subject)
+        ->setFrom("mailer@ajusa.es")
+        //->setFrom("ajusa@doubledot.es")      
+        ->setTo($to)
+        ->setContentType("text/html")
+        ->setBody(                  
+            $this->renderView(
+                // app/Resources/views/Emails/registration.html.twig
+                "emails/base.html.twig",
+                array(
+                    "title" => $to,
+                    "logo" => "",
+                    "mensaje"=> $mensaje,
+                    "politica" => "on")
+            ),
+            'text/html'
+        );
+      }
+      
       if ( $request->files->get('doc_adjunto') != null) {
         $ficha_producto = str_replace(' ', '%20', $request->files->get('doc_adjunto')->getClientOriginalName());
         $publicResourcesFolderPath = '/var/www/gestor_ajusa/web/bundles/front/attach/';
@@ -680,8 +708,8 @@ class DefaultController extends BaseController
       //if ($request->files->get("doc_adjunto") != "") {
       
         
-  /*       
-    $message = \Swift_Message::newInstance();
+        
+    /* $message = \Swift_Message::newInstance();
 
     $mensajegracias = "Muchas gracias por ponerte en contacto con nosotros, te responderemos lo antes posible.";
     if (!empty($emailgracias)) {
@@ -702,8 +730,9 @@ class DefaultController extends BaseController
             'text/html'
         );
         $this->get('mailer')->send($message);
-    }  */
+    } */
           
+    //return new JsonResponse(['1']);
     return new JsonResponse(['1']);
 
         
@@ -1632,6 +1661,46 @@ class DefaultController extends BaseController
             $nombre = $Cemail;
         }
         $logger->info($Cemail . " " . $nombre);
+        $contact = new Contact($Cemail, $nombre, []);
+    
+        $this->container->get('event_dispatcher')->dispatch(
+            ContactEvent::EVENT_SUBSCRIBE,
+            new ContactEvent($listId, $contact)
+        );
+    }
+
+   /**
+     * @Route("/addUserAldonza")
+     * @Method("POST")
+     */
+    public function addUserAldonza(Request $request) 
+    {
+        //
+        $lang = $request->get('lang');
+        $email = $request->get('email');
+        if (!empty($email))
+        {
+            $this->createContactAldonza($email, "", $lang);
+        }
+
+        return new JsonResponse(array("code"=>200, "email" => $email, "lang" => $lang));
+    }
+
+
+    private function createContactAldonza($Cemail, $nombre = "", $lang = "es")
+    {
+        if (empty($nombre)) {
+            $nombre = $Cemail;
+        }
+        if ("es" == $lang) {            
+            $listId = "2332388";
+        } else {            
+            $listId = "2332389";
+        }
+        if (empty($nombre)) {
+            $nombre = $Cemail;
+        }
+        
         $contact = new Contact($Cemail, $nombre, []);
     
         $this->container->get('event_dispatcher')->dispatch(
