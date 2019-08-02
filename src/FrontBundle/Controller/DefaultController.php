@@ -491,15 +491,18 @@ class DefaultController extends BaseController
 
     /**
      * @Route("/contacto")
-     * @Method("POST")
+     * @Method({"POST", "OPTIONS"})
      */
 
     public function contacto(Request $request) {
 
       $ruta = ""; $ficha_producto = "";
       $mensaje = "";
-
-     
+      $news_aldonza = $request->get("newsletter_aldonza");
+      if (!empty($news_aldonza))
+      {
+        return $this->addUserAldonza($request);
+      }
 
 
       if (!empty($request->request->get("lang"))) {
@@ -643,11 +646,11 @@ class DefaultController extends BaseController
                   $subject = "contacto trabaja"; 
                   break;
               case "aldonza":
-                  $to = ["info@aldonzagourmet.com", "angela.rojas@doubledot.es"];
+                  $to = ["comunicacion@aldonzagourmet.com", "angela.rojas@doubledot.es"];
                   $subject = "aldonza"; 
                   break;
               case "aldonza-experiencia":
-                  $to = ["comunicacion@aldonzagourmet.com", "angela.rojas@doubledot.es"];
+                  $to = ["info@aldonzagourmet.com", "angela.rojas@doubledot.es"];
                   $subject = "aldonza experiencia"; 
                   break;
               default:
@@ -1671,7 +1674,7 @@ class DefaultController extends BaseController
 
    /**
      * @Route("/addUserAldonza")
-     * @Method("POST")
+     * @Method({"POST", "OPTIONS"})
      */
     public function addUserAldonza(Request $request) 
     {
